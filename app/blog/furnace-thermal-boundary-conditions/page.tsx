@@ -27,7 +27,7 @@ const REFS = [
   { n: 1, text: 'T. L. Bergman, A. S. Lavine, F. P. Incropera and D. P. DeWitt, Fundamentals of Heat and Mass Transfer, 7th ed. Hoboken, NJ: Wiley, 2011. ISBN 978-0-470-50197-9.' },
   { n: 2, text: 'S. W. Churchill and H. H. S. Chu, "Correlating equations for laminar and turbulent free convection from a horizontal cylinder," International Journal of Heat and Mass Transfer, vol. 18, no. 9, pp. 1049–1053, 1975.', url: 'https://doi.org/10.1016/0017-9310(75)90222-7' },
   { n: 3, text: 'R. H. S. Winterton, "Where did the Dittus and Boelter equation come from?" International Journal of Heat and Mass Transfer, vol. 41, no. 4–5, pp. 809–810, 1998.', url: 'https://doi.org/10.1016/S0017-9310(97)00177-4' },
-  { n: 4, text: 'M. F. Modest and S. Mazumder, Radiative Heat Transfer, 4th ed. London: Academic Press (Elsevier), 2022. ISBN 978-0-12-818143-0.', url: 'https://shop.elsevier.com/books/radiative-heat-transfer/modest/978-0-12-818143-0' },
+  { n: 4, text: 'M. F. Modest and S. Mazumder, Radiative Heat Transfer, 4th ed. Amsterdam: Academic Press, 2021. ISBN 978-0-12-818143-0.', url: 'https://shop.elsevier.com/books/radiative-heat-transfer/modest/978-0-12-818143-0' },
   { n: 5, text: 'Kanthal, "Globar® SG and SR silicon carbide heating elements," product page, accessed 18 October 2026.', url: 'https://www.kanthal.com/en/products/furnace-products/electric-heating-elements/silicon-carbide-heating-elements/element-grades/globar-sg-and-sr/' },
   { n: 6, text: 'Morgan Thermal Ceramics, "Kaowool® Organic Boards," product data sheet SH.03 (Americas), January 2025. Thermal conductivity per ASTM C201.', url: 'https://www.morganthermalceramics.com/media/8981/kaowool-boards_americas-region_eng.pdf' },
   { n: 7, text: 'Neutrium, "Total normal emissivities of selected materials," accessed 18 October 2026.', url: 'https://neutrium.net/heat-transfer/total-normal-emissivities-of-selected-materials/' },
@@ -47,21 +47,21 @@ const HEATER_OPTIONS = [
 ];
 
 const EMISSIVITY: [string, string, string, number[]][] = [
-  ['Polished stainless steel', '≈ 0.07 – 0.2', 'Rises sharply once the surface oxidises or weathers', [7, 8]],
-  ['Oxidised steel, weathered stainless steel', '0.65 – 0.85', 'Typical for a shell or hot-zone part after some service', [7, 8]],
+  ['Polished stainless steel', '≈ 0.075', 'Sources disagree widely for "polished" stainless; rises sharply once the surface oxidises or weathers', [8]],
+  ['Oxidised steel, weathered stainless steel', '0.65 – 0.85', 'Typical after some service; rough or heavily oxidised plate can reach about 0.95', [7, 8]],
   ['Oil, enamel and black paints', '0.8 – 0.97', 'Most paints are close to black in the infrared', [7, 8]],
   ['Aluminium paint', '0.27 – 0.67', 'The exception: metallic paints are much lower', [7, 8]],
   ['Graphite and carbon', '0.7 – 0.8', 'Rough pressed graphite can reach about 0.98', [7, 8]],
   ['Silicon carbide', '0.83 – 0.96', 'Relevant for SiC heating elements and kiln furniture', [8]],
-  ['Alumina (flame-sprayed)', '≈ 0.8', 'Room-temperature value; for dense alumina at temperature, use supplier or measured data', [7, 8]],
-  ['Molybdenum and tungsten', '≈ 0.05 – 0.3', 'Low ε is why these are used as radiation shields; rises with temperature', [7, 8]],
+  ['Alumina (flame-sprayed)', '≈ 0.8', 'Near-room-temperature value; for dense alumina at temperature, use supplier or measured data', [7, 8]],
+  ['Molybdenum and tungsten', '≈ 0.03 – 0.35', 'Low ε is why these are used as radiation shields; rises with temperature', [7, 8]],
 ];
 
 const CASES = [
-  { c: 'Base case', k: '0.15', e: '0.9', q: '742', ts: '108' },
-  { c: 'Bright shell', k: '0.15', e: '0.3', q: '715', ts: '148' },
-  { c: 'Low k (low-temperature value)', k: '0.06', e: '0.9', q: '309', ts: '64' },
-  { c: 'High k (value near 1100 °C)', k: '0.25', e: '0.9', q: '1194', ts: '146' },
+  { c: 'Base case: datasheet k(T) curve', k: 'k(T) · mean 0.130', e: '0.9', q: '647', ts: '100' },
+  { c: 'Bright shell, same k(T)', k: 'k(T) · mean 0.132', e: '0.3', q: '637', ts: '137' },
+  { c: 'Constant k at 260 °C', k: '0.072', e: '0.9', q: '368', ts: '71' },
+  { c: 'Constant k at 1093 °C', k: '0.216', e: '0.9', q: '1043', ts: '134' },
 ];
 
 const SENSITIVITY = [
@@ -190,7 +190,7 @@ export default function Post() {
                   <li><strong>External radiation to the surroundings.</strong> The outer shell radiates to the room. This is usually a simple boundary: an emissivity and a surroundings temperature on the shell faces.</li>
                 </ul>
                 <h3 className={s.h3}>Choosing emissivity</h3>
-                <p className={s.p}>Emissivity is a surface property, not a bulk material property. It depends on temperature, roughness and especially oxidation, so the same stainless steel can be below 0.1 when polished and around 0.85 once weathered or oxidised.<Cite n={[7, 8]} /> Pick values for the condition the surface will be in during service, and record where they came from. Indicative ranges:</p>
+                <p className={s.p}>Emissivity is a surface property, not a bulk material property. It depends on temperature, roughness and especially oxidation, so one compilation lists stainless steel at 0.075 when polished and 0.85 when weathered.<Cite n={[8]} /> Pick values for the condition the surface will be in during service, and record where they came from. Indicative ranges:</p>
                 <div className="table-wrap">
                   <table className="table" style={{ minWidth: 560 }}>
                     <thead><tr><th scope="col">Surface</th><th scope="col">Typical ε</th><th scope="col">Note</th><th scope="col">Source</th></tr></thead>
@@ -239,22 +239,22 @@ export default function Post() {
                 <h2 id="h-example" className={s.h2}>Worked example: one wall, four answers</h2>
                 <p className={s.p}>A first-order calculation shows which inputs matter before you build the full model. Take the cylindrical wall of an illustrative tube furnace: hot-face radius 100 mm, 100 mm of fibre insulation, 500 mm heated length, hot face held at 1200 °C, still air and surroundings at 25 °C, and a natural-convection coefficient of 6 W/m²K on the shell. The heat loss through the wall is:</p>
                 <div className={s.eq}>Q = (T<sub>hot</sub> − T<sub>∞</sub>) / (R<sub>ins</sub> + R<sub>out</sub>),&nbsp;&nbsp; R<sub>out</sub> = 1 / [(h<sub>conv</sub> + h<sub>rad</sub>) A<sub>shell</sub>]</div>
-                <p className={s.eqWhere}>Shell temperature and h<sub>rad</sub> depend on each other, so the calculation is iterated until both settle. End losses, penetrations and the shell's own conduction resistance are neglected.</p>
+                <p className={s.eqWhere}>The insulation is given the published k(T) curve of one commercial fibre board, interpolated linearly between datasheet points and extrapolated above 1093 °C.<Cite n={[6]} /> With temperature-dependent k, R<sub>ins</sub> uses the integral-mean conductivity over the layer's temperature range.<Cite n={[1]} /> Shell temperature, k and h<sub>rad</sub> depend on each other, so the calculation is iterated until all settle. End losses, penetrations and the shell's own conduction resistance are neglected.</p>
                 <div className="table-wrap">
                   <table className="table" style={{ minWidth: 560 }}>
-                    <thead><tr><th scope="col">Case</th><th scope="col">k (W/m·K)</th><th scope="col">Shell ε</th><th scope="col">Wall heat loss (W)</th><th scope="col">Shell temp. (°C)</th></tr></thead>
+                    <thead><tr><th scope="col">Case</th><th scope="col">Insulation k (W/m·K)</th><th scope="col">Shell ε</th><th scope="col">Wall heat loss (W)</th><th scope="col">Shell temp. (°C)</th></tr></thead>
                     <tbody>
-                      {CASES.map(r => <tr key={r.c}><td className={s.tdStrong}>{r.c}</td><td className="mono">{r.k}</td><td className="mono">{r.e}</td><td className="mono" style={{ color: 'var(--ink)', fontWeight: 500 }}>{r.q}</td><td className="mono" style={{ color: 'var(--ink)', fontWeight: 500 }}>{r.ts}</td></tr>)}
+                      {CASES.map(r => <tr key={r.c}><td className={s.tdStrong}>{r.c}</td><td className="mono" style={{ whiteSpace: 'nowrap' }}>{r.k}</td><td className="mono">{r.e}</td><td className="mono" style={{ color: 'var(--ink)', fontWeight: 500 }}>{r.q}</td><td className="mono" style={{ color: 'var(--ink)', fontWeight: 500 }}>{r.ts}</td></tr>)}
                     </tbody>
                   </table>
                 </div>
-                <p className={s.note}>Illustrative values chosen to show trends, not data for a specific furnace. The k values bracket the published curve for one fibre board<Cite n={[6]} />; σ and the radiation coefficient follow standard relations.<Cite n={[1]} /></p>
+                <p className={s.note}>Illustrative geometry chosen to show trends, not a specific furnace. Insulation conductivities are from the cited datasheet<Cite n={[6]} />; the conduction and radiation relations are standard.<Cite n={[1]} /> Results are rounded.</p>
                 <h3 className={s.h3}>What the numbers say</h3>
                 <ul className={s.list}>
-                  <li><strong>The insulation controls the heat loss.</strong> In the base case the insulation resistance is about 1.47 K/W and the shell-to-room resistance about 0.11 K/W, so roughly 93 % of the temperature drop happens inside the insulation.</li>
-                  <li><strong>Conductivity is the input to get right.</strong> Changing k from 0.06 to 0.25 W/m·K — close to the spread across one commercial board's datasheet between 260 °C and 1093 °C mean temperature<Cite n={[6]} /> — changes the heat loss by a factor of almost four.</li>
-                  <li><strong>Shell emissivity barely changes the loss, but it changes the shell temperature.</strong> Going from ε = 0.9 to 0.3 cuts the heat loss by only 4 %, yet raises the shell by about 40 K. For a touch-temperature or guarding check, emissivity matters a great deal.</li>
-                  <li><strong>Radiation is a large share of shell loss.</strong> In the base case, about 427 W of the 742 W leaves the shell by radiation and 315 W by convection.</li>
+                  <li><strong>The insulation controls the heat loss.</strong> In the base case the insulation resistance is about 1.70 K/W and the shell-to-room resistance about 0.12 K/W, so roughly 94 % of the temperature drop happens inside the insulation.</li>
+                  <li><strong>Conductivity is the input to get right.</strong> Using a single datasheet value instead of the k(T) curve moves the answer a long way: k at 260 °C under-predicts the loss by about 43 %, and k at 1093 °C over-predicts it by about 61 %. Between those two single values, the heat loss differs by a factor of about 2.8.</li>
+                  <li><strong>Shell emissivity barely changes the loss, but it changes the shell temperature.</strong> Going from ε = 0.9 to 0.3 cuts the heat loss by under 2 %, yet raises the shell by about 37 K. For a touch-temperature or guarding check, emissivity matters a great deal.</li>
+                  <li><strong>Radiation is a large share of shell loss.</strong> In the base case, about 366 W of the 647 W leaves the shell by radiation and 281 W by convection.</li>
                 </ul>
                 <div className={s.callout}>
                   <span className={s.calloutLabel}>ONE MODEL, TWO QUESTIONS</span>
