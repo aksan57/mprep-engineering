@@ -124,10 +124,22 @@ export default function ModelViewer({ src, poster, alt, sizeLabel, fill, posterF
         rend.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); kick();
       };
 
+      // Touch: one finger scrolls the page; two fingers drag to rotate and pinch to zoom. Mouse is unchanged.
+      // OrbitControls sets touch-action:none (blocks page scroll); pan-y hands vertical one-finger swipes
+      // back to the browser, and ONE:null makes OrbitControls ignore single-finger touches.
+      ctl.touches = { ONE: null, TWO: T.TOUCH.DOLLY_ROTATE };
+      const canvas = rend.domElement;
+      canvas.style.touchAction = 'pan-y';
+      // pan-y alone would also let a two-finger vertical drag scroll the page. Cancel the scroll while two
+      // or more fingers are down, so those pointer events reach OrbitControls. Needs passive:false.
+      const holdTwoFinger = (e: TouchEvent) => { if (e.touches.length > 1 && e.cancelable) e.preventDefault(); };
+      canvas.addEventListener('touchstart', holdTwoFinger, { passive: false });
+      canvas.addEventListener('touchmove', holdTwoFinger, { passive: false });
+
       ctl.addEventListener('start', () => { dragging = true; if (ctl.autoRotate) { ctl.autoRotate = false; setSpin(false); } kick(); });
       ctl.addEventListener('end', () => { dragging = false; });
       ctl.addEventListener('change', kick);
-      rend.domElement.addEventListener('dblclick', reset);
+      canvas.addEventListener('dblclick', reset);
 
       const ro = new ResizeObserver(resize); ro.observe(L);
       const vis = new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) kick(); }); vis.observe(L);
@@ -142,7 +154,9 @@ export default function ModelViewer({ src, poster, alt, sizeLabel, fill, posterF
         if (raf) cancelAnimationFrame(raf);
         ro.disconnect(); vis.disconnect();
         document.removeEventListener('visibilitychange', onVis);
-        rend.domElement.removeEventListener('dblclick', reset);
+        canvas.removeEventListener('dblclick', reset);
+        canvas.removeEventListener('touchstart', holdTwoFinger);
+        canvas.removeEventListener('touchmove', holdTwoFinger);
         scene.traverse(o => {
           const m = o as InstanceType<typeof T.Mesh>;
           m.geometry?.dispose();

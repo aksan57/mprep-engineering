@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Img from '@/components/Img';
+import ModelHint from '@/components/ModelHint';
 import ModelViewer from '@/components/ModelViewer';
 import { CZ, MODEL } from '@/data/czr4';
 import { EQUIPMENT, SERVICES } from '@/data/services';
@@ -25,7 +26,7 @@ export default function HomePage() {
               <ModelViewer src={MODEL.src} alt={MODEL.alt} sizeLabel={MODEL.sizeLabel} poster="/assets/home/hero-cz-r4.webp" posterFit="cover" posterPriority fill />
             </div>
             <figcaption className={s.heroCaption}><span>CZ-R4 crystal-growth furnace</span><span>Concept study</span></figcaption>
-            <p className={s.heroCaption}>Drag to rotate · scroll to zoom</p>
+            <ModelHint className={s.heroCaption} mouse="Drag to rotate · scroll to zoom" />
           </figure>
         </div>
         <ul className={s.strip}>

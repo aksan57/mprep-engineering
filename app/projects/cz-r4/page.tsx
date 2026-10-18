@@ -2,6 +2,7 @@ import Link from 'next/link';
 import CtaBand from '@/components/CtaBand';
 import DrawingViewer from '@/components/DrawingViewer';
 import { Figure } from '@/components/Img';
+import ModelHint, { TOUCH_HINT } from '@/components/ModelHint';
 import ModelViewer from '@/components/ModelViewer';
 import {
   BCS, CHAPTERS, CZ, CZ_PARTS, DOCS, FEA_STEPS, FINDINGS, GA_PDF, IMAGES, LIMITATIONS, MODEL, NEXT_STEPS, PARAMS, RESULTS, SUBSYSTEMS, VERIFY,
@@ -174,7 +175,11 @@ export default function CaseStudyPage() {
               <section id="cz-model" className={s.chapter} aria-labelledby="h-model">
                 <h2 id="h-model" className="chapter-label">Interactive 3D model</h2>
                 <ModelViewer src={MODEL.src} poster={MODEL.poster} alt={MODEL.alt} sizeLabel={MODEL.sizeLabel} />
-                <p className={s.hint}>Drag to rotate, scroll or pinch to zoom. Double-click or press Reset to recentre. The model loads when this section scrolls into view ({MODEL.sizeLabel}).</p>
+                <ModelHint
+                  className={s.hint}
+                  mouse={`Drag to rotate, scroll to zoom. Double-click or press Reset to recentre. The model loads when this section scrolls into view (${MODEL.sizeLabel}).`}
+                  touch={`${TOUCH_HINT}. Press Reset to recentre. The model loads when this section scrolls into view (${MODEL.sizeLabel}).`}
+                />
               </section>
 
               <section id="cz-docs" className={s.chapter} aria-labelledby="h-docs">
