@@ -30,6 +30,7 @@ const REFS = [
   { id: 'daryabeigi', text: 'K. Daryabeigi, "Heat transfer in high-temperature fibrous insulation," Journal of Thermophysics and Heat Transfer, 2003.', url: 'https://doi.org/10.2514/2.6746' },
   { id: 'incropera', text: 'T. L. Bergman, A. S. Lavine, F. P. Incropera and D. P. DeWitt, Fundamentals of Heat and Mass Transfer, 7th ed. Hoboken, NJ: Wiley, 2011. ISBN 978-0-470-50197-9.' },
   { id: 'modest', text: 'M. F. Modest and S. Mazumder, Radiative Heat Transfer, 4th ed. Amsterdam: Academic Press, 2021. ISBN 978-0-12-818143-0.', url: 'https://shop.elsevier.com/books/radiative-heat-transfer/modest/978-0-12-818143-0' },
+  { id: 'li', text: 'L. Li, X. Wang, H. Yao, L. Long, G. Zhao and H. Ye, "A coupling method for rapid, continuous and extremely wide-temperature measurement of total hemispherical emissivity and conversion efficiency of the kinetic energy of an electron beam to the thermal energy of a material based on a scanning electron beam," International Journal of Thermal Sciences, vol. 208, art. 109408, 2025.', url: 'https://doi.org/10.1016/j.ijthermalsci.2024.109408' },
   { id: 'richmond', text: 'J. C. Richmond and W. N. Harrison, "Total hemispherical emittance of coated and uncoated Inconel and types 321 and 430 stainless steel," Journal of Research of the National Bureau of Standards, Section C, vol. 66C, no. 3, pp. 261–269, 1962.', url: 'https://doi.org/10.6028/jres.066C.022' },
   { id: 'wade59', text: 'W. R. Wade, "Measurements of total hemispherical emissivity of several stably oxidized metals and some refractory oxide coatings," NASA Memorandum 1-20-59L, NASA Langley Research Center, 1959.', url: 'https://ntrs.nasa.gov/citations/19980228304' },
   { id: 'alzubaidi316', text: 'F. N. Al Zubaidi, K. L. Walton, R. V. Tompson, T. K. Ghosh and S. K. Loyalka, "The effect of long-term oxidation on the total hemispherical emissivity of type 316L stainless steel," Nuclear Technology, 2019.', url: 'https://doi.org/10.1080/00295450.2018.1542257' },
@@ -37,6 +38,7 @@ const REFS = [
   { id: 'hunnewell', text: 'T. S. Hunnewell, K. L. Walton, S. Sharma, T. K. Ghosh, R. V. Tompson, D. S. Viswanath and S. K. Loyalka, "Total hemispherical emissivity of SS 316L with simulated very high temperature reactor surface conditions," Nuclear Technology, 2017.', url: 'https://doi.org/10.1080/00295450.2017.1311120' },
   { id: 'hameury', text: 'J. Hameury, A. Koenen, B. Hay et al., "Identification and characterization of new materials for construction of heating plates for high-temperature guarded hot plates," International Journal of Thermophysics, vol. 39, art. 16, 2018.', url: 'https://doi.org/10.1007/s10765-017-2326-3' },
   { id: 'wadeslemp', text: 'W. R. Wade and W. S. Slemp, "Measurements of total emittance of several refractory oxides, cermets, and ceramics for temperatures from 600 °F to 2,000 °F," NASA Technical Note D-998, 1962.', url: 'https://apps.dtic.mil/sti/citations/AD0272614' },
+  { id: 'balat', text: 'M. Balat-Pichelin and A. Bousquet, "Total hemispherical emissivity of sintered SiC up to 1850 K in high vacuum and in air at different pressures," Journal of the European Ceramic Society, vol. 38, no. 10, pp. 3447–3456, 2018.', url: 'https://doi.org/10.1016/j.jeurceramsoc.2018.03.050' },
   { id: 'paradis', text: 'P.-F. Paradis, T. Ishikawa and S. Yoda, "Noncontact measurements of thermophysical properties of molybdenum at high temperatures," International Journal of Thermophysics, 2002.', url: 'https://doi.org/10.1023/A:1015169721771' },
   { id: 'cheng', text: 'S. X. Cheng, P. Cebe, L. M. Hanssen, D. M. Riffe and A. J. Sievers, "Hemispherical emissivity of V, Nb, Ta, Mo, and W from 300 to 1000 K," Journal of the Optical Society of America B, vol. 4, no. 3, pp. 351–356, 1987.', url: 'https://doi.org/10.1364/JOSAB.4.000351' },
   { id: 'churchill', text: 'S. W. Churchill and H. H. S. Chu, "Correlating equations for laminar and turbulent free convection from a horizontal cylinder," International Journal of Heat and Mass Transfer, vol. 18, no. 9, pp. 1049–1053, 1975.', url: 'https://doi.org/10.1016/0017-9310(75)90222-7' },
@@ -58,12 +60,12 @@ const HEATER_OPTIONS = [
 ];
 
 const EMISSIVITY: [string, string, string, RefId[]][] = [
-  ['Polished stainless steel (types 321, 430)', '0.20 – 0.28', 'Measured 200–1000 °C; rises with temperature', ['richmond']],
+  ['Polished stainless steel', '0.12 – 0.28', 'Type 304: 0.12 at 127 °C rising to 0.20 at 710 °C; types 321 and 430: 0.20–0.28 at 200–1000 °C', ['li', 'richmond']],
   ['As-received 316L stainless sheet', '0.25 – 0.36', 'Measured 163–893 °C', ['hunnewell']],
   ['316L after 500–3000 h in air at 300 °C', '0.28 – 0.38', 'Measured 156–823 °C; mild oxidation barely raises ε', ['alzubaidi316']],
   ['Type 347 stainless, stably oxidised', '0.87 – 0.91', 'Measured ≈320–1090 °C on a strongly adherent oxide', ['wade59']],
   ['High-temperature paints', '> 0.8', 'Three paints, above 300 °C; a chromium-oxide paint measured 0.78–0.94 at ≈320–1090 °C', ['hameury', 'wadeslemp']],
-  ['Silicon carbide ceramics', '0.62 – 0.94', 'Several SiC materials, ≈320–980 °C; depends strongly on the material and surface', ['wadeslemp']],
+  ['Sintered α-SiC', '0.76 – 0.97', 'Near 1330 °C in air, depending on air pressure and silica layer; 0.80–0.83 with no silica layer (high vacuum, ≈930–1530 °C)', ['balat']],
   ['Flame-sprayed alumina coating', '0.69 → 0.44', 'Falls as temperature rises from ≈430 to 1090 °C', ['wade59']],
   ['Molybdenum, clean metal', '≈ 0.21 – 0.29', 'At 2050–2890 K from a published fit, rising with temperature; for 300–1000 K see the second source', ['paradis', 'cheng']],
 ];
@@ -201,7 +203,7 @@ export default function Post() {
                   <li><strong>External radiation to the surroundings.</strong> The outer shell radiates to the room. This is usually a simple boundary: an emissivity and a surroundings temperature on the shell faces.</li>
                 </ul>
                 <h3 className={s.h3}>Choosing emissivity</h3>
-                <p className={s.p}>Emissivity is a surface property, not a bulk material property. It depends on temperature, roughness and especially oxidation, so the same alloy can differ by a factor of three or more. Polished stainless steel measures around 0.2–0.3,<Cite r={['richmond']} /> while stainless steel carrying a stable, adherent oxide reaches about 0.9.<Cite r={['wade59']} /> Mild oxidation is not enough: 316L held for 3000 hours in air at 300 °C stayed below 0.4,<Cite r={['alzubaidi316']} /> whereas raising the oxidation temperature of a low-alloy steel from 300 °C to 500 °C more than tripled its emissivity.<Cite r={['alzubaidiA508']} /> Pick values for the condition the surface will be in during service, and record where they came from. Indicative ranges:</p>
+                <p className={s.p}>Emissivity is a surface property, not a bulk material property. It depends on temperature, roughness and especially oxidation, so the same alloy can differ by a factor of three or more. Polished stainless steel measures roughly 0.1–0.3,<Cite r={['li', 'richmond']} /> while stainless steel carrying a stable, adherent oxide reaches about 0.9.<Cite r={['wade59']} /> Mild oxidation is not enough: 316L held for 3000 hours in air at 300 °C stayed below 0.4,<Cite r={['alzubaidi316']} /> whereas raising the oxidation temperature of a low-alloy steel from 300 °C to 500 °C more than tripled its emissivity.<Cite r={['alzubaidiA508']} /> Pick values for the condition the surface will be in during service, and record where they came from. Indicative ranges:</p>
                 <div className="table-wrap">
                   <table className="table" style={{ minWidth: 560 }}>
                     <thead><tr><th scope="col">Surface</th><th scope="col">Typical ε</th><th scope="col">Note</th><th scope="col">Source</th></tr></thead>
