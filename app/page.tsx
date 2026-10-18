@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Img from '@/components/Img';
-import { CZ } from '@/data/czr4';
+import ModelViewer from '@/components/ModelViewer';
+import { CZ, MODEL } from '@/data/czr4';
 import { EQUIPMENT, SERVICES } from '@/data/services';
 import s from './home.module.css';
 
@@ -21,9 +22,10 @@ export default function HomePage() {
           </div>
           <figure className={s.heroFigure}>
             <div className={s.heroFrame}>
-              <Img src="/assets/home/hero-cz-r4.webp" alt="CAD render of the CZ-R4 crystal-growth furnace vessel with its viewport and pyrometer ports." fit="cover" priority />
+              <ModelViewer src={MODEL.src} alt={MODEL.alt} sizeLabel={MODEL.sizeLabel} poster="/assets/home/hero-cz-r4.webp" posterFit="cover" posterPriority fill />
             </div>
             <figcaption className={s.heroCaption}><span>CZ-R4 crystal-growth furnace</span><span>Concept study</span></figcaption>
+            <p className={s.heroCaption}>Drag to rotate · scroll to zoom</p>
           </figure>
         </div>
         <ul className={s.strip}>

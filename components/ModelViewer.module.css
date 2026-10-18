@@ -19,4 +19,11 @@
   border: 1px solid rgba(46, 196, 196, .55); background: rgba(16, 42, 67, .88); color: #E6F7F7;
   font: 500 11px var(--font-mono); letter-spacing: .06em; text-transform: uppercase;
 }
+/* Fill mode: occupy a positioned, fixed-ratio parent (Home hero). The parent sets size, border and radius. */
+.fill { position: absolute; inset: 0; width: auto; aspect-ratio: auto; min-height: 0; border-radius: inherit; }
+.fill .status { inset: auto; left: 8px; bottom: 8px; padding: 8px 10px; border-radius: 3px; background: rgba(16, 42, 67, .75); }
+/* Full-bleed poster (cover): shown exactly like a plain image until the model is ready. */
+.poster[data-fit='cover'] { background: var(--well); }
+.poster[data-fit='cover'] img { object-fit: cover; opacity: 1; }
+
 .btn:hover, .btn[aria-pressed='true'] { background: var(--teal-on-dark); color: var(--navy); border-color: var(--teal-on-dark); }

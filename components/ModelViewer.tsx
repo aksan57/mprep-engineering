@@ -4,7 +4,15 @@ import { useEffect, useRef, useState } from 'react';
 import Img from './Img';
 import s from './ModelViewer.module.css';
 
-type Props = { src: string; poster: string; alt: string; sizeLabel: string };
+type Props = {
+  src: string; poster: string; alt: string; sizeLabel: string;
+  /** Fill a positioned parent (e.g. a fixed-ratio frame) instead of using the default 16:9 box. */
+  fill?: boolean;
+  /** How the poster sits in the frame: `contain` for renders with margins, `cover` for full-bleed images. */
+  posterFit?: 'contain' | 'cover';
+  /** Load the poster eagerly (above-the-fold use, e.g. the Home hero). */
+  posterPriority?: boolean;
+};
 type Status = 'poster' | 'waiting' | 'loading' | 'ready' | 'error';
 
 /** Save-Data, low memory or few cores: show the poster and let the user opt in. */
@@ -18,7 +26,7 @@ function isLowPower() {
  * three.js orbit viewer for GLB/glTF. Lazy-loads three only when within 200px of the viewport,
  * renders on demand (auto-spin capped ~30 fps), pauses off-screen / in hidden tabs, and disposes on unmount.
  */
-export default function ModelViewer({ src, poster, alt, sizeLabel }: Props) {
+export default function ModelViewer({ src, poster, alt, sizeLabel, fill, posterFit = 'contain', posterPriority }: Props) {
   const box = useRef<HTMLDivElement>(null);
   const layer = useRef<HTMLDivElement>(null);
   const api = useRef<{ reset: () => void; setSpin: (on: boolean) => void } | null>(null);
@@ -155,10 +163,10 @@ export default function ModelViewer({ src, poster, alt, sizeLabel }: Props) {
   const toggleSpin = () => { const next = !spin; setSpin(next); api.current?.setSpin(next); };
 
   return (
-    <div ref={box} className={s.viewer}>
+    <div ref={box} className={`${s.viewer}${fill ? ' ' + s.fill : ''}`}>
       {status !== 'ready' && (
-        <div className={s.poster}>
-          <Img src={poster} alt={status === 'poster' ? alt : ''} />
+        <div className={s.poster} data-fit={posterFit}>
+          <Img src={poster} alt={alt} fit={posterFit} priority={posterPriority} />
         </div>
       )}
       <div ref={layer} className={s.layer} data-on={status === 'ready' || undefined} />
