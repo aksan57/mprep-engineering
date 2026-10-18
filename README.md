@@ -28,7 +28,7 @@ Other scripts:
 | Variable | Required | Purpose |
 |---|---|---|
 | `NEXT_PUBLIC_SITE_URL` | **Yes, for production** | Origin used for canonical links, sitemap and share images, e.g. `https://example.com` (no trailing slash). Defaults to `http://localhost:3000`. |
-| `NEXT_PUBLIC_FORM_ENDPOINT` | No | Where the quote form posts. Defaults to FormSubmit for the contact email. |
+| `NEXT_PUBLIC_FORM_ENDPOINT` | No | Where the quote form posts (a normal multipart POST). Defaults to FormSubmit's standard endpoint for the contact email. |
 
 ## Deploy
 
@@ -39,13 +39,23 @@ Any static host works. Build output is `out/`.
 
 ### Quote form (FormSubmit)
 
-The form posts `multipart/form-data` (with attachments) to FormSubmit, which emails each inquiry.
-On the **first** real submission FormSubmit sends a one-time activation email to the contact address —
-it must be clicked before inquiries are delivered. A hidden honeypot field filters basic bots.
+The form is validated in the page. When it's valid, it builds a hidden native `<form>` and submits it
+as a normal `multipart/form-data` POST to FormSubmit's standard endpoint (`https://formsubmit.co/<email>`).
+The browser goes to FormSubmit, which emails the inquiry with its attachments, then redirects to
+`/contact/thanks/` (the `_next` field). That page is `noindex` and isn't in the sitemap.
 
-For larger files, spam protection (Turnstile/hCaptcha) or to keep the address out of the page, move
-delivery to a server endpoint (e.g. a serverless function → Resend/Postmark, files to S3/R2) and point
-`NEXT_PUBLIC_FORM_ENDPOINT` at it.
+- **Why not fetch/AJAX:** FormSubmit's `/ajax/` endpoint delivers the text but silently drops attachments.
+- **Attachments:** up to 5 files and **10 MB in total** (FormSubmit's limit), sent as `attachment1`…`attachment5`.
+  Bigger files are rejected with a prompt to paste a shareable link instead.
+- **Field names** in the email: Name, Company, Email, Service, Timeline, Budget, Reference link, Project description.
+- **Back button:** if the visitor comes back from FormSubmit, the "Sending…" state is reset.
+- **Activation:** on the **first** real submission FormSubmit sends a one-time activation email to the contact
+  address. It must be clicked before inquiries are delivered.
+- **Spam:** a hidden `_honey` field catches basic bots.
+
+`NEXT_PUBLIC_FORM_ENDPOINT` can point at another service, but it must accept a normal multipart POST with the same
+field names and redirect to `_next`. For spam protection (Turnstile/hCaptcha), larger files or to keep the address
+off the page, move delivery to a server endpoint (e.g. a serverless function → Resend/Postmark, files to S3/R2).
 
 ## Where content lives
 

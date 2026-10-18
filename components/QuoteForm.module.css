@@ -54,6 +54,4 @@
 .submit:hover { background: #1E3352; }
 .submit:disabled { opacity: .7; cursor: progress; }
 
-.ok { padding: 14px 16px; border: 1px solid var(--ok-border); background: var(--ok-bg); border-radius: 4px; font-size: 14px; line-height: 1.5; color: var(--ok-text); }
-.ok strong { font-weight: 600; }
 .fail { padding: 14px 16px; border: 1px solid var(--red-border); background: var(--red-bg); border-radius: 4px; font-size: 14px; line-height: 1.5; color: var(--red-text); }

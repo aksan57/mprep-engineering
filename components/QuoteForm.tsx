@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import {
   addFiles, EMPTY_FORM, FILE_ACCEPT, fileSize, FORM_ENDPOINT, SERVICE_OPTIONS, TIMELINE_OPTIONS, validate, type FormFields,
 } from '@/data/form';
@@ -9,6 +9,20 @@ import s from './QuoteForm.module.css';
 
 type Key = keyof FormFields;
 
+/** Readable field names as they appear in the inquiry email. */
+function readableFields(form: FormFields): [string, string][] {
+  return [
+    ['Name', form.name.trim()],
+    ['Company', form.company.trim() || '—'],
+    ['Email', form.email.trim()],
+    ['Service', form.service],
+    ['Timeline', form.timeline || '—'],
+    ['Budget', form.budget.trim() || '—'],
+    ['Reference link', form.reference.trim() || '—'],
+    ['Project description', form.description.trim()],
+  ];
+}
+
 export default function QuoteForm() {
   const [form, setForm] = useState<FormFields>(EMPTY_FORM);
   const [errors, setErrors] = useState<Partial<Record<Key, string>>>({});
@@ -16,50 +30,77 @@ export default function QuoteForm() {
   const [fileError, setFileError] = useState('');
   const [dragOn, setDragOn] = useState(false);
   const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
   const [sendError, setSendError] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
+  const postRef = useRef<HTMLFormElement | null>(null);
+
+  // Coming back with the Back button restores this page from the bfcache with "Sending…" still set.
+  useEffect(() => {
+    const onShow = (e: PageTransitionEvent) => {
+      if (!e.persisted) return;
+      setSending(false);
+      postRef.current?.remove(); postRef.current = null;
+    };
+    window.addEventListener('pageshow', onShow);
+    return () => window.removeEventListener('pageshow', onShow);
+  }, []);
 
   const set = (k: Key) => (e: { target: { value: string } }) => {
     const v = e.target.value;
     setForm(f => ({ ...f, [k]: v }));
     setErrors(er => ({ ...er, [k]: '' }));
-    setSent(false); setSendError('');
+    setSendError('');
   };
   const take = (list: File[]) => { const r = addFiles(files, list); setFiles(r.files); setFileError(r.error); setDragOn(false); };
   const err = (k: Key) => errors[k] ? { 'aria-invalid': true, 'aria-describedby': `qf-${k}-err` } : {};
 
-  async function submit(e: FormEvent<HTMLFormElement>) {
+  /**
+   * Submits through a hidden native <form> (multipart POST) rather than fetch(): FormSubmit's AJAX
+   * endpoint drops attachments, and file inputs can only carry files in a real form submission.
+   * FormSubmit redirects back to /contact/thanks/ once the email is sent.
+   */
+  function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (sending) return;
     const found = validate(form);
-    setErrors(found); setSendError(''); setSent(false);
+    setErrors(found); setSendError('');
     const first = Object.keys(found)[0];
     if (first) { formRef.current?.querySelector<HTMLElement>(`[name="${first}"]`)?.focus(); return; }
 
     // Honeypot: bots fill every field; people never see this one.
-    const honey = (formRef.current?.elements.namedItem('_honey') as HTMLInputElement | null)?.value;
-    const fd = new FormData();
-    fd.append('_subject', `New project inquiry — ${form.service} — ${form.name.trim()}`);
-    fd.append('_template', 'table'); fd.append('_captcha', 'false'); fd.append('_replyto', form.email.trim());
-    if (honey) fd.append('_honey', honey);
-    fd.append('Name', form.name.trim()); fd.append('Company', form.company.trim() || '—'); fd.append('Email', form.email.trim());
-    fd.append('Service', form.service); fd.append('Timeline', form.timeline || '—'); fd.append('Budget', form.budget.trim() || '—');
-    fd.append('Reference link', form.reference.trim() || '—'); fd.append('Project description', form.description.trim());
-    files.forEach(f => fd.append('attachment', f, f.name));
+    const honey = (formRef.current?.elements.namedItem('_honey') as HTMLInputElement | null)?.value ?? '';
+
+    const post = document.createElement('form');
+    post.action = FORM_ENDPOINT; post.method = 'POST'; post.enctype = 'multipart/form-data';
+    post.hidden = true; post.setAttribute('aria-hidden', 'true');
+    const add = (name: string, value: string) => {
+      const i = document.createElement('input');
+      i.type = 'hidden'; i.name = name; i.value = value; post.appendChild(i);
+    };
+    add('_subject', `New project inquiry — ${form.service} — ${form.name.trim()}`);
+    add('_template', 'table'); add('_captcha', 'false'); add('_replyto', form.email.trim());
+    add('_honey', honey);
+    add('_next', `${window.location.origin}/contact/thanks/`);
+    readableFields(form).forEach(([k, v]) => add(k, v));
+
+    try {
+      files.forEach((f, i) => {
+        const dt = new DataTransfer();
+        dt.items.add(f);
+        const input = document.createElement('input');
+        input.type = 'file'; input.name = `attachment${i + 1}`; input.files = dt.files;
+        post.appendChild(input);
+      });
+    } catch {
+      setSendError(`This browser can't attach files to the inquiry. Remove the files and paste a shareable link instead, or email ${CONTACT.email} directly.`);
+      return;
+    }
 
     setSending(true);
-    try {
-      const r = await fetch(FORM_ENDPOINT, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
-      const j = await r.json().catch(() => ({}));
-      if (!r.ok || j.success === false || j.success === 'false') throw new Error(j.message || 'Request failed');
-      setSent(true); setForm(EMPTY_FORM); setFiles([]); setFileError('');
-    } catch {
-      // Never fake success: tell the visitor and point to the direct address.
-      setSendError(`Your inquiry could not be sent. Please try again, or email ${CONTACT.email} directly.`);
-    } finally {
-      setSending(false);
-    }
+    postRef.current?.remove();
+    postRef.current = post;
+    document.body.appendChild(post);
+    post.submit();
   }
 
   return (
@@ -116,7 +157,7 @@ export default function QuoteForm() {
             onChange={e => { const l = [...(e.target.files ?? [])]; e.target.value = ''; take(l); }}
           />
           <span className={s.dropTitle}>Drop files here or <span className={s.browse}>browse</span></span>
-          <span className={s.dropHint}>PDF · STEP · IGES · STL · DWG · DXF · F3D · ZIP · JPG · PNG · up to 5 files, 20 MB each</span>
+          <span className={s.dropHint}>PDF · STEP · IGES · STL · DWG · DXF · F3D · ZIP · JPG · PNG · up to 5 files, 10 MB in total</span>
         </label>
         {fileError && <span role="alert" className={s.err}>{fileError}</span>}
         {files.length > 0 && (
@@ -158,7 +199,6 @@ export default function QuoteForm() {
         </div>
       </div>
 
-      {sent && <div role="status" className={`${s.full} ${s.ok}`}><strong>Inquiry sent.</strong> Thank you — we will review your project and reply by email.</div>}
       {sendError && <div role="alert" className={`${s.full} ${s.fail}`}>{sendError}</div>}
     </form>
   );
