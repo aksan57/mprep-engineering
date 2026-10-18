@@ -17,6 +17,40 @@
 .err { font-weight: 400; color: var(--err); font-size: 12.5px; }
 .help { font-weight: 400; font-size: 12.5px; line-height: 1.45; color: var(--mute); }
 
+/*
+ * Required services: checkbox cards. Two columns when the form itself is wide enough (≥400px), else one.
+ * Keyed to the fieldset's width, not the viewport: beside the 256px sidebar the form column is ~350px
+ * even on a 1280–1366px laptop, too narrow for two columns of these labels.
+ */
+.services {
+  border: 0; margin: 0; padding: 0; min-width: 0; display: flex; flex-direction: column; gap: 6px;
+  container-type: inline-size;
+}
+.legend { padding: 0; font-size: 13px; font-weight: 500; }
+.checkGrid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; margin-top: 4px; }
+@container (min-width: 400px) { .checkGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.check {
+  position: relative; display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 10px 14px;
+  border: 1px solid var(--l22); border-radius: 6px; background: var(--card); cursor: pointer;
+  font-size: 14px; line-height: 1.35; color: var(--ink);
+}
+.check:hover { border-color: var(--teal); }
+/* The native checkbox stays in the accessibility tree and keyboard order; a styled box replaces its visuals. */
+.check input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+.checkBox {
+  flex: none; width: 20px; height: 20px; border: 1.5px solid var(--l25); border-radius: 4px; background: var(--card);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.check:has(input:checked) { border-color: var(--teal); background: rgba(0, 166, 166, .08); }
+.check input:checked + .checkBox { background: var(--teal); border-color: var(--teal); }
+.check input:checked + .checkBox::after {
+  content: ''; width: 10px; height: 5px; margin-top: -2px;
+  border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg);
+}
+.check:has(input:focus-visible) { outline: 2px solid var(--teal-on-dark); outline-offset: 2px; }
+.check input[aria-invalid='true'] + .checkBox { border-color: var(--err); }
+.checkLabel { min-width: 0; }
+
 .files { display: flex; flex-direction: column; gap: 10px; }
 .drop {
   position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;

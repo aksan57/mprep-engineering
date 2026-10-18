@@ -30,16 +30,29 @@ export const MAX_FILES = 5;
 export const MAX_TOTAL_BYTES = 10 * 1024 * 1024;
 export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export type FormFields = { name: string; company: string; email: string; service: string; description: string; reference: string; timeline: string; budget: string };
-export const EMPTY_FORM: FormFields = { name: '', company: '', email: '', service: '', description: '', reference: '', timeline: '', budget: '' };
+export type FormFields = { name: string; company: string; email: string; services: string[]; description: string; reference: string; timeline: string; budget: string };
+export const EMPTY_FORM: FormFields = { name: '', company: '', email: '', services: [], description: '', reference: '', timeline: '', budget: '' };
 
+/** Errors in field order (the first key is the field that gets focus). */
 export function validate(f: FormFields): Partial<Record<keyof FormFields, string>> {
   const e: Partial<Record<keyof FormFields, string>> = {};
   if (!f.name.trim()) e.name = 'Please enter your name.';
   if (!EMAIL_RE.test(f.email.trim())) e.email = 'Please enter a valid email address.';
-  if (!f.service) e.service = 'Please select a service.';
+  if (!f.services.length) e.services = 'Please select at least one service.';
   if (f.description.trim().length < 20) e.description = 'Please describe the project (at least 20 characters).';
   return e;
+}
+
+/** Selected services in SERVICE_OPTIONS order, regardless of the order they were ticked. */
+export const orderedServices = (services: string[]) => SERVICE_OPTIONS.filter(o => services.includes(o));
+
+/** Value of the "Service" field in the email and the Google Sheet: the selections joined with ", ". */
+export const serviceField = (services: string[]) => orderedServices(services).join(', ');
+
+/** Email subject: "… — <service> — <name>", or "… — <first> +N more — <name>" for several services. */
+export function inquirySubject(services: string[], name: string) {
+  const [first, ...rest] = orderedServices(services);
+  return `New project inquiry — ${first}${rest.length ? ` +${rest.length} more` : ''} — ${name.trim()}`;
 }
 
 type FileLike = { name: string; size: number };

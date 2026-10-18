@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import {
-  addFiles, EMPTY_FORM, FILE_ACCEPT, fileSize, FORM_ENDPOINT, SERVICE_OPTIONS, SHEET_ENDPOINT, TIMELINE_OPTIONS, validate, type FormFields,
+  addFiles, EMPTY_FORM, FILE_ACCEPT, fileSize, FORM_ENDPOINT, inquirySubject, SERVICE_OPTIONS, serviceField, SHEET_ENDPOINT,
+  TIMELINE_OPTIONS, validate, type FormFields,
 } from '@/data/form';
 import { CONTACT } from '@/data/site';
 import s from './QuoteForm.module.css';
@@ -15,7 +16,8 @@ function readableFields(form: FormFields): [string, string][] {
     ['Name', form.name.trim()],
     ['Company', form.company.trim() || '—'],
     ['Email', form.email.trim()],
-    ['Service', form.service],
+    // One "Service" field (selections joined with ", ") keeps the email table and the Sheet column unchanged.
+    ['Service', serviceField(form.services)],
     ['Timeline', form.timeline || '—'],
     ['Budget', form.budget.trim() || '—'],
     ['Reference link', form.reference.trim() || '—'],
@@ -59,10 +61,16 @@ export default function QuoteForm() {
     return () => window.removeEventListener('pageshow', onShow);
   }, []);
 
-  const set = (k: Key) => (e: { target: { value: string } }) => {
+  const set = (k: Exclude<Key, 'services'>) => (e: { target: { value: string } }) => {
     const v = e.target.value;
     setForm(f => ({ ...f, [k]: v }));
     setErrors(er => ({ ...er, [k]: '' }));
+    setSendError('');
+  };
+  // Any combination is allowed, including "Other / Not Sure" alongside specific services.
+  const toggleService = (o: string) => {
+    setForm(f => ({ ...f, services: f.services.includes(o) ? f.services.filter(x => x !== o) : [...f.services, o] }));
+    setErrors(er => ({ ...er, services: '' }));
     setSendError('');
   };
   const take = (list: File[]) => { const r = addFiles(files, list); setFiles(r.files); setFileError(r.error); setDragOn(false); };
@@ -91,7 +99,7 @@ export default function QuoteForm() {
       const i = document.createElement('input');
       i.type = 'hidden'; i.name = name; i.value = value; post.appendChild(i);
     };
-    add('_subject', `New project inquiry — ${form.service} — ${form.name.trim()}`);
+    add('_subject', inquirySubject(form.services, form.name));
     add('_template', 'table'); add('_captcha', 'false'); add('_replyto', form.email.trim());
     add('_honey', honey);
     add('_next', `${window.location.origin}/contact/thanks/`);
@@ -137,14 +145,24 @@ export default function QuoteForm() {
         <input id="qf-email" name="email" type="email" autoComplete="email" placeholder="Where we can contact you" value={form.email} onChange={set('email')} {...err('email')} />
         {errors.email && <span id="qf-email-err" role="alert" className={s.err}>{errors.email}</span>}
       </div>
-      <div className={s.field}>
-        <label htmlFor="qf-service">Required service *</label>
-        <select id="qf-service" name="service" value={form.service} onChange={set('service')} {...err('service')}>
-          <option value="">Select a service</option>
-          {SERVICE_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-        </select>
-        {errors.service && <span id="qf-service-err" role="alert" className={s.err}>{errors.service}</span>}
-      </div>
+      <fieldset className={`${s.full} ${s.services}`} aria-describedby={errors.services ? 'qf-services-err' : 'qf-services-help'}>
+        <legend className={s.legend}>Required services *</legend>
+        <span id="qf-services-help" className={s.help}>Select all that apply.</span>
+        <div className={s.checkGrid}>
+          {SERVICE_OPTIONS.map((o, i) => (
+            <label key={o} className={s.check}>
+              <input
+                type="checkbox" name="services" value={o} id={i === 0 ? 'qf-services' : undefined}
+                checked={form.services.includes(o)} onChange={() => toggleService(o)}
+                aria-invalid={errors.services ? true : undefined}
+              />
+              <span className={s.checkBox} aria-hidden="true" />
+              <span className={s.checkLabel}>{o}</span>
+            </label>
+          ))}
+        </div>
+        {errors.services && <span id="qf-services-err" role="alert" className={s.err}>{errors.services}</span>}
+      </fieldset>
 
       <div className={`${s.field} ${s.full}`}>
         <label htmlFor="qf-description">Project description *</label>
