@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import {
-  addFiles, EMPTY_FORM, FILE_ACCEPT, fileSize, FORM_ENDPOINT, inquirySubject, SERVICE_OPTIONS, serviceField, SHEET_ENDPOINT,
+  addFiles, BUDGET_UNSURE, budgetField, budgetRanges, caretAfterDigits, CURRENCIES, EMPTY_FORM, FILE_ACCEPT, fileSize,
+  formatAmount, FORM_ENDPOINT, inquirySubject, parseAmount, SERVICE_OPTIONS, serviceField, SHEET_ENDPOINT,
   TIMELINE_OPTIONS, validate, type FormFields,
 } from '@/data/form';
 import { CONTACT } from '@/data/site';
@@ -19,7 +20,8 @@ function readableFields(form: FormFields): [string, string][] {
     // One "Service" field (selections joined with ", ") keeps the email table and the Sheet column unchanged.
     ['Service', serviceField(form.services)],
     ['Timeline', form.timeline || '—'],
-    ['Budget', form.budget.trim() || '—'],
+    // One "Budget" field (range and/or exact amount) keeps the email table and the Sheet column unchanged.
+    ['Budget', budgetField(form.currency, form.budgetTier, form.budgetAmount)],
     ['Reference link', form.reference.trim() || '—'],
     ['Project description', form.description.trim()],
   ];
@@ -61,7 +63,7 @@ export default function QuoteForm() {
     return () => window.removeEventListener('pageshow', onShow);
   }, []);
 
-  const set = (k: Exclude<Key, 'services'>) => (e: { target: { value: string } }) => {
+  const set = (k: Exclude<Key, 'services' | 'budgetAmount'>) => (e: { target: { value: string } }) => {
     const v = e.target.value;
     setForm(f => ({ ...f, [k]: v }));
     setErrors(er => ({ ...er, [k]: '' }));
@@ -73,6 +75,35 @@ export default function QuoteForm() {
     setErrors(er => ({ ...er, services: '' }));
     setSendError('');
   };
+  // Exact amount: store digits only, show en-US grouping, and keep the caret after the same digit it
+  // followed before the separators were re-inserted (so typing/deleting mid-number doesn't jump to the end).
+  const amountRef = useRef<HTMLInputElement>(null);
+  const pendingCaret = useRef<number | null>(null);
+  const onAmount = (e: ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value, caret = e.target.selectionStart ?? raw.length;
+    let digits = parseAmount(raw);
+    let before = Math.min(parseAmount(raw.slice(0, caret)).length, digits.length);
+    // Backspace/Delete on a "," only removes the separator, which formatting would put straight back.
+    // Treat it as deleting the digit on that side instead.
+    const inputType = (e.nativeEvent as InputEvent).inputType;
+    if (digits === form.budgetAmount && raw.length < formatAmount(form.budgetAmount).length) {
+      if (inputType === 'deleteContentBackward' && before > 0) { digits = digits.slice(0, before - 1) + digits.slice(before); before -= 1; }
+      else if (inputType === 'deleteContentForward') digits = digits.slice(0, before) + digits.slice(before + 1);
+      digits = parseAmount(digits);
+      before = Math.min(before, digits.length);
+    }
+    pendingCaret.current = caretAfterDigits(formatAmount(digits), before);
+    setForm(f => ({ ...f, budgetAmount: digits }));
+    setSendError('');
+  };
+  // Runs after every render (not only when the digits change): rejected keystrokes such as letters
+  // re-render the same value, and the caret must still be put back where it was.
+  useLayoutEffect(() => {
+    const el = amountRef.current, pos = pendingCaret.current;
+    if (el && pos != null && document.activeElement === el) el.setSelectionRange(pos, pos);
+    pendingCaret.current = null;
+  });
+
   const take = (list: File[]) => { const r = addFiles(files, list); setFiles(r.files); setFileError(r.error); setDragOn(false); };
   const err = (k: Key) => errors[k] ? { 'aria-invalid': true, 'aria-describedby': `qf-${k}-err` } : {};
 
@@ -215,10 +246,38 @@ export default function QuoteForm() {
           {TIMELINE_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
         </select>
       </div>
-      <div className={s.field}>
-        <label htmlFor="qf-budget">Estimated budget</label>
-        <input id="qf-budget" name="budget" placeholder="Optional, e.g. USD 500–1,000" value={form.budget} onChange={set('budget')} aria-describedby="qf-budget-help" />
-      </div>
+      <fieldset className={`${s.full} ${s.budget}`} aria-describedby="qf-budget-help">
+        <legend className={s.legend}>Estimated budget</legend>
+        <div className={s.budgetRow}>
+          <div className={s.field}>
+            <label htmlFor="qf-currency">Currency</label>
+            <select id="qf-currency" name="currency" value={form.currency} onChange={set('currency')}>
+              {CURRENCIES.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </div>
+          <div className={s.field}>
+            <label htmlFor="qf-budget-range">Budget range</label>
+            {/* Options are keyed by tier, so a selected range survives a currency change. */}
+            <select id="qf-budget-range" name="budgetTier" value={form.budgetTier} onChange={set('budgetTier')}>
+              <option value="">Select a range</option>
+              {budgetRanges(form.currency).map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
+              <option value="unsure">{BUDGET_UNSURE}</option>
+            </select>
+          </div>
+        </div>
+        <div className={s.field}>
+          <label htmlFor="qf-budget-amount">Or enter an exact amount</label>
+          <div className={s.amount}>
+            <span className={s.currencyBadge} aria-hidden="true">{form.currency}</span>
+            <input
+              ref={amountRef} id="qf-budget-amount" name="budgetAmount" type="text" inputMode="numeric" autoComplete="off"
+              placeholder="e.g. 5,000" value={formatAmount(form.budgetAmount)} onChange={onAmount}
+              aria-describedby="qf-budget-currency"
+            />
+            <span id="qf-budget-currency" className="sr-only">Amount in {form.currency}</span>
+          </div>
+        </div>
+      </fieldset>
       <p id="qf-budget-help" className={`${s.full} ${s.help}`} style={{ marginTop: -6 }}>An approximate budget helps us recommend an appropriate project scope.</p>
 
       <div className={s.honey} aria-hidden="true">

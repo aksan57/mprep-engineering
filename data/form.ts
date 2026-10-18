@@ -30,8 +30,83 @@ export const MAX_FILES = 5;
 export const MAX_TOTAL_BYTES = 10 * 1024 * 1024;
 export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export type FormFields = { name: string; company: string; email: string; services: string[]; description: string; reference: string; timeline: string; budget: string };
-export const EMPTY_FORM: FormFields = { name: '', company: '', email: '', services: [], description: '', reference: '', timeline: '', budget: '' };
+// ── Budget ──────────────────────────────────────────────────────────────────────────────────────────
+
+export const CURRENCIES = ['USD', 'EUR', 'GBP', 'SGD', 'AUD', 'IDR'] as const;
+export type Currency = (typeof CURRENCIES)[number];
+
+/**
+ * Rounded local thresholds [a, b, c] for the four budget tiers: under a · a–b · b–c · over c.
+ * Tiers line up across currencies, so switching currency keeps the same tier selected.
+ */
+export const BUDGET_THRESHOLDS: Record<Currency, [number, number, number]> = {
+  USD: [1_000, 5_000, 20_000],
+  EUR: [1_000, 5_000, 20_000],
+  GBP: [750, 4_000, 15_000],
+  SGD: [1_500, 7_000, 27_000],
+  AUD: [1_500, 8_000, 30_000],
+  IDR: [15_000_000, 80_000_000, 300_000_000],
+};
+
+/** '' = no range chosen, '0'–'3' = tier index, 'unsure' = "Not sure yet". */
+export type BudgetTier = '' | '0' | '1' | '2' | '3' | 'unsure';
+export const BUDGET_UNSURE = 'Not sure yet';
+
+const group = (n: number) => n.toLocaleString('en-US');
+
+/** Range options for a currency, e.g. "IDR 15,000,000–80,000,000". Values are tier indices. */
+export function budgetRanges(currency: Currency): { value: Exclude<BudgetTier, '' | 'unsure'>; label: string }[] {
+  const [a, b, c] = BUDGET_THRESHOLDS[currency];
+  return [
+    { value: '0', label: `Under ${currency} ${group(a)}` },
+    { value: '1', label: `${currency} ${group(a)}–${group(b)}` },
+    { value: '2', label: `${currency} ${group(b)}–${group(c)}` },
+    { value: '3', label: `Over ${currency} ${group(c)}` },
+  ];
+}
+
+export const budgetRangeLabel = (currency: Currency, tier: BudgetTier) =>
+  tier === 'unsure' ? BUDGET_UNSURE : budgetRanges(currency).find(r => r.value === tier)?.label ?? '';
+
+/** Keeps only digits and drops leading zeros (paste "IDR 50.000.000" → "50000000"). Capped at 15 digits. */
+export const parseAmount = (text: string) => text.replace(/\D/g, '').replace(/^0+(?=\d)/, '').slice(0, 15);
+
+/** Digits → en-US thousands separators ("15000000" → "15,000,000"). */
+export const formatAmount = (digits: string) => digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+/** Caret index in `formatted` that sits just after its `digitsBefore`-th digit. */
+export function caretAfterDigits(formatted: string, digitsBefore: number) {
+  if (digitsBefore <= 0) return 0;
+  let seen = 0;
+  for (let i = 0; i < formatted.length; i++) {
+    if (/\d/.test(formatted[i]) && ++seen === digitsBefore) return i + 1;
+  }
+  return formatted.length;
+}
+
+/**
+ * The single "Budget" value sent with the inquiry (email table and Google Sheet column):
+ * range → "IDR 15,000,000–80,000,000"; amount → "IDR 50,000,000";
+ * both → "IDR 15,000,000–80,000,000 (exact: IDR 50,000,000)"; nothing → "—".
+ */
+export function budgetField(currency: Currency, tier: BudgetTier, amountDigits: string) {
+  const range = budgetRangeLabel(currency, tier);
+  const digits = parseAmount(amountDigits);
+  const exact = digits ? `${currency} ${formatAmount(digits)}` : '';
+  if (range && exact) return `${range} (exact: ${exact})`;
+  return range || exact || '—';
+}
+
+// ── Form ────────────────────────────────────────────────────────────────────────────────────────────
+
+export type FormFields = {
+  name: string; company: string; email: string; services: string[]; description: string; reference: string; timeline: string;
+  currency: Currency; budgetTier: BudgetTier; budgetAmount: string;
+};
+export const EMPTY_FORM: FormFields = {
+  name: '', company: '', email: '', services: [], description: '', reference: '', timeline: '',
+  currency: 'USD', budgetTier: '', budgetAmount: '',
+};
 
 /** Errors in field order (the first key is the field that gets focus). */
 export function validate(f: FormFields): Partial<Record<keyof FormFields, string>> {

@@ -51,6 +51,27 @@
 .check input[aria-invalid='true'] + .checkBox { border-color: var(--err); }
 .checkLabel { min-width: 0; }
 
+/*
+ * Estimated budget: currency + range side by side when the form is ≥360px wide, exact amount below.
+ * Below that (phones, and 1280–1366px laptops beside the sidebar) they stack, so the longest closed range
+ * label ("IDR 80,000,000–300,000,000", ~207px) is never truncated.
+ */
+.budget {
+  border: 0; margin: 0; padding: 0; min-width: 0; display: flex; flex-direction: column; gap: 12px;
+  container-type: inline-size;
+}
+/* A <legend> ignores the fieldset's flex gap, so space it from the first label explicitly. */
+.budget > .legend { margin-bottom: 10px; }
+.budgetRow { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+@container (min-width: 360px) { .budgetRow { grid-template-columns: 104px minmax(0, 1fr); } }
+.amount { display: flex; align-items: stretch; }
+.currencyBadge {
+  flex: none; display: inline-flex; align-items: center; padding: 0 12px;
+  border: 1px solid var(--l22); border-right: 0; border-radius: 4px 0 0 4px; background: var(--tint);
+  font: 500 13px var(--font-mono); letter-spacing: .04em; color: var(--t3);
+}
+.amount input { border-radius: 0 4px 4px 0; font-variant-numeric: tabular-nums; }
+
 .files { display: flex; flex-direction: column; gap: 10px; }
 .drop {
   position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
