@@ -3,21 +3,25 @@
     800,
     1000
   ],
-  "/assets/blog/cold-gas/copv-cutaway.webp": [
-    801,
-    800
-  ],
-  "/assets/blog/cold-gas/copv-vonmises.webp": [
-    1418,
-    952
-  ],
-  "/assets/blog/cold-gas/nozzle-cad.webp": [
-    845,
-    957
-  ],
   "/assets/blog/furnace-temperature-field.webp": [
     1600,
     900
+  ],
+  "/assets/cold-gas/card-tank.webp": [
+    900,
+    900
+  ],
+  "/assets/cold-gas/copv-cutaway.webp": [
+    801,
+    800
+  ],
+  "/assets/cold-gas/copv-vonmises.webp": [
+    1418,
+    952
+  ],
+  "/assets/cold-gas/nozzle-cad.webp": [
+    845,
+    957
   ],
   "/assets/cz-r4/00-buckling-mode1.webp": [
     602,

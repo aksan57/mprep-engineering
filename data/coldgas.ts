@@ -1,0 +1,130 @@
+// Cold-gas thruster tank & nozzle case study. All dimensions, materials and loads are MPrep's own
+// assumptions built around press-reported figures (600 L, ~250 kg of air). None are Tesla specifications.
+
+const A = '/assets/cold-gas/';
+
+export const CG = {
+  title: 'Cold-gas thruster: air tank & nozzle',
+  summary: 'A compressed-air thruster system sized from the figures reported for the new Roadster: a 450-bar composite tank and a 5 kN supersonic nozzle, sized by hand and checked with axisymmetric FEA and compressible CFD.',
+  meta: [
+    { k: 'TYPE', v: 'Concept design & analysis' },
+    { k: 'CONTEXT', v: 'Self-initiated engineering study' },
+    { k: 'TOOLS', v: 'FreeCAD · CadQuery · PrePoMax / CalculiX · SimFlow / OpenFOAM v2512' },
+    { k: 'STATUS', v: 'Not built or experimentally validated · not a Tesla design' },
+  ],
+};
+
+export const CHAPTERS = [
+  ['cg-overview', 'Overview'], ['cg-brief', 'Design brief'], ['cg-cad', 'CAD geometry'], ['cg-params', 'Assumptions & parameters'],
+  ['cg-fea', 'Tank FEA'], ['cg-verify', 'Verification'], ['cg-nozzle', 'Nozzle sizing'], ['cg-cfd', 'Nozzle CFD'],
+  ['cg-conclusions', 'Conclusions'], ['cg-docs', 'Documentation'], ['cg-refs', 'References'],
+] as const;
+
+export const CG_PARTS = [
+  { n: '01', t: 'Gas budget with a real-gas equation of state' },
+  { n: '02', t: 'Type III COPV sizing and axisymmetric FEA of the polar boss' },
+  { n: '03', t: 'Isentropic sizing of a 5 kN convergent–divergent nozzle' },
+  { n: '04', t: 'Compressible CFD of the nozzle and near-field plume' },
+];
+
+export const IMAGES = {
+  tank: { src: A + 'copv-cutaway.webp', alt: 'Cut-away CAD model of the spherical tank: black carbon overwrap, grey aluminium liner and titanium boss at the pole.', caption: 'Tank cut-away · overwrap, liner and polar boss' },
+  nozzle: { src: A + 'nozzle-cad.webp', alt: 'CAD model of the conical convergent–divergent nozzle with mounting flange.', caption: '5 kN nozzle · 30° convergent, 15° divergent' },
+  vonMises: { src: A + 'copv-vonmises.webp', alt: 'Von Mises stress on the axisymmetric tank section at 450 bar, with a zoomed view of the polar boss.', caption: 'Von Mises stress at 450 bar · full section and polar boss' },
+};
+
+export const BRIEF = [
+  { k: 'Stored gas', v: '≈600 L of air', n: 'Reported from the reveal livestream; attributed to Tesla engineering.' },
+  { k: 'Gas mass', v: '≈250 kg', n: 'Press report.' },
+  { k: 'Pressure on screen', v: '5,500 psi ≈ 379 bar', n: 'Read from a photo; not an official figure.' },
+  { k: 'Consistency check', v: '600 L @ 379 bar, 27 °C → ≈223 kg', n: 'Real-gas (Z ≈ 1.2). 250 kg needs ≈454 bar, so the design point here is 450 bar.' },
+  { k: 'Minimum refill work', v: '≈37 kWh', n: 'Reversible isothermal limit (exergy) for 250 kg at 450 bar.' },
+];
+
+export const PARAMS = [
+  { name: 'Tanks', value: '2 spheres × 0.30 m³, ID 830 mm, OD 888 mm', basis: 'Design' },
+  { name: 'Working / burst pressure', value: '45 / 101 MPa (×2.25)', basis: 'Design; FMVSS 308 minimum is ×2' },
+  { name: 'Liner', value: 'Al 6061-T6, 3 mm', basis: 'Assumed' },
+  { name: 'Overwrap', value: 'Carbon/epoxy, quasi-isotropic, 26 mm, E = 50 GPa', basis: 'Assumed; sized to 800 MPa at burst' },
+  { name: 'Polar boss', value: 'Ti-6Al-4V, Ø70 mm neck, Ø24 mm port', basis: 'Assumed' },
+  { name: 'Shell mass, two tanks', value: '≈208 kg', basis: 'Calculated' },
+  { name: 'Nozzle chamber pressure', value: '100 bar regulated, 300 K', basis: 'Design' },
+  { name: 'Nozzle thrust', value: '5 kN, exit matched to 1 atm', basis: 'Design' },
+];
+
+export const FEA_STEPS = [
+  { k: 'MODEL', v: '2D axisymmetric section with liner, overwrap and boss sharing nodes (perfect bond). Second-order CAX6 triangles, ≈40,600 elements, ≈2 mm edges in the 3 mm liner.' },
+  { k: 'LOADS & SUPPORTS', v: '45 MPa on the inner surface and inside the port. One axis node at the bottom pole held axially against rigid-body motion.' },
+  { k: 'SOLVER', v: 'Linear static, CalculiX through PrePoMax. Results read from the .frd file and plotted from the nodal stresses.' },
+];
+
+export const VERIFY = [
+  { q: 'Overwrap membrane stress, equator', h: '313 MPa', f: '298 MPa' },
+  { q: 'Liner membrane stress, equator', h: '451 MPa', f: '434 MPa' },
+  { q: 'Radial growth, equator', h: '≈1.9 mm', f: '1.78 mm' },
+];
+
+export const FEA_RESULTS = [
+  { label: 'OVERWRAP AT BURST', value: '≈670 MPa', sub: 'vs ≈800 MPa assumed strength' },
+  { label: 'LINER, EQUATOR', value: '434 MPa', sub: 'Above Al 6061-T6 yield (≈276 MPa)' },
+  { label: 'BOSS, PORT SIDE', value: '≈775 MPa', sub: 'Near Ti-6Al-4V yield at working pressure' },
+  { label: 'MAX DISPLACEMENT', value: '3.6 mm', sub: 'At 450 bar' },
+];
+
+export const NOZZLE = [
+  { name: 'Throat / exit diameter', value: '20.3 / 57.5 mm' },
+  { name: 'Area ratio Ae/A*', value: '8.05' },
+  { name: 'Exit Mach number', value: '3.68' },
+  { name: 'Exit velocity / Isp', value: '664 m/s / 68 s' },
+  { name: 'Mass flow per nozzle', value: '7.5 kg/s' },
+  { name: 'Exit static temperature', value: '≈81 K (air condenses at ≈79 K, 1 atm)' },
+];
+
+export const CFD_STEPS = [
+  { k: 'SOLVER', v: 'rhoCentralFoam (density-based, Kurganov–Tadmor central scheme), set up and run in SimFlow 5.1 on OpenFOAM v2512.' },
+  { k: 'DOMAIN & MESH', v: '5° axisymmetric wedge: plenum, nozzle and 250 mm of plume. Structured mesh, ≈25,000 cells.' },
+  { k: 'BOUNDARIES', v: 'Inlet at 100 bar total pressure, 300 K. Ambient at 1 atm. Slip walls (inviscid), perfect-gas air.' },
+];
+
+export const LIMITATIONS = [
+  'Composite modelled as an isotropic solid; a ply-by-ply laminate with a failure criterion is needed for a design check.',
+  'Linear-elastic liner: it yields at working pressure. A real vessel is autofrettaged, which needs an elastic–plastic load–unload analysis.',
+  'No mesh-convergence study; the liner is about two elements thick. Membrane stresses are reliable, local peaks indicative only.',
+  'The peak at the boss re-entrant corner is a mesh-dependent singularity and is not used for assessment.',
+  'No fatigue or composite stress-rupture assessment.',
+  'CFD is inviscid with perfect-gas air; condensation in the plume is not modelled.',
+];
+
+export const FINDINGS = [
+  '250 kg in 600 L needs ≈450 bar once real-gas behaviour is included; the reported 5,500 psi holds ≈223 kg.',
+  'Two 888 mm spheres: shells ≈208 kg, close to the mass of air they store.',
+  'FEA matches membrane theory within 5 % away from the boss.',
+  'The liner yields at working pressure, so autofrettage is part of the design, not an option.',
+  'The titanium boss is the critical detail: ≈775 MPa near the port at working pressure.',
+  'At Isp ≈ 68 s, four 5 kN nozzles empty 250 kg in about 8 s — enough for hops, not sustained flight.',
+];
+
+export const NEXT_STEPS = [
+  'Redesign the boss flange (wider, tapered) and re-run.',
+  'Laminate model with helical and hoop layers; Tsai–Wu or Hashin ply failure.',
+  'Elastic–plastic autofrettage cycle for the liner.',
+  'Mesh-convergence study at the boss.',
+  'Blow-down model: tank pressure and temperature during a firing.',
+];
+
+export const DOCS = [
+  { kind: 'STEP', name: 'Tank, 3D (liner, overwrap, boss as separate bodies)', href: '/docs/coldgas-copv-tank-450bar.step', size: 'STEP · 43 KB' },
+  { kind: 'STEP', name: 'Tank, 2D axisymmetric FEA section', href: '/docs/coldgas-copv-axisym-section.step', size: 'STEP · 24 KB' },
+  { kind: 'STEP', name: 'Convergent–divergent nozzle, 5 kN', href: '/docs/coldgas-nozzle-5kN.step', size: 'STEP · 18 KB' },
+];
+
+export const REFS = [
+  { id: 'evxl', text: 'H. Kesteloo, "Tesla Roadster thrusters up close: a tank of air and four nozzles," EVXL, 16 October 2026.', url: 'https://evxl.co/2026/10/16/tesla-roadster-thrusters-compressed-air-tank/' },
+  { id: 'techcrunch', text: 'TechCrunch, "Tesla reveals SpaceX-powered Roadster that flies and falls with style," 15 October 2026.', url: 'https://techcrunch.com/2026/10/15/tesla-reveals-spacex-powered-roadster-that-flies-and-falls-with-style/' },
+  { id: 'lemmon', text: 'E. W. Lemmon, R. T. Jacobsen, S. G. Penoncello and D. G. Friend, "Thermodynamic properties of air and mixtures of nitrogen, argon, and oxygen from 60 to 2000 K at pressures to 2000 MPa," J. Phys. Chem. Ref. Data, vol. 29, no. 3, pp. 331–385, 2000.', url: 'https://doi.org/10.1063/1.1285884' },
+  { id: 'coolprop', text: 'I. H. Bell, J. Wronski, S. Quoilin and V. Lemort, "Pure and pseudo-pure fluid thermophysical property evaluation and the open-source thermophysical property library CoolProp," Ind. Eng. Chem. Res., vol. 53, no. 6, pp. 2498–2508, 2014.', url: 'https://doi.org/10.1021/ie4033999' },
+  { id: 'fmvss308', text: '49 CFR § 571.308, FMVSS No. 308 — Compressed hydrogen fuel container integrity, paragraph S5.1.1.1.', url: 'https://www.law.cornell.edu/cfr/text/49/571.308' },
+  { id: 'rocha', text: 'H. Rocha, P. Antunes, U. Lafont and J. P. Nunes, "Processing and structural health monitoring of a composite overwrapped pressure vessel for hydrogen storage," Structural Health Monitoring, 2024.', url: 'https://doi.org/10.1177/14759217231204242' },
+  { id: 'sutton', text: 'G. P. Sutton and O. Biblarz, Rocket Propulsion Elements, 9th ed. Hoboken, NJ: Wiley, 2017. ISBN 978-1-118-75365-1.' },
+  { id: 'greenshields', text: 'C. J. Greenshields, H. G. Weller, L. Gasparini and J. M. Reese, "Implementation of semi-discrete, non-staggered central schemes in a colocated, polyhedral, finite volume framework, for high-speed viscous flows," Int. J. Numer. Methods Fluids, vol. 63, no. 1, pp. 1–21, 2010.', url: 'https://doi.org/10.1002/fld.2069' },
+] as const;
