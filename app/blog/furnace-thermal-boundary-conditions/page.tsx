@@ -24,20 +24,31 @@ const CHAPTERS: [string, string][] = [
 ];
 
 const REFS = [
-  { n: 1, text: 'T. L. Bergman, A. S. Lavine, F. P. Incropera and D. P. DeWitt, Fundamentals of Heat and Mass Transfer, 7th ed. Hoboken, NJ: Wiley, 2011. ISBN 978-0-470-50197-9.' },
-  { n: 2, text: 'S. W. Churchill and H. H. S. Chu, "Correlating equations for laminar and turbulent free convection from a horizontal cylinder," International Journal of Heat and Mass Transfer, vol. 18, no. 9, pp. 1049–1053, 1975.', url: 'https://doi.org/10.1016/0017-9310(75)90222-7' },
-  { n: 3, text: 'R. H. S. Winterton, "Where did the Dittus and Boelter equation come from?" International Journal of Heat and Mass Transfer, vol. 41, no. 4–5, pp. 809–810, 1998.', url: 'https://doi.org/10.1016/S0017-9310(97)00177-4' },
-  { n: 4, text: 'M. F. Modest and S. Mazumder, Radiative Heat Transfer, 4th ed. Amsterdam: Academic Press, 2021. ISBN 978-0-12-818143-0.', url: 'https://shop.elsevier.com/books/radiative-heat-transfer/modest/978-0-12-818143-0' },
-  { n: 5, text: 'Kanthal, "Globar® SG and SR silicon carbide heating elements," product page, accessed 18 October 2026.', url: 'https://www.kanthal.com/en/products/furnace-products/electric-heating-elements/silicon-carbide-heating-elements/element-grades/globar-sg-and-sr/' },
-  { n: 6, text: 'Morgan Thermal Ceramics, "Kaowool® Organic Boards," product data sheet SH.03 (Americas), January 2025. Thermal conductivity per ASTM C201.', url: 'https://www.morganthermalceramics.com/media/8981/kaowool-boards_americas-region_eng.pdf' },
-  { n: 7, text: 'Neutrium, "Total normal emissivities of selected materials," accessed 18 October 2026.', url: 'https://neutrium.net/heat-transfer/total-normal-emissivities-of-selected-materials/' },
-  { n: 8, text: 'The Engineering ToolBox, "Emissivity coefficients of common materials," accessed 18 October 2026.', url: 'https://www.engineeringtoolbox.com/emissivity-coefficients-d_447.html' },
-  { n: 9, text: 'ISO 13732-1:2006, Ergonomics of the thermal environment — Methods for the assessment of human responses to contact with surfaces — Part 1: Hot surfaces. Geneva: ISO, 2006.', url: 'https://www.iso.org/standard/43558.html' },
-];
+  { id: 'kanthal', text: 'Kanthal, "Globar® SG and SR silicon carbide heating elements," product page, accessed 18 October 2026.', url: 'https://www.kanthal.com/en/products/furnace-products/electric-heating-elements/silicon-carbide-heating-elements/element-grades/globar-sg-and-sr/' },
+  { id: 'morgan', text: 'Morgan Thermal Ceramics, "Kaowool® Organic Boards," product data sheet SH.03 (Americas), January 2025. Thermal conductivity per ASTM C201.', url: 'https://www.morganthermalceramics.com/media/8981/kaowool-boards_americas-region_eng.pdf' },
+  { id: 'lin', text: 'H. Lin, Q. Shen, M. Ma, R. Ji, H. Guo, H. Qi, W. Xing and H. Tang, "3D printing of porous ceramics for enhanced thermal insulation properties," Advanced Science, vol. 12, no. 7, 2025 (published online December 2024; open access).', url: 'https://doi.org/10.1002/advs.202412554' },
+  { id: 'daryabeigi', text: 'K. Daryabeigi, "Heat transfer in high-temperature fibrous insulation," Journal of Thermophysics and Heat Transfer, 2003.', url: 'https://doi.org/10.2514/2.6746' },
+  { id: 'incropera', text: 'T. L. Bergman, A. S. Lavine, F. P. Incropera and D. P. DeWitt, Fundamentals of Heat and Mass Transfer, 7th ed. Hoboken, NJ: Wiley, 2011. ISBN 978-0-470-50197-9.' },
+  { id: 'modest', text: 'M. F. Modest and S. Mazumder, Radiative Heat Transfer, 4th ed. Amsterdam: Academic Press, 2021. ISBN 978-0-12-818143-0.', url: 'https://shop.elsevier.com/books/radiative-heat-transfer/modest/978-0-12-818143-0' },
+  { id: 'richmond', text: 'J. C. Richmond and W. N. Harrison, "Total hemispherical emittance of coated and uncoated Inconel and types 321 and 430 stainless steel," Journal of Research of the National Bureau of Standards, Section C, vol. 66C, no. 3, pp. 261–269, 1962.', url: 'https://doi.org/10.6028/jres.066C.022' },
+  { id: 'wade59', text: 'W. R. Wade, "Measurements of total hemispherical emissivity of several stably oxidized metals and some refractory oxide coatings," NASA Memorandum 1-20-59L, NASA Langley Research Center, 1959.', url: 'https://ntrs.nasa.gov/citations/19980228304' },
+  { id: 'alzubaidi316', text: 'F. N. Al Zubaidi, K. L. Walton, R. V. Tompson, T. K. Ghosh and S. K. Loyalka, "The effect of long-term oxidation on the total hemispherical emissivity of type 316L stainless steel," Nuclear Technology, 2019.', url: 'https://doi.org/10.1080/00295450.2018.1542257' },
+  { id: 'alzubaidiA508', text: 'F. N. Al Zubaidi, K. L. Walton, R. V. Tompson, T. K. Ghosh and S. K. Loyalka, "Measurements of total hemispherical emissivity of A508/A533B alloy steel," Nuclear Technology, 2019.', url: 'https://doi.org/10.1080/00295450.2019.1573618' },
+  { id: 'hunnewell', text: 'T. S. Hunnewell, K. L. Walton, S. Sharma, T. K. Ghosh, R. V. Tompson, D. S. Viswanath and S. K. Loyalka, "Total hemispherical emissivity of SS 316L with simulated very high temperature reactor surface conditions," Nuclear Technology, 2017.', url: 'https://doi.org/10.1080/00295450.2017.1311120' },
+  { id: 'hameury', text: 'J. Hameury, A. Koenen, B. Hay et al., "Identification and characterization of new materials for construction of heating plates for high-temperature guarded hot plates," International Journal of Thermophysics, vol. 39, art. 16, 2018.', url: 'https://doi.org/10.1007/s10765-017-2326-3' },
+  { id: 'wadeslemp', text: 'W. R. Wade and W. S. Slemp, "Measurements of total emittance of several refractory oxides, cermets, and ceramics for temperatures from 600 °F to 2,000 °F," NASA Technical Note D-998, 1962.', url: 'https://apps.dtic.mil/sti/citations/AD0272614' },
+  { id: 'paradis', text: 'P.-F. Paradis, T. Ishikawa and S. Yoda, "Noncontact measurements of thermophysical properties of molybdenum at high temperatures," International Journal of Thermophysics, 2002.', url: 'https://doi.org/10.1023/A:1015169721771' },
+  { id: 'cheng', text: 'S. X. Cheng, P. Cebe, L. M. Hanssen, D. M. Riffe and A. J. Sievers, "Hemispherical emissivity of V, Nb, Ta, Mo, and W from 300 to 1000 K," Journal of the Optical Society of America B, vol. 4, no. 3, pp. 351–356, 1987.', url: 'https://doi.org/10.1364/JOSAB.4.000351' },
+  { id: 'churchill', text: 'S. W. Churchill and H. H. S. Chu, "Correlating equations for laminar and turbulent free convection from a horizontal cylinder," International Journal of Heat and Mass Transfer, vol. 18, no. 9, pp. 1049–1053, 1975.', url: 'https://doi.org/10.1016/0017-9310(75)90222-7' },
+  { id: 'winterton', text: 'R. H. S. Winterton, "Where did the Dittus and Boelter equation come from?" International Journal of Heat and Mass Transfer, vol. 41, no. 4–5, pp. 809–810, 1998.', url: 'https://doi.org/10.1016/S0017-9310(97)00177-4' },
+  { id: 'iso', text: 'ISO 13732-1:2006, Ergonomics of the thermal environment — Methods for the assessment of human responses to contact with surfaces — Part 1: Hot surfaces. Geneva: ISO, 2006.', url: 'https://www.iso.org/standard/43558.html' },
+] as const;
+type RefId = (typeof REFS)[number]['id'];
+const refNum = (id: RefId) => REFS.findIndex(r => r.id === id) + 1;
 
 /** Numbered citation linking to the reference list. */
-function Cite({ n }: { n: number[] }) {
-  return <sup className={s.cite}>[{n.map((x, i) => <span key={x}>{i > 0 && ', '}<a href={`#ref-${x}`} aria-label={`Reference ${x}`}>{x}</a></span>)}]</sup>;
+function Cite({ r }: { r: readonly RefId[] }) {
+  return <sup className={s.cite}>[{r.map((id, i) => <span key={id}>{i > 0 && ', '}<a href={`#ref-${id}`} aria-label={`Reference ${refNum(id)}`}>{refNum(id)}</a></span>)}]</sup>;
 }
 
 const HEATER_OPTIONS = [
@@ -46,15 +57,15 @@ const HEATER_OPTIONS = [
   { k: 'OPTION C', t: 'Controlled power', b: 'Power is adjusted, by the solver or by iteration, until a probe point at the thermocouple location sits at the setpoint.', u: 'Closest to a real furnace with a controller. The result is the power the furnace needs, which you compare with the rating.' },
 ];
 
-const EMISSIVITY: [string, string, string, number[]][] = [
-  ['Polished stainless steel', '≈ 0.075', 'Sources disagree widely for "polished" stainless; rises sharply once the surface oxidises or weathers', [8]],
-  ['Oxidised steel, weathered stainless steel', '0.65 – 0.85', 'Typical after some service; rough or heavily oxidised plate can reach about 0.95', [7, 8]],
-  ['Oil, enamel and black paints', '0.8 – 0.97', 'Most paints are close to black in the infrared', [7, 8]],
-  ['Aluminium paint', '0.27 – 0.67', 'The exception: metallic paints are much lower', [7, 8]],
-  ['Graphite and carbon', '0.7 – 0.8', 'Rough pressed graphite can reach about 0.98', [7, 8]],
-  ['Silicon carbide', '0.83 – 0.96', 'Relevant for SiC heating elements and kiln furniture', [8]],
-  ['Alumina (flame-sprayed)', '≈ 0.8', 'Near-room-temperature value; for dense alumina at temperature, use supplier or measured data', [7, 8]],
-  ['Molybdenum and tungsten', '≈ 0.03 – 0.35', 'Low ε is why these are used as radiation shields; rises with temperature', [7, 8]],
+const EMISSIVITY: [string, string, string, RefId[]][] = [
+  ['Polished stainless steel (types 321, 430)', '0.20 – 0.28', 'Measured 200–1000 °C; rises with temperature', ['richmond']],
+  ['As-received 316L stainless sheet', '0.25 – 0.36', 'Measured 163–893 °C', ['hunnewell']],
+  ['316L after 500–3000 h in air at 300 °C', '0.28 – 0.38', 'Measured 156–823 °C; mild oxidation barely raises ε', ['alzubaidi316']],
+  ['Type 347 stainless, stably oxidised', '0.87 – 0.91', 'Measured ≈320–1090 °C on a strongly adherent oxide', ['wade59']],
+  ['High-temperature paints', '> 0.8', 'Three paints, above 300 °C; a chromium-oxide paint measured 0.78–0.94 at ≈320–1090 °C', ['hameury', 'wadeslemp']],
+  ['Silicon carbide ceramics', '0.62 – 0.94', 'Several SiC materials, ≈320–980 °C; depends strongly on the material and surface', ['wadeslemp']],
+  ['Flame-sprayed alumina coating', '0.69 → 0.44', 'Falls as temperature rises from ≈430 to 1090 °C', ['wade59']],
+  ['Molybdenum, clean metal', '≈ 0.21 – 0.29', 'At 2050–2890 K from a published fit, rising with temperature; for 300–1000 K see the second source', ['paradis', 'cheng']],
 ];
 
 const CASES = [
@@ -155,7 +166,7 @@ export default function Post() {
                   ))}
                 </div>
                 <h3 className={s.h3}>Use effective power, not nameplate power</h3>
-                <p className={s.p}>If you apply power, apply the power the elements actually deliver. Nameplate ratings assume nominal voltage and new elements. In practice, supply voltage varies, the controller may limit duty, and element resistance changes with temperature and age — silicon carbide elements, for example, slowly rise in resistance with use (one manufacturer quotes about 3 % per 1,000 hours for a grade in clean air at 1,400 °C<Cite n={[5]} />), so the same voltage delivers less power. A derated value with a stated basis is more honest than the catalogue figure.</p>
+                <p className={s.p}>If you apply power, apply the power the elements actually deliver. Nameplate ratings assume nominal voltage and new elements. In practice, supply voltage varies, the controller may limit duty, and element resistance changes with temperature and age — silicon carbide elements, for example, slowly rise in resistance with use (one manufacturer quotes about 3 % per 1,000 hours for a grade in clean air at 1,400 °C<Cite r={['kanthal']} />), so the same voltage delivers less power. A derated value with a stated basis is more honest than the catalogue figure.</p>
                 <h3 className={s.h3}>Represent the element geometry sensibly</h3>
                 <p className={s.p}>A wound coil or a row of rod elements is rarely meshed wire by wire. It is usually smeared into an equivalent cylinder, annulus or panel. That is fine, but the equivalent body needs an effective emissivity and a sensible surface area, because a smeared coil radiates from a smooth surface it does not really have. Note the simplification, and check element surface temperature against the element's maximum rated temperature — not just the hot-zone setpoint.</p>
                 <div className={`${s.callout} ${s.calloutTeal}`}>
@@ -170,10 +181,10 @@ export default function Post() {
                 <h2 id="h-insulation" className={s.h2}>Insulation and conduction</h2>
                 <p className={s.p}>Insulation usually provides most of the furnace's thermal resistance, so its conductivity carries most of the uncertainty in the heat-loss prediction.</p>
                 <h3 className={s.h3}>Conductivity depends on temperature</h3>
-                <p className={s.p}>Fibrous and porous insulations conduct heat through the solid, through the gas in the pores, and by radiation across the pores. The radiative part grows rapidly with temperature, so effective conductivity climbs steeply: one commercial fibre board is listed at 0.072 W/m·K at 260 °C mean temperature and 0.216 W/m·K at 1093 °C — three times higher.<Cite n={[6]} /> A single low-temperature k will under-predict heat loss. Use the supplier's k(T) curve, entered as a temperature-dependent property, or at least evaluate k at the mean temperature of each layer.</p>
+                <p className={s.p}>Fibrous and porous insulations conduct heat through the solid, through the gas in the pores, and by radiation across the pores. The radiative part grows roughly with the cube of absolute temperature,<Cite r={['lin']} /> and measurements on high-temperature fibrous insulations between 300 and 1300 K are explained by this combined conduction and radiation.<Cite r={['daryabeigi']} /> In practice the effective conductivity climbs steeply: one commercial fibre board is listed at 0.072 W/m·K at 260 °C mean temperature and 0.216 W/m·K at 1093 °C — three times higher.<Cite r={['morgan']} /> A single low-temperature k will under-predict heat loss. Use the supplier's k(T) curve, entered as a temperature-dependent property, or at least evaluate k at the mean temperature of each layer.</p>
                 <h3 className={s.h3}>Layers, gaps and contacts</h3>
                 <p className={s.p}>Most furnaces use several layers: a dense refractory or high-temperature board on the hot face, then lighter, lower-conductivity insulation, then the shell. Each interface adds a small contact resistance, and fibre insulation shrinks after its first heating, opening gaps at joints. A perfect-contact assumption is common and usually acceptable for an overall loss estimate, but it should be stated, and it matters more where layers are thin or joints run straight through the wall.</p>
-                <p className={s.p}>For a cylindrical wall, the conduction resistance of one layer is:<Cite n={[1]} /></p>
+                <p className={s.p}>For a cylindrical wall, the conduction resistance of one layer is:<Cite r={['incropera']} /></p>
                 <div className={s.eq}>R<sub>ins</sub> = ln(r<sub>2</sub> / r<sub>1</sub>) / (2π k L)</div>
                 <p className={s.eqWhere}>where r<sub>1</sub> and r<sub>2</sub> are the inner and outer radii of the layer, k is the conductivity at the layer's mean temperature and L is the heated length. Layers add in series.</p>
                 <p className={s.note}>Designing the insulation itself — thickness, layer selection and energy requirements — is the subject of article 07 in this series.</p>
@@ -183,27 +194,27 @@ export default function Post() {
               <section id="radiation" className={s.chapter} aria-labelledby="h-radiation">
                 <span className="chapter-label">04 · Radiation</span>
                 <h2 id="h-radiation" className={s.h2}>Surface emissivity and radiation</h2>
-                <p className={s.p}>Radiation grows with the fourth power of absolute temperature.<Cite n={[1]} /> At typical furnace operating temperatures — as a rule of thumb, from roughly 500–600 °C upward — it is usually the dominant way heat moves across open space inside a furnace: from element to work tube, from tube to sample, and from hot surfaces to the insulation. Leaving it out is the single largest error a furnace model can make.</p>
+                <p className={s.p}>Radiation grows with the fourth power of absolute temperature.<Cite r={['incropera']} /> At furnace operating temperatures it is therefore usually the dominant way heat moves across open space inside a furnace: from element to work tube, from tube to sample, and from hot surfaces to the insulation. Leaving it out is the single largest error a furnace model can make.</p>
                 <h3 className={s.h3}>Two different radiation boundaries</h3>
                 <ul className={s.list}>
-                  <li><strong>Internal surface-to-surface radiation.</strong> Surfaces inside the hot zone exchange heat with each other through view factors. This needs a radiation model (radiosity, view-factor or discrete-ordinates, depending on the software) and an emissivity on every participating surface.<Cite n={[4]} /></li>
+                  <li><strong>Internal surface-to-surface radiation.</strong> Surfaces inside the hot zone exchange heat with each other through view factors. This needs a radiation model (radiosity, view-factor or discrete-ordinates, depending on the software) and an emissivity on every participating surface.<Cite r={['modest']} /></li>
                   <li><strong>External radiation to the surroundings.</strong> The outer shell radiates to the room. This is usually a simple boundary: an emissivity and a surroundings temperature on the shell faces.</li>
                 </ul>
                 <h3 className={s.h3}>Choosing emissivity</h3>
-                <p className={s.p}>Emissivity is a surface property, not a bulk material property. It depends on temperature, roughness and especially oxidation, so one compilation lists stainless steel at 0.075 when polished and 0.85 when weathered.<Cite n={[8]} /> Pick values for the condition the surface will be in during service, and record where they came from. Indicative ranges:</p>
+                <p className={s.p}>Emissivity is a surface property, not a bulk material property. It depends on temperature, roughness and especially oxidation, so the same alloy can differ by a factor of three or more. Polished stainless steel measures around 0.2–0.3,<Cite r={['richmond']} /> while stainless steel carrying a stable, adherent oxide reaches about 0.9.<Cite r={['wade59']} /> Mild oxidation is not enough: 316L held for 3000 hours in air at 300 °C stayed below 0.4,<Cite r={['alzubaidi316']} /> whereas raising the oxidation temperature of a low-alloy steel from 300 °C to 500 °C more than tripled its emissivity.<Cite r={['alzubaidiA508']} /> Pick values for the condition the surface will be in during service, and record where they came from. Indicative ranges:</p>
                 <div className="table-wrap">
                   <table className="table" style={{ minWidth: 560 }}>
                     <thead><tr><th scope="col">Surface</th><th scope="col">Typical ε</th><th scope="col">Note</th><th scope="col">Source</th></tr></thead>
                     <tbody>
-                      {EMISSIVITY.map(([m, e, n, r]) => <tr key={m}><td className={s.tdStrong}>{m}</td><td className="mono" style={{ color: 'var(--ink)', whiteSpace: 'nowrap' }}>{e}</td><td className={s.td}>{n}</td><td className={s.td}><Cite n={r} /></td></tr>)}
+                      {EMISSIVITY.map(([m, e, n, r]) => <tr key={m}><td className={s.tdStrong}>{m}</td><td className="mono" style={{ color: 'var(--ink)', whiteSpace: 'nowrap' }}>{e}</td><td className={s.td}>{n}</td><td className={s.td}><Cite r={r} /></td></tr>)}
                     </tbody>
                   </table>
                 </div>
-                <p className={s.note}>Ranges summarise total emissivity values from the cited compilations, mostly measured near room temperature or a few hundred °C. Published values vary between sources, and some compilations disagree for the same surface. Use measured or supplier values where they exist, and treat ε as an uncertain input in the sensitivity study.</p>
+                <p className={s.note}>Values are total hemispherical emissivities from the cited measurements, over the temperature ranges noted. Each applies to the specimens and surface preparation tested. Use measured or supplier values where they exist, and treat ε as an uncertain input in the sensitivity study.</p>
                 <h3 className={s.h3}>Common radiation assumptions to state</h3>
                 <ul className={s.list}>
-                  <li><strong>Grey and diffuse surfaces.</strong> Emissivity does not vary with wavelength or direction. Standard and usually adequate, but weaker for glass, quartz tubes and polished metals.<Cite n={[4]} /></li>
-                  <li><strong>Non-participating gas.</strong> Air, nitrogen and argon are essentially transparent. Gases containing significant CO<sub>2</sub> or H<sub>2</sub>O absorb and emit, and may need a participating-media model.<Cite n={[4]} /></li>
+                  <li><strong>Grey and diffuse surfaces.</strong> Emissivity does not vary with wavelength or direction. Standard and usually adequate, but weaker for glass, quartz tubes and polished metals.<Cite r={['modest']} /></li>
+                  <li><strong>Non-participating gas.</strong> Air, nitrogen and argon are essentially transparent. Gases containing significant CO<sub>2</sub> or H<sub>2</sub>O absorb and emit, and may need a participating-media model.<Cite r={['modest']} /></li>
                   <li><strong>Semi-transparent tubes.</strong> A quartz work tube transmits part of the spectrum. Modelling it as opaque is a simplification that should be noted.</li>
                   <li><strong>Symmetry with radiation.</strong> Not every solver treats a symmetry plane correctly in a view-factor calculation. Check that the cut model and the full model agree, or model the full enclosure.</li>
                 </ul>
@@ -214,11 +225,11 @@ export default function Post() {
                 <span className="chapter-label">05 · Heat losses</span>
                 <h2 id="h-cooled" className={s.h2}>Shell, cooled and leaky boundaries</h2>
                 <h3 className={s.h3}>The outer shell</h3>
-                <p className={s.p}>The shell loses heat by natural convection and by radiation, in parallel. Both belong on the boundary. Textbook ranges for free convection in gases span roughly 2–25 W/m²K,<Cite n={[1]} /> which is too wide to pick from. Better than guessing is to use a correlation for the shell orientation — for example the Churchill–Chu correlations for a horizontal cylinder<Cite n={[2]} /> or a vertical plate<Cite n={[1]} /> — at the expected shell temperature. Radiation can be expressed as an equivalent coefficient so the two can be compared:<Cite n={[1]} /></p>
+                <p className={s.p}>The shell loses heat by natural convection and by radiation, in parallel. Both belong on the boundary. Textbook ranges for free convection in gases span roughly 2–25 W/m²K,<Cite r={['incropera']} /> which is too wide to pick from. Better than guessing is to use a correlation for the shell orientation — for example the Churchill–Chu correlations for a horizontal cylinder<Cite r={['churchill']} /> or a vertical plate<Cite r={['incropera']} /> — at the expected shell temperature. Radiation can be expressed as an equivalent coefficient so the two can be compared:<Cite r={['incropera']} /></p>
                 <div className={s.eq}>h<sub>rad</sub> = ε σ (T<sub>s</sub><sup>2</sup> + T<sub>∞</sub><sup>2</sup>)(T<sub>s</sub> + T<sub>∞</sub>)</div>
                 <p className={s.eqWhere}>with temperatures in kelvin and σ = 5.67 × 10<sup>−8</sup> W/m²K⁴. For a painted shell at around 100 °C, h<sub>rad</sub> is of the same order as the convection coefficient — radiation is not negligible even at modest shell temperatures.</p>
                 <h3 className={s.h3}>Water-cooled parts</h3>
-                <p className={s.p}>Flanges, jackets and electrode feedthroughs are often given a fixed temperature equal to the coolant inlet. That assumes an infinite film coefficient and no coolant temperature rise. A convective boundary is better: a coolant bulk temperature plus a film coefficient from a pipe-flow correlation such as Dittus–Boelter (Nu = 0.023 Re<sup>0.8</sup> Pr<sup>0.4</sup>, for fully developed turbulent flow when the fluid is heated).<Cite n={[1, 3]} /> Then check the coolant temperature rise:</p>
+                <p className={s.p}>Flanges, jackets and electrode feedthroughs are often given a fixed temperature equal to the coolant inlet. That assumes an infinite film coefficient and no coolant temperature rise. A convective boundary is better: a coolant bulk temperature plus a film coefficient from a pipe-flow correlation such as Dittus–Boelter (Nu = 0.023 Re<sup>0.8</sup> Pr<sup>0.4</sup>, for fully developed turbulent flow when the fluid is heated).<Cite r={['incropera', 'winterton']} /> Then check the coolant temperature rise:</p>
                 <div className={s.eq}>ΔT<sub>coolant</sub> = Q / (ṁ c<sub>p</sub>)</div>
                 <p className={s.eqWhere}>For example, 1.5 kW removed by water at 2 L/min (ṁ ≈ 0.033 kg/s, c<sub>p</sub> ≈ 4180 J/kgK) gives a rise of about 11 K. If the rise is large, use the mean coolant temperature, not the inlet. Seal and O-ring temperatures near cooled flanges are often the real design limit, and a fixed-temperature boundary will under-predict them.</p>
                 <h3 className={s.h3}>The routes that get forgotten</h3>
@@ -239,7 +250,7 @@ export default function Post() {
                 <h2 id="h-example" className={s.h2}>Worked example: one wall, four answers</h2>
                 <p className={s.p}>A first-order calculation shows which inputs matter before you build the full model. Take the cylindrical wall of an illustrative tube furnace: hot-face radius 100 mm, 100 mm of fibre insulation, 500 mm heated length, hot face held at 1200 °C, still air and surroundings at 25 °C, and a natural-convection coefficient of 6 W/m²K on the shell. The heat loss through the wall is:</p>
                 <div className={s.eq}>Q = (T<sub>hot</sub> − T<sub>∞</sub>) / (R<sub>ins</sub> + R<sub>out</sub>),&nbsp;&nbsp; R<sub>out</sub> = 1 / [(h<sub>conv</sub> + h<sub>rad</sub>) A<sub>shell</sub>]</div>
-                <p className={s.eqWhere}>The insulation is given the published k(T) curve of one commercial fibre board, interpolated linearly between datasheet points and extrapolated above 1093 °C.<Cite n={[6]} /> With temperature-dependent k, R<sub>ins</sub> uses the integral-mean conductivity over the layer's temperature range.<Cite n={[1]} /> Shell temperature, k and h<sub>rad</sub> depend on each other, so the calculation is iterated until all settle. End losses, penetrations and the shell's own conduction resistance are neglected.</p>
+                <p className={s.eqWhere}>The insulation is given the published k(T) curve of one commercial fibre board, interpolated linearly between datasheet points and extrapolated above 1093 °C.<Cite r={['morgan']} /> With temperature-dependent k, R<sub>ins</sub> uses the integral-mean conductivity over the layer's temperature range.<Cite r={['incropera']} /> Shell temperature, k and h<sub>rad</sub> depend on each other, so the calculation is iterated until all settle. End losses, penetrations and the shell's own conduction resistance are neglected.</p>
                 <div className="table-wrap">
                   <table className="table" style={{ minWidth: 560 }}>
                     <thead><tr><th scope="col">Case</th><th scope="col">Insulation k (W/m·K)</th><th scope="col">Shell ε</th><th scope="col">Wall heat loss (W)</th><th scope="col">Shell temp. (°C)</th></tr></thead>
@@ -248,7 +259,7 @@ export default function Post() {
                     </tbody>
                   </table>
                 </div>
-                <p className={s.note}>Illustrative geometry chosen to show trends, not a specific furnace. Insulation conductivities are from the cited datasheet<Cite n={[6]} />; the conduction and radiation relations are standard.<Cite n={[1]} /> Results are rounded.</p>
+                <p className={s.note}>Illustrative geometry chosen to show trends, not a specific furnace. Insulation conductivities are from the cited datasheet<Cite r={['morgan']} />; the conduction and radiation relations are standard.<Cite r={['incropera']} /> Results are rounded.</p>
                 <h3 className={s.h3}>What the numbers say</h3>
                 <ul className={s.list}>
                   <li><strong>The insulation controls the heat loss.</strong> In the base case the insulation resistance is about 1.70 K/W and the shell-to-room resistance about 0.12 K/W, so roughly 94 % of the temperature drop happens inside the insulation.</li>
@@ -288,7 +299,7 @@ export default function Post() {
                   <li><strong>Check where each route goes.</strong> Break the total loss down by boundary — shell, ends, flanges, ports. A surprising split often reveals a boundary that was missed or doubled.</li>
                   <li><strong>Check the controller location.</strong> Real furnaces control on one thermocouple. If the model reports a hot-zone average but the controller sits near an element, the two will not match.</li>
                   <li><strong>Compare with measurements where you can.</strong> Shell temperatures with a contact probe, a heat-up curve, or steady-state power drawn at setpoint are inexpensive checks against a real furnace.</li>
-                  <li><strong>Check against limits.</strong> Element maximum temperature, insulation classification temperature, seal temperatures near cooled flanges and accessible-surface temperatures — for example the burn thresholds for hot surfaces in ISO 13732-1.<Cite n={[9]} /></li>
+                  <li><strong>Check against limits.</strong> Element maximum temperature, insulation classification temperature, seal temperatures near cooled flanges and accessible-surface temperatures — for example the burn thresholds for hot surfaces in ISO 13732-1.<Cite r={['iso']} /></li>
                 </ul>
               </section>
 
@@ -331,10 +342,10 @@ export default function Post() {
                 <span className="chapter-label">References</span>
                 <h2 id="h-references" className={s.h2}>References</h2>
                 <ol className={s.refs}>
-                  {REFS.map(r => (
-                    <li key={r.n} id={`ref-${r.n}`}>
-                      <span className={s.refNum}>[{r.n}]</span>
-                      <span>{r.text}{r.url && <> <a href={r.url} target="_blank" rel="noopener noreferrer" className={s.refLink}>{r.url.replace(/^https:\/\//, '')}</a></>}</span>
+                  {REFS.map((r, i) => (
+                    <li key={r.id} id={`ref-${r.id}`}>
+                      <span className={s.refNum}>[{i + 1}]</span>
+                      <span>{r.text}{'url' in r && <> <a href={r.url} target="_blank" rel="noopener noreferrer" className={s.refLink}>{r.url.replace(/^https:\/\//, '')}</a></>}</span>
                     </li>
                   ))}
                 </ol>
