@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import FilterPills from '@/components/FilterPills';
+import Img from '@/components/Img';
 import { BLOG_CATS, POSTS, type BlogCat } from '@/data/posts';
 import s from '../pages.module.css';
 
@@ -16,7 +17,9 @@ export default function BlogList() {
       <div className={s.postGrid}>
         {posts.map(p => (
           <article key={p.num} className={`${s.post} ${p.slug ? s.postLive : ''}`}>
-            <div className={s.postVisual} aria-hidden="true">{p.image}</div>
+            {p.cover
+              ? <div className={`${s.postVisual} ${s.postVisualCover}`}><Img src={p.cover.src} alt={p.cover.alt} fit="cover" /><span className={s.postVisualLabel} aria-hidden="true">{p.image}</span></div>
+              : <div className={s.postVisual} aria-hidden="true">{p.image}</div>}
             <div className={s.postBody}>
               <div className={s.postMeta}><span style={{ color: 'var(--teal-text)', textTransform: 'uppercase' }}>{p.label}</span><span style={{ flex: 'none', color: 'var(--mute)' }}>{p.num}</span></div>
               <h2 className={s.postTitle}>{p.slug ? <Link href={`/blog/${p.slug}/`} className={s.postLink}>{p.title}</Link> : p.title}</h2>
