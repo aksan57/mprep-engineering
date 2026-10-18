@@ -28,6 +28,7 @@ Other scripts:
 | Variable | Required | Purpose |
 |---|---|---|
 | `NEXT_PUBLIC_SITE_URL` | **Yes, for production** | Origin used for canonical links, sitemap and share images, e.g. `https://example.com` (no trailing slash). Defaults to `http://localhost:3000`. |
+| `NEXT_PUBLIC_SHEET_ENDPOINT` | No | Google Apps Script web-app URL (`…/exec`) that logs each inquiry to a Google Sheet. Empty = off. |
 | `NEXT_PUBLIC_FORM_ENDPOINT` | No | Where the quote form posts (a normal multipart POST). Defaults to FormSubmit's standard endpoint for the contact email. |
 
 ## Deploy
@@ -52,6 +53,11 @@ The browser goes to FormSubmit, which emails the inquiry with its attachments, t
 - **Activation:** on the **first** real submission FormSubmit sends a one-time activation email to the contact
   address. It must be clicked before inquiries are delivered.
 - **Spam:** a hidden `_honey` field catches basic bots.
+
+**Inquiry log (optional):** if `NEXT_PUBLIC_SHEET_ENDPOINT` is set, each valid, non-bot inquiry is also posted
+to a Google Sheet just before the email is sent: same fields plus file names/sizes and the site origin, one row per
+inquiry with a "Status" column for follow-up. It's fire-and-forget and never blocks or delays the email.
+Setup steps are in the header of [`scripts/google-sheets-inquiries.gs`](scripts/google-sheets-inquiries.gs).
 
 `NEXT_PUBLIC_FORM_ENDPOINT` can point at another service, but it must accept a normal multipart POST with the same
 field names and redirect to `_next`. For spam protection (Turnstile/hCaptcha), larger files or to keep the address

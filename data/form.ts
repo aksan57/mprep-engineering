@@ -11,6 +11,12 @@ import { CONTACT } from './site.ts';
  */
 export const FORM_ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT || `https://formsubmit.co/${CONTACT.email}`;
 
+/**
+ * Optional Google Apps Script web-app URL (…/exec) that logs every inquiry as a row in a Google Sheet.
+ * Empty = disabled. Setup: scripts/google-sheets-inquiries.gs.
+ */
+export const SHEET_ENDPOINT = process.env.NEXT_PUBLIC_SHEET_ENDPOINT || '';
+
 export const SERVICE_OPTIONS = [
   'CAD Design & 3D Modeling', 'Finite Element Analysis (FEA)', 'Thermal Simulation', 'Computational Fluid Dynamics (CFD)',
   'Chemical & Process Equipment Design', 'Technical Drawings & Engineering Documentation', 'Engineering Calculations & Preliminary Sizing', 'Other / Not Sure',

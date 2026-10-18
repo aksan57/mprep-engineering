@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import {
-  addFiles, EMPTY_FORM, FILE_ACCEPT, fileSize, FORM_ENDPOINT, SERVICE_OPTIONS, TIMELINE_OPTIONS, validate, type FormFields,
+  addFiles, EMPTY_FORM, FILE_ACCEPT, fileSize, FORM_ENDPOINT, SERVICE_OPTIONS, SHEET_ENDPOINT, TIMELINE_OPTIONS, validate, type FormFields,
 } from '@/data/form';
 import { CONTACT } from '@/data/site';
 import s from './QuoteForm.module.css';
@@ -21,6 +21,20 @@ function readableFields(form: FormFields): [string, string][] {
     ['Reference link', form.reference.trim() || '—'],
     ['Project description', form.description.trim()],
   ];
+}
+
+/**
+ * Fire-and-forget copy of the inquiry to the Google Sheet. `no-cors` because Apps Script doesn't send CORS
+ * headers (the response is opaque and ignored); `keepalive` lets it finish while the page navigates to
+ * FormSubmit. Errors are swallowed so logging can never block the email.
+ */
+function logToSheet(form: FormFields, files: File[]) {
+  try {
+    const body = new URLSearchParams(readableFields(form));
+    body.append('Files', files.length ? files.map(f => `${f.name} (${fileSize(f.size)})`).join(', ') : '—');
+    body.append('Page', window.location.origin);
+    fetch(SHEET_ENDPOINT, { method: 'POST', mode: 'no-cors', keepalive: true, body }).catch(() => {});
+  } catch { /* ignore */ }
 }
 
 export default function QuoteForm() {
@@ -95,6 +109,8 @@ export default function QuoteForm() {
       setSendError(`This browser can't attach files to the inquiry. Remove the files and paste a shareable link instead, or email ${CONTACT.email} directly.`);
       return;
     }
+
+    if (SHEET_ENDPOINT && !honey) logToSheet(form, files);
 
     setSending(true);
     postRef.current?.remove();
