@@ -1,0 +1,53 @@
+/* ── Featured CZ-R4 card ── */
+.featured {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  border: 1px solid var(--teal); border-radius: 6px; overflow: hidden; background: var(--card);
+  box-shadow: 0 0 0 3px rgba(0, 166, 166, .08);
+}
+.featuredMedia { position: relative; min-height: 300px; background: var(--well-dark); }
+.featuredMedia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.featuredBody { padding: clamp(24px, 3vw, 40px); display: flex; flex-direction: column; gap: 16px; }
+.cardTop { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.numCat { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.num { font-family: var(--font-mono); font-size: 13px; color: var(--teal-text); }
+.featuredTitle { font-size: clamp(24px, 2.4vw, 32px); font-weight: 500; line-height: 1.15; letter-spacing: -.01em; }
+.featuredDesc { font-size: 15.5px; line-height: 1.65; color: var(--t2); text-wrap: pretty; }
+.dl { display: flex; flex-direction: column; gap: 12px; }
+.dl > div { display: flex; flex-direction: column; gap: 5px; }
+.dl dd { font-size: 14px; }
+.pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.featuredFoot { margin-top: auto; padding-top: 8px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.disclaimer { font-size: 12.5px; color: var(--mute); }
+
+/* ── Projects in development: compact text rows, no image slots ── */
+.devList { list-style: none; border-top: 1px solid var(--l12); }
+.devItem {
+  display: grid; gap: 10px 32px; padding: 22px 0; border-bottom: 1px solid var(--l12);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 760px) {
+  .devItem { grid-template-columns: 200px minmax(0, 1fr) minmax(0, 260px); align-items: start; }
+  .devHead { flex-direction: column; align-items: flex-start; }
+}
+.devHead { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.cat { letter-spacing: .1em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.devMain { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.devTitle { font-size: 18px; font-weight: 500; line-height: 1.3; text-wrap: pretty; }
+.devDesc { font-size: 14px; line-height: 1.6; color: var(--t4); text-wrap: pretty; }
+.devMeta { display: flex; flex-direction: column; gap: 10px; }
+.devMeta > div { display: flex; flex-direction: column; gap: 3px; }
+.devMeta dd { font-size: 13.5px; }
+.focus.focus { font-size: 13px; line-height: 1.5; color: var(--t3); }
+
+/* ── Roadmap & documentation standard ── */
+.roadmap {
+  list-style: none; display: grid; gap: 0 32px; border-top: 1px solid var(--l12);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+.roadmap li { display: flex; gap: 16px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--l12); font-size: 14.5px; line-height: 1.4; }
+.roadmapTag {
+  flex: none; min-width: 38px; height: 22px; display: inline-flex; align-items: center; justify-content: center;
+  padding: 0 7px; border-radius: 4px; background: var(--tint); font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .06em; color: var(--mute);
+}
+.docStandard { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 12px 48px; }
+.docStandard p { font-size: 15px; line-height: 1.65; color: var(--t2); text-wrap: pretty; }

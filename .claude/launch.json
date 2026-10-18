@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "site",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["next", "dev", "-p", "3000"],
+      "port": 3000
+    },
+    {
+      "name": "design-prototype",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [".claude/serve-design.js"],
+      "port": 5173
+    }
+  ]
+}

@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>MPrep Engineering — Engineering Equipment for Material Preparation</title>
+<meta name="description" content="MPrep Engineering — CAD design, finite element analysis (FEA), CFD and thermal simulation for laboratory and material processing equipment: powder and sample preparation, slurry mixing, thermal processing and coating systems.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%2310213A%22%2F%3E%3Csvg%20x%3D%224%22%20y%3D%224%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%20120%20120%22%3E%3Cpath%20d%3D%22M60%207%2040%2060M60%207%2080%2055M40%2060%2080%2055M14%2033.5%2040%2060M14%2086.5%2040%2060M40%2060%2060%2084M80%2055%2060%2084M60%20113%2060%2084M14%2086.5%2060%2084M106%2086.5%2060%2084M106%2033.5%2080%2055M106%2086.5%2080%2055%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpath%20d%3D%22M60%207%20106%2033.5v53L60%20113%2014%2086.5v-53Z%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%2213%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<script src="./media-slot.js"></script>
+<style>
+html,body{margin:0;background:var(--bg,#F5F8FA)}
+*{box-sizing:border-box}
+a{color:var(--link,#007A7A)}
+a:hover{color:#102A43}
+:focus-visible{outline:2px solid #2EC4C4;outline-offset:2px}
+</style>
+</helmet>
+<div style="--bg:{{ th.bg }};--paper:{{ th.paper }};--card:{{ th.card }};--tint:{{ th.tint }};--ink:{{ th.ink }};--t1:{{ th.t1 }};--t2:{{ th.t2 }};--t3:{{ th.t3 }};--t4:{{ th.t4 }};--t5:{{ th.t5 }};--mute:{{ th.mute }};--faint:{{ th.faint }};--link:{{ th.link }};--err:{{ th.err }};--btn:{{ th.btn }};--navy:{{ th.navy }};--navy2:{{ th.navy2 }};--well:{{ th.well }};--accentText:{{ th.accentText }};--l1:{{ th.l1 }};--l12:{{ th.l12 }};--l08:{{ th.l08 }};--l14:{{ th.l14 }};--l25:{{ th.l25 }};--l15:{{ th.l15 }};--l22:{{ th.l22 }};color-scheme:{{ th.scheme }};display:flex;flex-wrap:wrap;align-content:flex-start;min-height:100vh;background:var(--bg,#F5F8FA);color:var(--ink,#102A43);transition:background-color .2s;font-family:'IBM Plex Sans',Helvetica,sans-serif;-webkit-font-smoothing:antialiased">
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<aside aria-label="Primary" style="position:sticky;top:0;align-self:flex-start;z-index:30;height:100vh;width:{{ sideW }};flex:none;background:var(--card,#FFFFFF);color:var(--ink,#102A43);display:flex;flex-direction:column;border-right:1px solid var(--l12,rgba(16,42,67,.12));transition:{{ sideTrans }};overflow:hidden">
+  <div role="separator" aria-orientation="vertical" aria-label="Resize sidebar" title="Drag to resize · double-click to toggle" onPointerDown="{{ startResize }}" onDoubleClick="{{ toggleCollapse }}" style="position:absolute;top:0;right:0;bottom:0;width:8px;z-index:2;cursor:col-resize;touch-action:none;display:flex;justify-content:flex-end" style-hover="background:linear-gradient(to left,rgba(0,166,166,.35) 0,rgba(0,166,166,.35) 2px,transparent 2px)"></div>
+  <div style="position:relative;flex:none;height:120px;overflow:hidden;border-bottom:1px solid var(--l1,rgba(16,42,67,.1))">
+    <sc-if value="{{ expanded }}" hint-placeholder-val="{{ true }}">
+      <a href="#/home" onClick="{{ goHome }}" aria-label="{{ brandName }} — Home" style="position:relative;height:100%;display:flex;align-items:center;gap:13px;padding:0 20px;text-decoration:none;color:#10213A"><svg aria-hidden="true" width="52" height="52" viewBox="0 0 120 120" style="flex:none;display:block"><path d="M29 24.8 33 38M14 33.5 33 38M47 14.5 33 38M47 14.5 55 26M33 38 55 26M60 7 55 26M74 15.1 55 26M74 15.1 80 30M55 26 80 30M95 27.2 80 30M106 33.5 92 48M95 27.2 92 48M80 30 92 48M106 52 92 48M55 26 63 42M80 30 63 42M80 30 74 52M92 48 74 52M33 38 47 47M55 26 47 47M63 42 47 47M14 47 33 38M33 38 28 58M14 47 28 58M47 47 28 58M43 63 28 58M14 68 28 58M28 58 30 80M14 68 30 80M43 63 30 80M14 86.5 30 80M24 92.3 30 80M42 102.6 30 80M30 80 52 92M42 102.6 52 92M52 76 30 80M52 76 52 92M60 113 52 92M71 106.7 52 92M52 92 78 88M71 106.7 78 88M68 77 52 92M52 76 68 77M68 77 78 88M88 96.9 78 88M106 86.5 90 66M88 96.9 90 66M90 66 78 88M106 71 90 66M106 52 90 66M92 48 90 66M92 48 78 64M78 64 90 66M78 64 78 88M74 52 63 42M47 47 43 63M43 63 52 76M68 77 78 64M78 64 74 52M56 55 64 67M56 55 74 52M56 55 63 42M56 55 47 47M56 55 43 63M64 67 43 63M64 67 52 76M64 67 68 77M64 67 78 64M64 67 74 52" fill="none" stroke="#10213A" stroke-width="2.4" stroke-linecap="round"></path><path d="M60 7 106 33.5v53L60 113 14 86.5v-53Z" fill="none" stroke="#10213A" stroke-width="7.5" stroke-linejoin="round"></path></svg><span style="display:flex;flex-direction:column;gap:5px;line-height:1"><span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:30px;letter-spacing:-.03em;white-space:nowrap">MPrep</span><span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:9.5px;letter-spacing:.42em;white-space:nowrap;color:#10213A">ENGINEERING</span></span></a>
+    </sc-if>
+    <sc-if value="{{ collapsed }}" hint-placeholder-val="{{ false }}">
+      <a href="#/home" onClick="{{ goHome }}" aria-label="{{ brandName }} — Home" title="{{ brandName }}" style="position:relative;height:100%;display:flex;align-items:center;justify-content:center;text-decoration:none"><svg aria-hidden="true" width="40" height="40" viewBox="0 0 120 120" style="flex:none;display:block"><path d="M29 24.8 33 38M14 33.5 33 38M47 14.5 33 38M47 14.5 55 26M33 38 55 26M60 7 55 26M74 15.1 55 26M74 15.1 80 30M55 26 80 30M95 27.2 80 30M106 33.5 92 48M95 27.2 92 48M80 30 92 48M106 52 92 48M55 26 63 42M80 30 63 42M80 30 74 52M92 48 74 52M33 38 47 47M55 26 47 47M63 42 47 47M14 47 33 38M33 38 28 58M14 47 28 58M47 47 28 58M43 63 28 58M14 68 28 58M28 58 30 80M14 68 30 80M43 63 30 80M14 86.5 30 80M24 92.3 30 80M42 102.6 30 80M30 80 52 92M42 102.6 52 92M52 76 30 80M52 76 52 92M60 113 52 92M71 106.7 52 92M52 92 78 88M71 106.7 78 88M68 77 52 92M52 76 68 77M68 77 78 88M88 96.9 78 88M106 86.5 90 66M88 96.9 90 66M90 66 78 88M106 71 90 66M106 52 90 66M92 48 90 66M92 48 78 64M78 64 90 66M78 64 78 88M74 52 63 42M47 47 43 63M43 63 52 76M68 77 78 64M78 64 74 52M56 55 64 67M56 55 74 52M56 55 63 42M56 55 47 47M56 55 43 63M64 67 43 63M64 67 52 76M64 67 68 77M64 67 78 64M64 67 74 52" fill="none" stroke="#10213A" stroke-width="3" stroke-linecap="round"></path><path d="M60 7 106 33.5v53L60 113 14 86.5v-53Z" fill="none" stroke="#10213A" stroke-width="7.5" stroke-linejoin="round"></path></svg></a>
+    </sc-if>
+  </div>
+  <div style="display:flex;flex-direction:column;padding:12px 12px 0"><button onClick="{{ toggleCollapse }}" aria-label="{{ collapseLabel }}" aria-expanded="{{ expanded }}" title="{{ collapseLabel }}" style="display:flex;align-items:center;justify-content:{{ toggleJustify }};gap:10px;height:36px;padding:0 10px;border:0;border-radius:5px;background:transparent;color:var(--mute,#627D98);font:500 13px 'IBM Plex Sans',sans-serif;cursor:pointer;white-space:nowrap" style-hover="background:var(--tint,#EAF0F4);color:var(--ink,#102A43)"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none;transform:{{ toggleRot }}"><path d="M4 4v16M20 12H9M13 8l-4 4 4 4"></path></svg><sc-if value="{{ expanded }}" hint-placeholder-val="{{ true }}"><span>Collapse</span></sc-if></button></div>
+  <nav style="display:flex;flex-direction:column;gap:2px;padding:6px 12px 18px;flex:1;min-height:0;overflow-y:auto">
+    <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="6">
+      <a href="#/{{ item.id }}" onClick="{{ item.go }}" aria-current="{{ item.current }}" title="{{ item.label }}" style="position:relative;display:flex;align-items:center;gap:14px;padding:11px 12px;border-radius:5px;text-decoration:none;color:{{ item.color }};background:{{ item.bg }};font-size:14px;font-weight:500;white-space:nowrap" style-hover="background:var(--tint,#EAF0F4);color:var(--ink,#102A43)">
+        <span style="position:absolute;left:0;top:9px;bottom:9px;width:2px;border-radius:2px;background:{{ item.bar }}"></span>
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:{{ item.numColor }}"><path d="{{ item.icon }}"></path></svg>
+        <sc-if value="{{ expanded }}" hint-placeholder-val="{{ true }}"><span>{{ item.label }}</span></sc-if>
+      </a>
+    </sc-for>
+  </nav>
+  <div style="padding:18px 14px 24px;border-top:1px solid var(--l1,rgba(16,42,67,.1));display:flex;flex-direction:column;gap:12px">
+    <a href="#/contact" onClick="{{ goContact }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:5px;background:#00A6A6;color:#FFFFFF;text-decoration:none;font-size:14px;font-weight:600;white-space:nowrap" style-hover="background:#008F8F;color:#FFFFFF">
+      <sc-if value="{{ expanded }}" hint-placeholder-val="{{ true }}"><span>Request a Quote</span></sc-if>
+      <sc-if value="{{ collapsed }}" hint-placeholder-val="{{ false }}"><svg aria-label="Request a Quote" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v12H3zM3 7l9 6 9-6"></path></svg></sc-if>
+    </a>
+    <sc-if value="{{ expanded }}" hint-placeholder-val="{{ true }}">
+      <p style="margin:0;font-size:11.5px;line-height:1.5;color:var(--mute,#627D98)">Engineering Equipment for Material Preparation</p>
+    </sc-if>
+  </div>
+</aside>
+</sc-if>
+
+<main style="flex:1;min-width:0">
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+  <header style="position:sticky;top:0;z-index:20;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:var(--card,#FFFFFF);color:var(--ink,#102A43);border-bottom:1px solid var(--l12,rgba(16,42,67,.12))">
+    <a href="#/home" onClick="{{ goHome }}" aria-label="{{ brandName }} — Home" style="text-decoration:none;color:var(--ink,#102A43);display:flex;align-items:center;gap:10px"><svg aria-hidden="true" width="38" height="38" viewBox="0 0 120 120" style="flex:none;display:block"><path d="M29 24.8 33 38M14 33.5 33 38M47 14.5 33 38M47 14.5 55 26M33 38 55 26M60 7 55 26M74 15.1 55 26M74 15.1 80 30M55 26 80 30M95 27.2 80 30M106 33.5 92 48M95 27.2 92 48M80 30 92 48M106 52 92 48M55 26 63 42M80 30 63 42M80 30 74 52M92 48 74 52M33 38 47 47M55 26 47 47M63 42 47 47M14 47 33 38M33 38 28 58M14 47 28 58M47 47 28 58M43 63 28 58M14 68 28 58M28 58 30 80M14 68 30 80M43 63 30 80M14 86.5 30 80M24 92.3 30 80M42 102.6 30 80M30 80 52 92M42 102.6 52 92M52 76 30 80M52 76 52 92M60 113 52 92M71 106.7 52 92M52 92 78 88M71 106.7 78 88M68 77 52 92M52 76 68 77M68 77 78 88M88 96.9 78 88M106 86.5 90 66M88 96.9 90 66M90 66 78 88M106 71 90 66M106 52 90 66M92 48 90 66M92 48 78 64M78 64 90 66M78 64 78 88M74 52 63 42M47 47 43 63M43 63 52 76M68 77 78 64M78 64 74 52M56 55 64 67M56 55 74 52M56 55 63 42M56 55 47 47M56 55 43 63M64 67 43 63M64 67 52 76M64 67 68 77M64 67 78 64M64 67 74 52" fill="none" stroke="#10213A" stroke-width="2.6" stroke-linecap="round"></path><path d="M60 7 106 33.5v53L60 113 14 86.5v-53Z" fill="none" stroke="#10213A" stroke-width="8" stroke-linejoin="round"></path></svg><span style="display:flex;flex-direction:column;gap:3px;min-width:0;line-height:1"><span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:19px;letter-spacing:-.03em;white-space:nowrap">MPrep</span><span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:8px;letter-spacing:.42em;white-space:nowrap;color:var(--t4,#486581)">ENGINEERING</span></span></a>
+    <div style="display:flex;gap:8px"><button onClick="{{ openDrawer }}" aria-label="Open navigation" aria-expanded="{{ drawerOpen }}" style="height:40px;padding:0 14px;border:1px solid var(--l15,rgba(16,42,67,.15));background:transparent;color:var(--ink,#102A43);border-radius:5px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;cursor:pointer">MENU</button></div>
+  </header>
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeDrawer }}" style="position:fixed;inset:0;z-index:40;background:rgba(16,42,67,.5)"></div>
+    <div role="dialog" aria-label="Navigation" style="position:fixed;top:0;right:0;bottom:0;z-index:41;width:min(320px,86vw);background:var(--card,#FFFFFF);color:var(--ink,#102A43);display:flex;flex-direction:column;padding:18px 16px 24px">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 6px 18px;border-bottom:1px solid var(--l1,rgba(16,42,67,.1))">
+        <span style="display:flex;align-items:center;gap:10px;font-weight:600"><svg aria-hidden="true" width="36" height="36" viewBox="0 0 120 120" style="flex:none;display:block"><path d="M29 24.8 33 38M14 33.5 33 38M47 14.5 33 38M47 14.5 55 26M33 38 55 26M60 7 55 26M74 15.1 55 26M74 15.1 80 30M55 26 80 30M95 27.2 80 30M106 33.5 92 48M95 27.2 92 48M80 30 92 48M106 52 92 48M55 26 63 42M80 30 63 42M80 30 74 52M92 48 74 52M33 38 47 47M55 26 47 47M63 42 47 47M14 47 33 38M33 38 28 58M14 47 28 58M47 47 28 58M43 63 28 58M14 68 28 58M28 58 30 80M14 68 30 80M43 63 30 80M14 86.5 30 80M24 92.3 30 80M42 102.6 30 80M30 80 52 92M42 102.6 52 92M52 76 30 80M52 76 52 92M60 113 52 92M71 106.7 52 92M52 92 78 88M71 106.7 78 88M68 77 52 92M52 76 68 77M68 77 78 88M88 96.9 78 88M106 86.5 90 66M88 96.9 90 66M90 66 78 88M106 71 90 66M106 52 90 66M92 48 90 66M92 48 78 64M78 64 90 66M78 64 78 88M74 52 63 42M47 47 43 63M43 63 52 76M68 77 78 64M78 64 74 52M56 55 64 67M56 55 74 52M56 55 63 42M56 55 47 47M56 55 43 63M64 67 43 63M64 67 52 76M64 67 68 77M64 67 78 64M64 67 74 52" fill="none" stroke="#10213A" stroke-width="2.6" stroke-linecap="round"></path><path d="M60 7 106 33.5v53L60 113 14 86.5v-53Z" fill="none" stroke="#10213A" stroke-width="8" stroke-linejoin="round"></path></svg><span style="display:flex;flex-direction:column;gap:3px;min-width:0;line-height:1"><span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.03em;white-space:nowrap">MPrep</span><span style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:8px;letter-spacing:.42em;white-space:nowrap;color:var(--t4,#486581)">ENGINEERING</span></span></span>
+        <button onClick="{{ closeDrawer }}" aria-label="Close navigation" style="height:40px;padding:0 12px;border:1px solid var(--l15,rgba(16,42,67,.15));background:transparent;color:var(--ink,#102A43);border-radius:5px;font-family:'IBM Plex Mono',monospace;font-size:12px;cursor:pointer">CLOSE</button>
+      </div>
+      <nav style="display:flex;flex-direction:column;gap:2px;padding:16px 0;flex:1">
+        <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="6">
+          <a href="#/{{ item.id }}" onClick="{{ item.go }}" aria-current="{{ item.current }}" style="display:flex;align-items:center;gap:14px;min-height:48px;padding:0 12px;border-radius:5px;text-decoration:none;color:{{ item.color }};background:{{ item.bg }};font-size:16px">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:{{ item.numColor }}"><path d="{{ item.icon }}"></path></svg><span>{{ item.label }}</span>
+          </a>
+        </sc-for>
+      </nav>
+      <a href="#/contact" onClick="{{ goContact }}" style="display:flex;align-items:center;justify-content:center;height:48px;border-radius:5px;background:#00A6A6;color:#FFFFFF;text-decoration:none;font-weight:600">Request a Quote</a>
+    </div>
+  </sc-if>
+</sc-if>
+
+<sc-if value="{{ pageHome }}" hint-placeholder-val="{{ true }}">
+<!-- HOME -->
+<section id="home" data-screen-label="01 Home" style="background:var(--navy,#102A43);color:#F5F8FA;padding:clamp(48px,8vw,104px) clamp(20px,5vw,72px) clamp(40px,5vw,64px)">
+  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(36px,5vw,72px);align-items:center">
+    
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <h1 style="margin:0;font-weight:500;font-size:clamp(36px,4.6vw,62px);line-height:1.04;letter-spacing:-.02em;text-wrap:balance">Material Preparation Equipment, Engineered.</h1>
+      
+      <p style="margin:0;max-width:560px;font-size:clamp(16px,1.4vw,18px);line-height:1.6;color:#BCCCDC;font-weight:300;text-wrap:pretty">We design material preparation equipment and material processing systems through precision CAD modeling, structural analysis, thermal and CFD simulation.</p><div style="display:flex;flex-wrap:wrap;gap:12px">
+        <a href="#/projects" onClick="{{ goProjects }}" style="display:inline-flex;align-items:center;flex:none;white-space:nowrap;height:48px;padding:0 22px;border-radius:5px;background:#00A6A6;color:#FFFFFF;text-decoration:none;font-weight:600;font-size:15px" style-hover="background:#008F8F;color:#FFFFFF">Explore Projects</a>
+        <a href="#/contact" onClick="{{ goContact }}" style="display:inline-flex;align-items:center;flex:none;white-space:nowrap;height:48px;padding:0 22px;border-radius:5px;border:1px solid rgba(244,243,239,.3);color:#F5F8FA;text-decoration:none;font-weight:500;font-size:15px" style-hover="border-color:#F5F8FA;color:#FFFFFF">Discuss a Project</a>
+      </div>
+    </div><figure style="margin:0;display:flex;flex-direction:column;gap:10px">
+      <div style="position:relative;width:100%;aspect-ratio:4/3;border:1px solid rgba(255,255,255,.1);border-radius:6px;overflow:hidden;background:var(--well,#173552)">
+        <media-slot sid="hero-cz-r4-render" style="position:absolute;inset:0;display:block"><image-slot id="hero-cz-r4-render" shape="rect" placeholder="CZ-R4 furnace — CAD assembly render or thermal field" style="position:absolute;inset:0"></image-slot></media-slot>
+      </div>
+      <figcaption style="display:flex;justify-content:space-between;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;color:#9FB3C8"><span>CZ-R4 crystal-growth furnace</span><span>Concept study</span></figcaption>
+    </figure>
+  </div>
+  <div style="max-width:1240px;margin:clamp(48px,6vw,80px) auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));border-top:1px solid rgba(255,255,255,.1)">
+    <sc-for list="{{ services }}" as="s" hint-placeholder-count="5">
+      <a href="#/services" onClick="{{ goServices }}" style="display:flex;flex-direction:column;gap:8px;padding:20px 18px 4px 0;text-decoration:none;color:#E6EEF4" style-hover="color:#FFFFFF">
+        
+        <span style="font-size:14.5px;line-height:1.35;font-weight:500">{{ s.short }}</span>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
+<!-- EQUIPMENT FOCUS -->
+<section aria-labelledby="focus-title" style="padding:clamp(56px,7vw,96px) clamp(20px,5vw,72px);border-bottom:1px solid var(--l1,rgba(16,42,67,.1))">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(32px,4vw,48px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:20px 56px;align-items:end">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accentText,#007A7A)">Equipment focus</span>
+        <h2 id="focus-title" style="margin:0;font-weight:500;font-size:clamp(28px,3vw,40px);line-height:1.1;letter-spacing:-.015em;text-wrap:balance">Seven categories of material preparation equipment.</h2>
+      </div>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:var(--t4,#486581);max-width:520px;text-wrap:pretty">Engineering informed by how the equipment is actually used in the lab — from component geometry and stress checks to fabrication-ready drawings.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1px;background:var(--paper,#FFFFFF);border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:6px;overflow:hidden">
+      <sc-for list="{{ equipment }}" as="eq" hint-placeholder-count="7">
+        <article style="background:var(--paper,#FFFFFF);box-shadow:0 0 0 1px var(--l12,rgba(16,42,67,.12));padding:24px 22px;display:flex;flex-direction:column;gap:14px">
+          
+          <h3 style="margin:0;font-size:17px;font-weight:500;line-height:1.3">{{ eq.title }}</h3>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--mute,#627D98)">EQUIPMENT</span>
+            <p style="margin:0;font-size:14px;line-height:1.5;color:var(--t1,#263238)">{{ eq.examples }}</p>
+          </div>
+          <div style="margin-top:auto;padding-top:14px;border-top:1px solid var(--l1,rgba(16,42,67,.1));display:flex;flex-direction:column;gap:6px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--mute,#627D98)">CAD / FEA / CFD WORK</span>
+            <p style="margin:0;font-size:13.5px;line-height:1.5;color:var(--t4,#486581)">{{ eq.work }}</p>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- SELECTED PROJECT TEASER -->
+<section aria-label="Selected project" style="padding:clamp(48px,6vw,80px) clamp(20px,5vw,72px);border-bottom:1px solid var(--l1,rgba(16,42,67,.1))">
+  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(28px,4vw,56px);align-items:center">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accentText,#007A7A)">Selected project</span>
+      <h2 style="margin:0;font-weight:500;font-size:clamp(26px,2.8vw,38px);line-height:1.12;letter-spacing:-.015em">CZ-R4 crystal-growth furnace</h2>
+      <p style="margin:0;max-width:520px;font-size:16px;line-height:1.65;color:var(--t4,#486581);text-wrap:pretty">Concept design of a Czochralski-type furnace: ASME VIII-1 vessel sizing, vacuum buckling, hot-zone thermal analysis with cavity radiation, and coupled thermal expansion — every FE result checked against hand calculations.</p>
+      <a href="#/projects" onClick="{{ goCase }}" style="font-weight:500;font-size:15px;text-decoration:none;color:var(--link,#007A7A);display:inline-flex;gap:8px;align-items:center">Read the case study <span aria-hidden="true">→</span></a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+    <a href="#/projects" onClick="{{ goCase }}" aria-label="Open the CZ-R4 case study" style="position:relative;display:block;aspect-ratio:16/10;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:6px;overflow:hidden;background:#FFFFFF"><media-slot sid="home-cz-thumb" style="position:absolute;inset:0;display:block"><image-slot id="home-cz-thumb" shape="rect" fit="contain" src="assets/cz-r4/00-buckling-mode1.png" placeholder="CZ-R4 project thumbnail" style="position:absolute;inset:0"></image-slot></media-slot></a>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--paper,#FFFFFF);border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:6px;overflow:hidden">
+      <div style="background:var(--paper,#FFFFFF);box-shadow:0 0 0 1px var(--l12,rgba(16,42,67,.12));padding:22px 18px;display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mute,#627D98)">SCOPE</span><span style="font-size:15px;font-weight:500">CAD · Thermal · FEA</span></div>
+      <div style="background:var(--paper,#FFFFFF);box-shadow:0 0 0 1px var(--l12,rgba(16,42,67,.12));padding:22px 18px;display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mute,#627D98)">TYPE</span><span style="font-size:15px;font-weight:500">Concept &amp; analysis</span></div>
+      <div style="background:var(--paper,#FFFFFF);box-shadow:0 0 0 1px var(--l12,rgba(16,42,67,.12));padding:22px 18px;display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mute,#627D98)">STATUS</span><span style="font-size:15px;font-weight:500">Not built / validated</span></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+</sc-if>
+<sc-if value="{{ pageServices }}" hint-placeholder-val="{{ false }}">
+<!-- SERVICES -->
+<section id="services" data-screen-label="02 Services" style="padding:clamp(64px,8vw,112px) clamp(20px,5vw,72px)">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(36px,4vw,56px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 56px;align-items:end">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h2 style="margin:0;font-weight:500;font-size:clamp(30px,3.4vw,46px);line-height:1.08;letter-spacing:-.02em">From geometry to a decision.</h2>
+      </div>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:var(--t4,#486581);max-width:520px;text-wrap:pretty">Each service can be engaged on its own or combined into one workflow. Every deliverable states the inputs and assumptions it depends on.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:1px;background:var(--paper,#FFFFFF);border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:6px;overflow:hidden">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="7">
+        <article style="background:var(--paper,#FFFFFF);box-shadow:0 0 0 1px var(--l12,rgba(16,42,67,.12));padding:clamp(24px,2.6vw,34px);display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+            
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--mute,#627D98)">{{ s.tag }}</span>
+          </div>
+          <h3 style="margin:0;font-size:21px;font-weight:500;line-height:1.25;letter-spacing:-.01em">{{ s.title }}</h3>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--t4,#486581)">{{ s.summary }}</p>
+          <div style="display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:1px solid var(--l1,rgba(16,42,67,.1))">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:var(--mute,#627D98)">DELIVERABLES</span>
+            <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px">
+              <sc-for list="{{ s.deliverables }}" as="d" hint-placeholder-count="3"><li style="display:flex;gap:10px;font-size:14px;line-height:1.45"><span style="flex:none;width:5px;height:5px;margin-top:8px;background:#00A6A6"></span>{{ d }}</li></sc-for>
+            </ul>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:var(--mute,#627D98)">APPLICATIONS</span>
+            <p style="margin:0;font-size:14px;line-height:1.5;color:var(--t2,#263238)">{{ s.applications }}</p>
+          </div>
+          <div style="margin-top:auto;padding:14px 16px;background:var(--tint,#EAF0F4);border-radius:4px;display:flex;flex-direction:column;gap:6px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:var(--link,#007A7A)">DECISION VALUE</span>
+            <p style="margin:0;font-size:14px;line-height:1.5;color:var(--t1,#263238)">{{ s.value }}</p>
+          </div>
+        </article>
+      </sc-for>
+      <div style="background:var(--navy,#102A43);color:#F5F8FA;box-shadow:0 0 0 1px var(--l12,rgba(16,42,67,.12));padding:clamp(24px,2.6vw,34px);display:flex;flex-direction:column;justify-content:space-between;gap:24px">
+        <p style="margin:0;font-size:19px;line-height:1.4;font-weight:400">Not sure which service fits? Describe the problem — scope can be defined together.</p>
+        <a href="#/contact" onClick="{{ goContact }}" style="align-self:flex-start;display:inline-flex;align-items:center;flex:none;white-space:nowrap;height:44px;padding:0 18px;border-radius:5px;background:#00A6A6;color:#FFFFFF;text-decoration:none;font-weight:500;font-size:14px" style-hover="background:#008F8F;color:#FFFFFF">Request a Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</sc-if>
+<sc-if value="{{ pageProjects }}" hint-placeholder-val="{{ false }}">
+<!-- PROJECTS -->
+<section id="projects" data-screen-label="03 Projects" style="background:var(--paper,#FFFFFF);border-top:1px solid var(--l1,rgba(16,42,67,.1));padding:clamp(64px,8vw,112px) clamp(20px,5vw,72px)">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(36px,4vw,56px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 56px;align-items:end">
+      <h2 style="margin:0;font-weight:500;font-size:clamp(30px,3.4vw,46px);line-height:1.08;letter-spacing:-.02em">Selected Projects</h2>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:var(--t4,#486581);max-width:560px;text-wrap:pretty">Equipment design studies built from process knowledge — from crystal growth and electrochemistry to enhanced oil recovery, nickel processing, biomass conversion, and emulsion preparation. Each study documents its geometry, assumptions, methodology, results, and limitations.</p>
+    </div>
+    <sc-if value="{{ projList }}" hint-placeholder-val="{{ true }}">
+    <div role="toolbar" aria-label="Filter projects" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:-4px;scrollbar-width:thin">
+      <sc-for list="{{ projCats }}" as="c" hint-placeholder-count="6">
+        <button onClick="{{ c.pick }}" aria-pressed="{{ c.on }}" style="flex:none;white-space:nowrap;height:36px;padding:0 14px;border-radius:18px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};font:500 13px 'IBM Plex Sans',sans-serif;cursor:pointer">{{ c.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:20px">
+      <sc-if value="{{ showFeatured }}" hint-placeholder-val="{{ true }}">
+        <article style="grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));border:1px solid #00A6A6;border-radius:6px;overflow:hidden;background:var(--card,#FFFFFF);box-shadow:0 0 0 3px rgba(0,166,166,.08)">
+          <div style="position:relative;min-height:300px;background:#1F2933"><media-slot sid="proj-01" style="position:absolute;inset:0;display:block"><image-slot id="proj-01" shape="rect" fit="contain" src="assets/cz-r4/02-section-hot-zone.png" placeholder="Sectional view of hot zone, crucible, heat shields, insulation, and cooled chamber wall." style="position:absolute;inset:0"></image-slot></media-slot></div>
+          <div style="padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><span style="display:flex;align-items:baseline;gap:10px"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accentText,#007A7A)">01</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--mute,#627D98)">THERMAL</span></span><span style="flex:none;white-space:nowrap;height:26px;display:inline-flex;align-items:center;padding:0 10px;border-radius:13px;background:#00A6A6;color:#FFFFFF;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em">PUBLISHED CASE STUDY</span></div>
+            <h3 style="margin:0;font-size:clamp(24px,2.4vw,32px);font-weight:500;line-height:1.15;letter-spacing:-.01em">CZ-R4 Crystal-Growth Furnace</h3>
+            <p style="margin:0;font-size:15.5px;line-height:1.65;color:var(--t2,#263238);text-wrap:pretty">Conceptual design and engineering analysis of a Czochralski-type furnace: hot-zone thermal behaviour, heat shields, insulation layering, water-cooled shell, and structural FEA.</p>
+            <dl style="margin:0;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;flex-direction:column;gap:4px"><dt style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:var(--mute,#627D98)">TYPE</dt><dd style="margin:0;font-size:14px">Concept Design &amp; Engineering Analysis</dd></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><dt style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:var(--mute,#627D98)">FOCUS</dt><dd style="margin:0;display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ featuredFocus }}" as="f" hint-placeholder-count="4"><span style="height:26px;display:inline-flex;align-items:center;padding:0 10px;border:1px solid var(--l22,rgba(16,42,67,.22));border-radius:13px;font-size:12.5px;color:var(--t3,#334E68);white-space:nowrap">{{ f }}</span></sc-for></dd></div>
+            </dl>
+            <div style="margin-top:auto;padding-top:8px;display:flex;flex-wrap:wrap;align-items:center;gap:16px">
+              <a href="#/projects" onClick="{{ openCase }}" style="flex:none;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 20px;border-radius:5px;background:#00A6A6;color:#FFFFFF;text-decoration:none;font-weight:600;font-size:14.5px" style-hover="background:#008F8F;color:#FFFFFF">View case study <span aria-hidden="true">→</span></a>
+              <span style="font-size:12.5px;color:var(--mute,#627D98)">Conceptual · not fabricated or experimentally validated</span>
+            </div>
+          </div>
+        </article>
+      </sc-if>
+      <sc-for list="{{ projects }}" as="p" hint-placeholder-count="18">
+        <article style="border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:6px;overflow:hidden;background:var(--card,#FFFFFF);display:flex;flex-direction:column">
+          <div style="position:relative;aspect-ratio:16/9;border-bottom:1px solid var(--l1,rgba(16,42,67,.1));background:var(--tint,#EAF0F4)"><media-slot sid="{{ p.slot }}" style="position:absolute;inset:0;display:block"><image-slot id="{{ p.slot }}" shape="rect" placeholder="{{ p.visual }}" style="position:absolute;inset:0"></image-slot></media-slot></div>
+          <div style="padding:clamp(20px,2.4vw,28px);display:flex;flex-direction:column;gap:14px;flex:1">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><span style="display:flex;align-items:baseline;gap:10px;min-width:0"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accentText,#007A7A)">{{ p.num }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute,#627D98);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.cat }}</span></span><span style="flex:none;white-space:nowrap;height:24px;display:inline-flex;align-items:center;padding:0 9px;border-radius:12px;border:1px solid var(--l22,rgba(16,42,67,.22));color:var(--t4,#486581);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em">IN DEVELOPMENT</span></div>
+            <h3 style="margin:0;font-size:19px;font-weight:500;line-height:1.3;text-wrap:pretty">{{ p.title }}</h3>
+            <p style="margin:0;font-size:14px;line-height:1.6;color:var(--t4,#486581);text-wrap:pretty">{{ p.desc }}</p>
+            <dl style="margin:auto 0 0;padding-top:14px;border-top:1px solid var(--l1,rgba(16,42,67,.1));display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;flex-direction:column;gap:3px"><dt style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--mute,#627D98)">TYPE</dt><dd style="margin:0;font-size:13.5px">{{ p.type }}</dd></div>
+              <div style="display:flex;flex-direction:column;gap:3px"><dt style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--mute,#627D98)">FOCUS</dt><dd style="margin:0;font-size:13px;line-height:1.5;color:var(--t3,#334E68)">{{ p.focus }}</dd></div>
+            </dl>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+    <sc-if value="{{ projEmpty }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:14px;color:var(--mute,#627D98)">No projects in this category yet.</p></sc-if>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--accentText,#007A7A)">ON THE ROADMAP</span>
+      <ul style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:0 32px;border-top:1px solid var(--l12,rgba(16,42,67,.12))">
+        <sc-for list="{{ roadmap }}" as="r" hint-placeholder-count="10"><li style="display:flex;gap:16px;align-items:center;padding:12px 0;border-bottom:1px solid var(--l12,rgba(16,42,67,.12));font-size:14.5px;line-height:1.4"><span style="flex:none;min-width:38px;height:22px;display:inline-flex;align-items:center;justify-content:center;padding:0 7px;border-radius:4px;background:var(--tint,#EAF0F4);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;color:var(--mute,#627D98)">{{ r.n }}</span><span style="min-width:0">{{ r.t }}</span></li></sc-for>
+      </ul>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px 48px;padding:clamp(22px,3vw,32px);background:var(--tint,#EAF0F4);border-radius:6px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--accentText,#007A7A)">DOCUMENTATION STANDARD</span>
+      <p style="margin:0;font-size:15px;line-height:1.65;color:var(--t2,#263238);text-wrap:pretty">Every published study documents design geometry, engineering assumptions, analysis methodology, and results. Simulation results are always presented with their assumptions and limitations, and conceptual designs are clearly distinguished from fabricated, experimentally validated, or code-verified equipment.</p>
+    </div>
+    </sc-if>
+    <sc-if value="{{ caseView }}" hint-placeholder-val="{{ false }}">
+    <a href="#/projects" onClick="{{ closeCase }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--link,#007A7A);text-decoration:none" style-hover="text-decoration:underline"><span aria-hidden="true">←</span> All projects</a>
+    <article id="case-cz-r4" aria-labelledby="cz-title" style="border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:6px;background:var(--card,#FFFFFF);overflow:hidden;scroll-margin-top:{{ scrollM }}">
+      <header style="background:var(--navy,#102A43);color:#F5F8FA;padding:clamp(28px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:32px">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.12em;color:#00A6A6">CASE STUDY 01</span>
+          <h3 id="cz-title" style="margin:0;font-weight:500;font-size:clamp(28px,3vw,40px);line-height:1.1;letter-spacing:-.015em">CZ-R4 crystal-growth furnace</h3>
+          <p style="margin:0;font-size:16px;line-height:1.6;color:#BCCCDC;max-width:520px;text-wrap:pretty">Concept design of a Czochralski-type furnace, from 2D drafting to a verified finite-element model: vessel sizing, vacuum buckling, hot-zone thermal analysis and coupled thermal expansion.</p>
+        </div>
+        <dl style="margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:4px;overflow:hidden;align-self:start">
+          <div style="background:var(--navy,#102A43);padding:14px 16px"><dt style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#9FB3C8;letter-spacing:.1em">TYPE</dt><dd style="margin:6px 0 0;font-size:14.5px;line-height:1.4">Concept design &amp; analysis</dd></div>
+          <div style="background:var(--navy,#102A43);padding:14px 16px"><dt style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#9FB3C8;letter-spacing:.1em">CONTEXT</dt><dd style="margin:6px 0 0;font-size:14.5px;line-height:1.4">Self-initiated engineering study</dd></div>
+          <div style="background:var(--navy,#102A43);padding:14px 16px"><dt style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#9FB3C8;letter-spacing:.1em">TOOLS</dt><dd style="margin:6px 0 0;font-size:14.5px;line-height:1.4">AutoCAD · Autodesk Fusion · PrePoMax / CalculiX 2.22 · C++17 / CMake</dd></div>
+          <div style="background:var(--navy,#102A43);padding:14px 16px"><dt style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#9FB3C8;letter-spacing:.1em">STATUS</dt><dd style="margin:6px 0 0;font-size:14.5px;line-height:1.4">Not built or experimentally validated · C++ control model in progress</dd></div>
+        </dl>
+      </header>
+
+      <div style="display:grid;grid-template-columns:{{ caseCols }};gap:0">
+        <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+          <nav aria-label="Case study contents" style="border-right:1px solid var(--l1,rgba(16,42,67,.1));padding:32px 20px">
+            <ol style="position:sticky;top:{{ stickyTop }};margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px">
+              <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="10">
+                <li><a href="#{{ c.id }}" onClick="{{ c.go }}" style="display:flex;gap:10px;padding:7px 8px;border-radius:4px;text-decoration:none;color:var(--t3,#334E68);font-size:13px;line-height:1.35" style-hover="background:var(--tint,#EAF0F4);color:var(--ink,#102A43)">{{ c.label }}</a></li>
+              </sc-for>
+            </ol>
+          </nav>
+        </sc-if>
+
+        <div style="min-width:0;padding:clamp(24px,4vw,48px);display:flex;flex-direction:column;gap:clamp(44px,5vw,64px)">
+
+          <div id="cz-overview" style="display:flex;flex-direction:column;gap:14px;scroll-margin-top:{{ scrollM }}">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--accentText,#007A7A);letter-spacing:.1em">OVERVIEW</span>
+            <p style="margin:0;font-size:17px;line-height:1.65;color:var(--t1,#263238);max-width:760px;text-wrap:pretty">Concept design of a Czochralski-type crystal-growth furnace, carried from 2D AutoCAD drafting to a verified finite-element model. The study has four parts:</p>
+            <ol style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1px;background:var(--l12,rgba(16,42,67,.12));border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden">
+              <sc-for list="{{ czParts }}" as="pt" hint-placeholder-count="4"><li style="background:var(--card,#FFFFFF);padding:14px 16px;display:flex;gap:12px;align-items:baseline"><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accentText,#007A7A)">{{ pt.n }}</span><span style="font-size:14.5px;line-height:1.5">{{ pt.t }}</span></li></sc-for>
+            </ol>
+            <p style="margin:0;font-size:15px;line-height:1.65;color:var(--t4,#486581);max-width:760px;text-wrap:pretty">Every FE result is checked against hand calculations and a reference study.</p>
+          </div>
+
+          <div id="cz-cad" style="display:flex;flex-direction:column;gap:20px;scroll-margin-top:{{ scrollM }}">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--accentText,#007A7A);letter-spacing:.1em">CAD ASSEMBLY &amp; EQUIPMENT GEOMETRY</span>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
+              <figure style="margin:0;display:flex;flex-direction:column;gap:8px;min-width:0"><div style="position:relative;aspect-ratio:4/3;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden;background:#FFFFFF"><media-slot sid="cz-cad-assembly" style="position:absolute;inset:0;display:block"><image-slot id="cz-cad-assembly" shape="rect" fit="contain" src="assets/cz-r4/01-assembly-overview.png" placeholder="Full CAD assembly render" style="position:absolute;inset:0"></image-slot></media-slot></div><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.45;color:var(--mute,#627D98)">Assembly overview · vessel body in Autodesk Fusion</figcaption></figure>
+              <figure style="margin:0;display:flex;flex-direction:column;gap:8px;min-width:0"><div style="position:relative;aspect-ratio:4/3;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden;background:#1F2933"><media-slot sid="cz-cad-section" style="position:absolute;inset:0;display:block"><image-slot id="cz-cad-section" shape="rect" fit="contain" src="assets/cz-r4/02-section-hot-zone.png" placeholder="Section view / technical drawing" style="position:absolute;inset:0"></image-slot></media-slot></div><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.45;color:var(--mute,#627D98)">Section through hot zone · internals and induction coil</figcaption></figure>
+            </div>
+            <figure style="margin:0;display:flex;flex-direction:column;gap:8px"><div style="position:relative;aspect-ratio:16/10;min-height:320px;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden;background:#FFFFFF"><media-slot sid="cz-ga-drawing" drawing-src="docs/cz-r4-general-arrangement.pdf" style="position:absolute;inset:0;display:block"><image-slot id="cz-ga-drawing" shape="rect" placeholder="General arrangement drawing (PDF)" style="position:absolute;inset:0"></image-slot></media-slot></div><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mute,#627D98)">General arrangement drawing · AutoCAD export</figcaption></figure>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1px;background:var(--l12,rgba(16,42,67,.12));border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden">
+              <sc-for list="{{ subsystems }}" as="ss" hint-placeholder-count="6">
+                <div style="background:var(--paper,#FFFFFF);padding:14px 16px;display:flex;flex-direction:column;gap:4px"><span style="font-size:14px;font-weight:500">{{ ss.name }}</span><span style="font-size:13px;line-height:1.45;color:var(--t5,#52677D)">{{ ss.note }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div id="cz-params" style="display:flex;flex-direction:column;gap:16px;scroll-margin-top:{{ scrollM }}">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--accentText,#007A7A);letter-spacing:.1em">DESIGN ASSUMPTIONS &amp; PARAMETERS</span>
+            <div style="overflow-x:auto;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px">
+              <table style="width:100%;min-width:520px;border-collapse:collapse;font-size:14px">
+                <thead><tr style="background:var(--tint,#EAF0F4);text-align:left"><th scope="col" style="padding:11px 16px;font-weight:500">Parameter</th><th scope="col" style="padding:11px 16px;font-weight:500">Value</th><th scope="col" style="padding:11px 16px;font-weight:500">Basis</th></tr></thead>
+                <tbody>
+                  <sc-for list="{{ params }}" as="p" hint-placeholder-count="8">
+                    <tr style="border-top:1px solid var(--l08,rgba(16,42,67,.08))"><td style="padding:11px 16px">{{ p.name }}</td><td style="padding:11px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink,#102A43)">{{ p.value }}</td><td style="padding:11px 16px;color:var(--t4,#486581)">{{ p.basis }}</td></tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="cz-thermal" style="display:flex;flex-direction:column;gap:20px;scroll-margin-top:{{ scrollM }}">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px 32px">
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--accentText,#007A7A);letter-spacing:.1em">THERMAL MODEL &amp; BOUNDARY CONDITIONS</span>
+                <p style="margin:0;font-size:15px;line-height:1.65;color:var(--t2,#263238);max-width:760px;text-wrap:pretty">Steady-state heat transfer through the hot zone with surface-to-surface cavity radiation between heater, susceptor, crucible, melt, insulator and vessel wall.</p>
+                <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--l1,rgba(16,42,67,.1))">
+                  <sc-for list="{{ bcs }}" as="b" hint-placeholder-count="6"><li style="display:flex;flex-direction:column;gap:3px;padding:10px 0;border-bottom:1px solid var(--l1,rgba(16,42,67,.1))"><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 16px;font-size:14px"><span style="font-weight:500">{{ b.k }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink,#102A43)">{{ b.v }}</span></div><sc-if value="{{ b.n }}" hint-placeholder-val="{{ false }}"><span style="font-size:12.5px;line-height:1.45;color:var(--mute,#627D98)">{{ b.n }}</span></sc-if></li></sc-for>
+                </ul>
+              </div>
+              <figure style="margin:0;display:flex;flex-direction:column;gap:8px;min-width:0"><div style="position:relative;aspect-ratio:1/1;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden;background:#FFFFFF"><media-slot sid="cz-thermal-field" style="position:absolute;inset:0;display:block"><image-slot id="cz-thermal-field" shape="rect" fit="contain" src="assets/cz-r4/03-temperature-distribution.png" placeholder="Temperature field — simulation screenshot with legend" style="position:absolute;inset:0"></image-slot></media-slot></div><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.45;color:var(--mute,#627D98)">Temperature distribution · 25–1500 °C</figcaption></figure>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <span style="font-size:14px;font-weight:500">Why radiation matters</span>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px">
+                <figure style="margin:0;display:flex;flex-direction:column;gap:8px;min-width:0"><div style="position:relative;aspect-ratio:1/1;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden;background:#FFFFFF"><media-slot sid="cz-thermal-run1" style="position:absolute;inset:0;display:block"><image-slot id="cz-thermal-run1" shape="rect" fit="contain" src="assets/cz-r4/thermal-run1-conduction-only.png" placeholder="Thermal run 1 — conduction only" style="position:absolute;inset:0"></image-slot></media-slot></div><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.45;color:var(--mute,#627D98)">Run 1 · conduction only</figcaption></figure>
+                <figure style="margin:0;display:flex;flex-direction:column;gap:8px;min-width:0"><div style="position:relative;aspect-ratio:1/1;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden;background:#FFFFFF"><media-slot sid="cz-thermal-run2" style="position:absolute;inset:0;display:block"><image-slot id="cz-thermal-run2" shape="rect" fit="contain" src="assets/cz-r4/thermal-run2-with-radiation.png" placeholder="Thermal run 2 — with cavity radiation" style="position:absolute;inset:0"></image-slot></media-slot></div><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.45;color:var(--mute,#627D98)">Run 2 · with cavity radiation</figcaption></figure>
+              </div>
+            </div>
+          </div>
+
+          <div id="cz-fea" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px 32px;scroll-margin-top:{{ scrollM }}">
+            <figure style="margin:0;display:flex;flex-direction:column;gap:8px;min-width:0"><div style="position:relative;aspect-ratio:1/1;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden;background:#FFFFFF"><media-slot sid="cz-fea-mesh" style="position:absolute;inset:0;display:block"><image-slot id="cz-fea-mesh" shape="rect" fit="contain" src="assets/cz-r4/04-mesh-global.png" placeholder="Mesh — overview and refinement detail" style="position:absolute;inset:0"></image-slot></media-slot></div><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.45;color:var(--mute,#627D98)">Global 3D mesh · second-order tetrahedra</figcaption></figure>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--accentText,#007A7A);letter-spacing:.1em">FEA METHODOLOGY &amp; MESH</span>
+              <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--l1,rgba(16,42,67,.1))">
+                <sc-for list="{{ feaSteps }}" as="m" hint-placeholder-count="3"><li style="display:flex;flex-direction:column;gap:4px;padding:12px 0;border-bottom:1px solid var(--l1,rgba(16,42,67,.1))"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--mute,#627D98)">{{ m.k }}</span><span style="font-size:14.5px;line-height:1.6;color:var(--t2,#263238);text-wrap:pretty">{{ m.v }}</span></li></sc-for>
+              </ul>
+            </div>
+          </div>
+
+          <div id="cz-verify" style="display:flex;flex-direction:column;gap:20px;scroll-margin-top:{{ scrollM }}">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--accentText,#007A7A);letter-spacing:.1em">VERIFICATION · HAND CALCULATION VS FEA</span>
+            <div style="overflow-x:auto;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px">
+              <table style="width:100%;min-width:480px;border-collapse:collapse;font-size:14px">
+                <thead><tr style="background:var(--tint,#EAF0F4);text-align:left"><th scope="col" style="padding:11px 16px;font-weight:500">Quantity</th><th scope="col" style="padding:11px 16px;font-weight:500">Hand calc</th><th scope="col" style="padding:11px 16px;font-weight:500">FEA</th></tr></thead>
+                <tbody>
+                  <sc-for list="{{ verify }}" as="v" hint-placeholder-count="5">
+                    <tr style="border-top:1px solid var(--l08,rgba(16,42,67,.08))"><td style="padding:11px 16px">{{ v.q }}</td><td style="padding:11px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px">{{ v.h }}</td><td style="padding:11px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink,#102A43);font-weight:500">{{ v.f }}</td></tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+            <p style="margin:0;font-size:14px;line-height:1.65;color:var(--t4,#486581);max-width:760px;text-wrap:pretty">The flat bottom behaves between the clamped and simply-supported limits — the flange-to-plate joint gives partial rotational restraint.</p>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <span style="font-size:14px;font-weight:500">Catching a missing load</span>
+              <p style="margin:0;font-size:14px;line-height:1.65;color:var(--t4,#486581);max-width:760px;text-wrap:pretty">The first static run under-predicted displacement. The hand-calculation check flagged it, the missing load was found, and the corrected run landed within 4.8 % of the reference study.</p>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px">
+                <figure style="margin:0;display:flex;flex-direction:column;gap:8px;min-width:0"><div style="position:relative;aspect-ratio:1/1;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden;background:#FFFFFF"><media-slot sid="cz-verify-run1" style="position:absolute;inset:0;display:block"><image-slot id="cz-verify-run1" shape="rect" fit="contain" src="assets/cz-r4/verification-run1-missing-load.png" placeholder="Run 1 — missing load" style="position:absolute;inset:0"></image-slot></media-slot></div><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.45;color:var(--mute,#627D98)">Run 1 · load missing, max 0.073 mm</figcaption></figure>
+                <figure style="margin:0;display:flex;flex-direction:column;gap:8px;min-width:0"><div style="position:relative;aspect-ratio:1/1;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden;background:#FFFFFF"><media-slot sid="cz-verify-final" style="position:absolute;inset:0;display:block"><image-slot id="cz-verify-final" shape="rect" fit="contain" src="assets/cz-r4/06-deformation.png" placeholder="Corrected run — deformation" style="position:absolute;inset:0"></image-slot></media-slot></div><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.45;color:var(--mute,#627D98)">Corrected · max 0.434 mm</figcaption></figure>
+              </div>
+            </div>
+          </div>
+
+          <div id="cz-results" style="display:flex;flex-direction:column;gap:20px;scroll-margin-top:{{ scrollM }}">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--accentText,#007A7A);letter-spacing:.1em">RESULTS &amp; LIMITATIONS</span>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
+              <figure style="margin:0;display:flex;flex-direction:column;gap:8px;min-width:0"><div style="position:relative;aspect-ratio:1/1;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden;background:#FFFFFF"><media-slot sid="cz-res-stress" style="position:absolute;inset:0;display:block"><image-slot id="cz-res-stress" shape="rect" fit="contain" src="assets/cz-r4/05-stress-von-mises.png" placeholder="Stress plot (von Mises) with scale" style="position:absolute;inset:0"></image-slot></media-slot></div><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.45;color:var(--mute,#627D98)">Von Mises stress at 1 MPa · local peak at bottom port (see limitations)</figcaption></figure>
+              <figure style="margin:0;display:flex;flex-direction:column;gap:8px;min-width:0"><div style="position:relative;aspect-ratio:1/1;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden;background:#FFFFFF"><media-slot sid="cz-res-disp" style="position:absolute;inset:0;display:block"><image-slot id="cz-res-disp" shape="rect" fit="contain" src="assets/cz-r4/06-deformation.png" placeholder="Displacement plot" style="position:absolute;inset:0"></image-slot></media-slot></div><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.45;color:var(--mute,#627D98)">Displacement · max 0.434 mm at 1 MPa</figcaption></figure>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:1px;background:var(--l12,rgba(16,42,67,.12));border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden">
+              <sc-for list="{{ results }}" as="r" hint-placeholder-count="4">
+                <div style="background:var(--paper,#FFFFFF);padding:16px 18px;display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--mute,#627D98)">{{ r.label }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:24px;line-height:1.1;color:var(--ink,#102A43)">{{ r.value }}</span><span style="font-size:12.5px;color:var(--t4,#486581)">{{ r.sub }}</span></div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <span style="font-size:14px;font-weight:500">Linear buckling under full vacuum · first three modes</span>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:16px">
+                <figure style="margin:0;display:flex;flex-direction:column;gap:8px;min-width:0"><div style="position:relative;aspect-ratio:4/5;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden;background:#FFFFFF"><media-slot sid="cz-buckle-1" style="position:absolute;inset:0;display:block"><image-slot id="cz-buckle-1" shape="rect" fit="contain" src="assets/cz-r4/00-buckling-mode1.png" placeholder="Buckling mode 1" style="position:absolute;inset:0"></image-slot></media-slot></div><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.45;color:var(--mute,#627D98)">Mode 1 · factor 144.8</figcaption></figure>
+                <figure style="margin:0;display:flex;flex-direction:column;gap:8px;min-width:0"><div style="position:relative;aspect-ratio:4/5;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden;background:#FFFFFF"><media-slot sid="cz-buckle-2" style="position:absolute;inset:0;display:block"><image-slot id="cz-buckle-2" shape="rect" fit="contain" src="assets/cz-r4/buckling-mode2.png" placeholder="Buckling mode 2" style="position:absolute;inset:0"></image-slot></media-slot></div><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.45;color:var(--mute,#627D98)">Mode 2</figcaption></figure>
+                <figure style="margin:0;display:flex;flex-direction:column;gap:8px;min-width:0"><div style="position:relative;aspect-ratio:4/5;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden;background:#FFFFFF"><media-slot sid="cz-buckle-3" style="position:absolute;inset:0;display:block"><image-slot id="cz-buckle-3" shape="rect" fit="contain" src="assets/cz-r4/buckling-mode3.png" placeholder="Buckling mode 3" style="position:absolute;inset:0"></image-slot></media-slot></div><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.45;color:var(--mute,#627D98)">Mode 3</figcaption></figure>
+              </div>
+            </div>
+            <div style="padding:18px 20px;border:1px solid var(--l14,rgba(16,42,67,.14));border-radius:4px;background:var(--paper,#FFFFFF);display:flex;flex-direction:column;gap:10px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:#7A4B12">LIMITATIONS</span>
+              <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.55;color:var(--t2,#263238)">
+                <sc-for list="{{ limitations }}" as="l" hint-placeholder-count="6"><li>{{ l }}</li></sc-for>
+              </ul>
+            </div>
+          </div>
+
+          <div id="cz-conclusions" style="display:flex;flex-direction:column;gap:14px;scroll-margin-top:{{ scrollM }}">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--accentText,#007A7A);letter-spacing:.1em">CONCLUSIONS &amp; DESIGN IMPROVEMENTS</span>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px">
+              <div style="display:flex;flex-direction:column;gap:10px;padding-top:14px;border-top:2px solid var(--ink,#102A43)"><span style="font-size:15px;font-weight:500">Findings</span><ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:7px;font-size:14px;line-height:1.55;color:var(--t2,#263238)"><sc-for list="{{ findings }}" as="x" hint-placeholder-count="5"><li>{{ x }}</li></sc-for></ul></div>
+              <div style="display:flex;flex-direction:column;gap:10px;padding-top:14px;border-top:2px solid #00A6A6"><span style="font-size:15px;font-weight:500">Next steps</span><ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:7px;font-size:14px;line-height:1.55;color:var(--t2,#263238)"><sc-for list="{{ nextSteps }}" as="x" hint-placeholder-count="5"><li>{{ x }}</li></sc-for></ul></div>
+            </div>
+          </div>
+
+          <div id="cz-model" style="display:flex;flex-direction:column;gap:14px;scroll-margin-top:{{ scrollM }}">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--accentText,#007A7A);letter-spacing:.1em">INTERACTIVE 3D MODEL</span>
+            <div style="position:relative;width:100%;aspect-ratio:16/9;min-height:280px;background:var(--navy,#102A43);border-radius:4px;overflow:hidden">
+              <media-slot sid="cz-model-3d" model-src="models/cz-r4-furnace.glb" style="position:absolute;inset:0;display:block"><image-slot id="cz-model-3d" shape="rect" fit="contain" src="assets/cz-r4/01-assembly-overview.png" placeholder="CZ-R4 3D model" style="position:absolute;inset:0"></image-slot></media-slot>
+            </div>
+            <p style="margin:0;font-size:13px;color:var(--mute,#627D98)">Drag to rotate, scroll or pinch to zoom. Double-click Reset to recentre. The model loads when this section scrolls into view (240 KB).</p>
+          </div>
+
+          <div id="cz-docs" style="display:flex;flex-direction:column;gap:14px;scroll-margin-top:{{ scrollM }}">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--accentText,#007A7A);letter-spacing:.1em">PROJECT DOCUMENTATION</span>
+            <ul style="margin:0;padding:0;list-style:none;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden">
+              <sc-for list="{{ docs }}" as="d" hint-placeholder-count="3">
+                <li style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--l08,rgba(16,42,67,.08));background:var(--card,#FFFFFF)">
+                  <div style="display:flex;gap:14px;align-items:baseline;min-width:0"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accentText,#007A7A);flex:none;width:36px">{{ d.kind }}</span><span style="font-size:14.5px">{{ d.name }}</span></div>
+                  <sc-if value="{{ d.href }}" hint-placeholder-val="{{ true }}"><a href="{{ d.href }}" download="" style="flex:none;font-size:13.5px;font-weight:500;color:var(--link,#007A7A);text-decoration:none" style-hover="text-decoration:underline">Download · {{ d.size }}</a></sc-if>
+                  <sc-if value="{{ d.pending }}" hint-placeholder-val="{{ false }}"><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--faint,#829AB1)">PDF export pending</span></sc-if>
+                </li>
+              </sc-for>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </article>
+    </sc-if>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:24px clamp(32px,5vw,72px);align-items:center;padding:clamp(28px,4vw,56px);background:#102A43;border-radius:6px">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <h3 style="margin:0;font-size:clamp(24px,2.6vw,34px);font-weight:500;line-height:1.2;letter-spacing:-.01em;color:#FFFFFF;text-wrap:balance">Need equipment designed around your process?</h3>
+        <p style="margin:0;font-size:15.5px;line-height:1.65;color:#BCCCDC;max-width:520px;text-wrap:pretty">Locally designed equipment for labs and industry — reducing import dependency and supporting local-content (TKDN) requirements.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-start;gap:18px">
+        <a href="#/contact" onClick="{{ goContact }}" style="display:inline-flex;align-items:center;height:48px;padding:0 24px;border-radius:5px;background:#00A6A6;color:#FFFFFF;text-decoration:none;font-weight:600;font-size:15px" style-hover="background:#008F8F;color:#FFFFFF">Discuss your project</a>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#2EC4C4">Design. Analyse. Document. Improve.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</sc-if>
+<sc-if value="{{ pageProcess }}" hint-placeholder-val="{{ false }}">
+<!-- HOW I WORK -->
+<section id="process" data-screen-label="04 How I Work" style="background:var(--paper,#FFFFFF);color:var(--ink,#102A43);border-top:1px solid var(--l1,rgba(16,42,67,.1));padding:clamp(64px,8vw,112px) clamp(20px,5vw,72px)">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(36px,4vw,56px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 56px;align-items:end">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h2 style="margin:0;font-weight:500;font-size:clamp(30px,3.4vw,46px);line-height:1.08;letter-spacing:-.02em">Six stages, each one reviewable.</h2>
+      </div>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:var(--t4,#486581);max-width:520px">Analysis quality depends on the assumptions, input data, boundary conditions and validation available for each project. These are agreed and recorded before results are interpreted.</p>
+    </div>
+    <ol style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:var(--bg,#F5F8FA);border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:6px;overflow:hidden">
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="6">
+        <li style="background:var(--bg,#F5F8FA);box-shadow:0 0 0 1px var(--l12,rgba(16,42,67,.12));padding:28px;display:flex;flex-direction:column;gap:14px">
+          
+          <h3 style="margin:0;font-size:18px;font-weight:500;line-height:1.3">{{ st.title }}</h3>
+          <p style="margin:0;font-size:14px;line-height:1.6;color:var(--t4,#486581)">{{ st.body }}</p>
+        </li>
+      </sc-for>
+    </ol>
+  </div>
+</section>
+
+</sc-if>
+<sc-if value="{{ pagePricing }}" hint-placeholder-val="{{ false }}">
+<!-- PRICING -->
+<section id="pricing" data-screen-label="05 Pricing" style="padding:clamp(64px,8vw,112px) clamp(20px,5vw,72px)">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(40px,5vw,64px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:20px 56px;align-items:end">
+      <h2 style="margin:0;font-weight:500;font-size:clamp(30px,3.4vw,46px);line-height:1.08;letter-spacing:-.02em">Engagement models</h2>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:var(--t4,#486581);max-width:560px;text-wrap:pretty">Every project is quoted after scoping. The prices below are starting points for common engineering services. Final costs depend on project complexity, available input data, and the level of technical documentation required. All prices are in USD.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:16px">
+      <sc-for list="{{ plans }}" as="pl" hint-placeholder-count="4">
+        <article style="background:var(--card,#FFFFFF);border:1px solid {{ pl.border }};border-radius:6px;padding:clamp(22px,2.2vw,28px);display:flex;flex-direction:column;gap:18px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--accentText,#007A7A)">{{ pl.tag }}</span>
+          <h3 style="margin:0;font-size:20px;font-weight:500;line-height:1.25;text-wrap:balance">{{ pl.title }}</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:16px 0;border-top:1px solid var(--l1,rgba(16,42,67,.1));border-bottom:1px solid var(--l1,rgba(16,42,67,.1))">
+            <div style="display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px">
+              <span style="font-size:13px;color:var(--mute,#627D98)">{{ pl.from }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:36px;line-height:1;font-weight:500;letter-spacing:-.02em;color:var(--ink,#102A43)">{{ pl.price }}</span>
+              <span style="font-size:13px;color:var(--mute,#627D98)">{{ pl.unit }}</span>
+            </div>
+            <sc-if value="{{ pl.note }}" hint-placeholder-val="{{ false }}"><span style="font-size:12.5px;line-height:1.45;color:var(--mute,#627D98)">{{ pl.note }}</span></sc-if>
+            <sc-if value="{{ pl.badge }}" hint-placeholder-val="{{ false }}"><span style="align-self:flex-start;white-space:nowrap;height:24px;display:inline-flex;align-items:center;padding:0 9px;border-radius:12px;background:var(--tint,#EAF0F4);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--t3,#334E68)">{{ pl.badge }}</span></sc-if>
+          </div>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--t4,#486581);text-wrap:pretty">{{ pl.best }}</p>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{ pl.items }}" as="it" hint-placeholder-count="5"><li style="display:flex;gap:10px;font-size:14px;line-height:1.45"><span style="flex:none;width:5px;height:5px;margin-top:8px;background:#00A6A6"></span>{{ it }}</li></sc-for>
+          </ul>
+          <sc-if value="{{ pl.foot }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:12.5px;line-height:1.5;color:var(--mute,#627D98)">{{ pl.foot }}</p></sc-if>
+          <a href="#/contact" onClick="{{ goContact }}" style="margin-top:auto;display:flex;align-items:center;justify-content:center;height:44px;border-radius:5px;background:#00A6A6;color:#FFFFFF;text-decoration:none;font-weight:600;font-size:14px" style-hover="background:#008F8F;color:#FFFFFF">{{ pl.cta }}</a>
+        </article>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:20px;margin-top:calc(-1 * clamp(16px,2vw,32px))">
+      <ul style="margin:0;padding:18px 0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px 28px;border-top:1px solid var(--l12,rgba(16,42,67,.12));border-bottom:1px solid var(--l12,rgba(16,42,67,.12))">
+        <sc-for list="{{ trustPoints }}" as="tp" hint-placeholder-count="4"><li style="display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.45;color:var(--t2,#263238)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00A6A6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:1px"><path d="{{ tp.icon }}"></path></svg><span>{{ tp.t }}</span></li></sc-for>
+      </ul>
+      <p style="margin:0;text-align:center;font-size:14px;color:var(--mute,#627D98)">Have a project that doesn't fit these packages? <a href="#/contact" onClick="{{ goContact }}" style="color:var(--link,#007A7A);font-weight:500;text-decoration:none;white-space:nowrap" style-hover="text-decoration:underline">Tell us about it →</a></p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:24px 56px;padding:clamp(24px,3vw,36px);background:var(--paper,#FFFFFF);border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:6px">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <h3 style="margin:0;font-size:20px;font-weight:500">What affects your quote?</h3>
+        <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--t4,#486581);text-wrap:pretty">Each project is evaluated individually to provide a realistic scope, timeline, and price.</p>
+      </div>
+      <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--l1,rgba(16,42,67,.1))">
+        <sc-for list="{{ quoteFactors }}" as="q" hint-placeholder-count="6"><li style="display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr);gap:4px 16px;padding:12px 0;border-bottom:1px solid var(--l1,rgba(16,42,67,.1));font-size:14px;line-height:1.5"><span style="font-weight:500">{{ q.k }}</span><span style="color:var(--t4,#486581)">{{ q.v }}</span></li></sc-for>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <h3 style="margin:0;font-size:20px;font-weight:500">How it works</h3>
+      <ol style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:16px 24px">
+        <sc-for list="{{ quoteSteps }}" as="qs" hint-placeholder-count="4"><li style="display:flex;flex-direction:column;gap:8px;padding-top:14px;border-top:2px solid var(--ink,#102A43)"><span style="font-size:15.5px;font-weight:500">{{ qs.t }}</span><span style="font-size:14px;line-height:1.55;color:var(--t4,#486581);text-wrap:pretty">{{ qs.b }}</span></li></sc-for>
+      </ol>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px 40px;padding:clamp(28px,3.4vw,44px);background:var(--navy,#102A43);color:#F5F8FA;border-radius:6px">
+      <div style="display:flex;flex-direction:column;gap:10px;max-width:640px">
+        <h3 style="margin:0;font-size:clamp(22px,2.2vw,28px);font-weight:500;line-height:1.2">Have an engineering challenge?</h3>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:#BCCCDC;text-wrap:pretty">Whether you need a new equipment design, a structural assessment, a CFD simulation, or a thermal study, let’s define the right engineering approach for your project.</p>
+      </div>
+      <a href="#/contact" onClick="{{ goContact }}" style="flex:none;white-space:nowrap;padding:0 22px;display:flex;align-items:center;justify-content:center;height:44px;border-radius:5px;background:#00A6A6;color:#FFFFFF;text-decoration:none;font-weight:600;font-size:14px;height:48px;font-size:15px" style-hover="background:#008F8F;color:#FFFFFF">Request a Quote</a>
+    </div>
+  </div>
+</section>
+</sc-if>
+<sc-if value="{{ pageTools }}" hint-placeholder-val="{{ false }}">
+<!-- TOOLS -->
+<section id="tools" data-screen-label="06 Tools" style="padding:clamp(64px,8vw,112px) clamp(20px,5vw,72px)">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(36px,4vw,56px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 56px;align-items:end">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h2 style="margin:0;font-weight:500;font-size:clamp(30px,3.4vw,46px);line-height:1.08;letter-spacing:-.02em">Software &amp; tools</h2>
+      </div>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:var(--t4,#486581);max-width:520px;text-wrap:pretty">The software used across modeling, simulation and documentation. Files can be delivered in native or neutral formats to fit your workflow.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:var(--paper,#FFFFFF);border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:6px;overflow:hidden">
+      <sc-for list="{{ toolGroups }}" as="g" hint-placeholder-count="7">
+        <article style="background:var(--paper,#FFFFFF);box-shadow:0 0 0 1px var(--l12,rgba(16,42,67,.12));padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--accentText,#007A7A)">{{ g.tag }}</span></div>
+          <h3 style="margin:0;font-size:19px;font-weight:500;line-height:1.3">{{ g.title }}</h3>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--l1,rgba(16,42,67,.1))">
+            <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="2"><li style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--l1,rgba(16,42,67,.1));font-size:14.5px"><span style="flex:1;min-width:0;font-weight:500">{{ it.n }}</span><span style="flex:none;text-align:right;max-width:50%;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mute,#627D98)">{{ it.l }}</span></li></sc-for>
+          </ul>
+          <p style="margin:0;font-size:13.5px;line-height:1.55;color:var(--t4,#486581)">{{ g.use }}</p>
+        </article>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:var(--mute,#627D98)">EXCHANGE FORMATS</span>
+      <div style="display:flex;flex-wrap:wrap;gap:12px 32px">
+        <sc-for list="{{ formats }}" as="f" hint-placeholder-count="3"><div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px"><span style="font-size:13.5px;font-weight:500;color:var(--t3,#334E68)">{{ f.k }}</span><sc-for list="{{ f.v }}" as="x" hint-placeholder-count="2"><span style="height:30px;display:inline-flex;align-items:center;white-space:nowrap;flex:none;padding:0 12px;border:1px solid var(--l22,rgba(16,42,67,.22));border-radius:15px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--t3,#334E68)">{{ x }}</span></sc-for></div></sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+</sc-if>
+<sc-if value="{{ pageCalculators }}" hint-placeholder-val="{{ false }}">
+<!-- CALCULATORS -->
+<section id="calculators" data-screen-label="07 Calculators" style="padding:clamp(64px,8vw,112px) clamp(20px,5vw,72px)">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(36px,4vw,56px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 56px;align-items:end">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h2 style="margin:0;font-weight:500;font-size:clamp(30px,3.4vw,46px);line-height:1.08;letter-spacing:-.02em">Quick engineering calculators</h2>
+      </div>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:var(--t4,#486581);max-width:520px;text-wrap:pretty">First-order engineering estimates using standard textbook formulas. Useful for preliminary sizing, design comparisons, and early-stage engineering decisions. These calculators do not replace detailed engineering analysis, simulation, or applicable design codes.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:clamp(40px,5vw,64px)">
+      <sc-for list="{{ calcGroups }}" as="g" hint-placeholder-count="3">
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;align-items:center;gap:14px"><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--accentText,#007A7A)">{{ g.tag }}</span><span style="flex:1;height:1px;background:var(--l12,rgba(16,42,67,.12))"></span></div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:20px">
+            <sc-for list="{{ g.items }}" as="c" hint-placeholder-count="3">
+              <article style="background:var(--card,#FFFFFF);border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:6px;padding:clamp(24px,2.6vw,32px);display:flex;flex-direction:column;gap:20px">
+                <h3 style="margin:0;font-size:20px;font-weight:500;line-height:1.3;text-wrap:pretty">{{ c.title }}</h3>
+                <div style="display:flex;flex-direction:column;gap:12px;padding:14px 0;border-top:1px solid var(--l1,rgba(16,42,67,.1));border-bottom:1px solid var(--l1,rgba(16,42,67,.1))">
+                  <sc-for list="{{ c.formulas }}" as="ln" hint-placeholder-count="1">
+                    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--ink,#102A43);white-space:pre">
+                      <span><sc-for list="{{ ln.lhs }}" as="sg" hint-placeholder-count="1"><span>{{ sg.b }}<sc-if value="{{ sg.hasS }}" hint-placeholder-val="{{ false }}"><sub style="font-size:.7em;line-height:0">{{ sg.s }}</sub></sc-if></span></sc-for></span><span>=</span>
+                      <sc-for list="{{ ln.parts }}" as="p" hint-placeholder-count="1"><sc-if value="{{ p.isFrac }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;flex-direction:column;align-items:stretch;text-align:center;line-height:1.35"><span style="padding:0 4px 3px"><sc-for list="{{ p.num }}" as="sg" hint-placeholder-count="1"><span>{{ sg.b }}<sc-if value="{{ sg.hasS }}" hint-placeholder-val="{{ false }}"><sub style="font-size:.7em;line-height:0">{{ sg.s }}</sub></sc-if></span></sc-for></span><span style="padding:3px 4px 0;border-top:1.5px solid currentColor"><sc-for list="{{ p.den }}" as="sg" hint-placeholder-count="1"><span>{{ sg.b }}<sc-if value="{{ sg.hasS }}" hint-placeholder-val="{{ false }}"><sub style="font-size:.7em;line-height:0">{{ sg.s }}</sub></sc-if></span></sc-for></span></span></sc-if><sc-if value="{{ p.isText }}" hint-placeholder-val="{{ false }}"><span><sc-for list="{{ p.segs }}" as="sg" hint-placeholder-count="1"><span>{{ sg.b }}<sc-if value="{{ sg.hasS }}" hint-placeholder-val="{{ false }}"><sub style="font-size:.7em;line-height:0">{{ sg.s }}</sub></sc-if></span></sc-for></span></sc-if></sc-for>
+                    </div>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ c.hasModes }}" hint-placeholder-val="{{ false }}"><div role="group" aria-label="Calculation mode" style="display:flex;flex-wrap:wrap;align-self:flex-start;gap:4px;padding:3px;border:1px solid var(--l22,rgba(16,42,67,.22));border-radius:6px"><sc-for list="{{ c.modes }}" as="md" hint-placeholder-count="2"><button type="button" onClick="{{ md.pick }}" aria-pressed="{{ md.on }}" style="flex:none;white-space:nowrap;height:34px;padding:0 14px;border:0;border-radius:4px;background:{{ md.bg }};color:{{ md.color }};font:500 13px 'IBM Plex Sans',sans-serif;cursor:pointer">{{ md.label }}</button></sc-for></div></sc-if>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:14px;align-items:start">
+                  <sc-for list="{{ c.inputs }}" as="i" hint-placeholder-count="4"><label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500;line-height:1.35;color:var(--t2,#263238)">{{ i.label }}<input type="number" step="any" inputmode="decimal" value="{{ i.v }}" onChange="{{ i.on }}" aria-invalid="{{ i.invalid }}" style="height:44px;padding:0 12px;border:1px solid {{ i.border }};border-radius:4px;background:var(--card,#FFFFFF);font:400 15px 'IBM Plex Mono',monospace;color:var(--ink,#102A43);width:100%"><sc-if value="{{ i.err }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-weight:400;font-size:12px;line-height:1.4;color:var(--err,#A33A2A)">{{ i.err }}</span></sc-if><sc-if value="{{ i.help }}" hint-placeholder-val="{{ false }}"><span style="font-weight:400;font-size:12px;line-height:1.45;color:var(--mute,#627D98)">{{ i.help }}</span></sc-if></label></sc-for>
+                </div>
+                <div aria-live="polite" style="padding:6px 18px;background:var(--tint,#EAF0F4);border-radius:4px;display:flex;flex-direction:column">
+                  <sc-for list="{{ c.outputs }}" as="o" hint-placeholder-count="1"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding:10px 0"><span style="font-size:13px;color:var(--t4,#486581)">{{ o.label }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:var(--ink,#102A43)">{{ o.val }}</span></div></sc-for>
+                </div>
+                <sc-for list="{{ c.warns }}" as="w" hint-placeholder-count="0"><div role="status" style="padding:12px 14px;border:1px solid {{ w.border }};background:{{ w.bg }};color:{{ w.color }};border-radius:4px;font-size:13px;line-height:1.5;text-wrap:pretty">{{ w.text }}</div></sc-for>
+                <p style="margin:0;font-size:12.5px;line-height:1.55;color:var(--mute,#627D98);text-wrap:pretty">{{ c.note }}</p>
+              </article>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;padding:clamp(20px,2.4vw,28px);background:var(--tint,#EAF0F4);border-radius:6px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--accentText,#007A7A)">ENGINEERING NOTE</span>
+      <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--t3,#334E68);max-width:820px;text-wrap:pretty">All results are preliminary estimates based on the specified equations and assumptions. Confirm units, material properties, boundary conditions, and applicable engineering standards before using any result for equipment design or fabrication.</p>
+      <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--t3,#334E68);max-width:820px;text-wrap:pretty">For complex geometries, high-temperature equipment, pressure-containing components, or coupled thermal and structural loading, detailed CAD, FEA, thermal simulation, or CFD may be required.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;border:1px dashed var(--l25,rgba(16,42,67,.25));border-radius:6px">
+      <span style="font-size:15px">Need more than a first-order estimate?</span>
+      <a href="#/contact" onClick="{{ goContact }}" style="display:inline-flex;align-items:center;flex:none;white-space:nowrap;height:44px;padding:0 18px;border-radius:5px;background:#00A6A6;color:#FFFFFF;text-decoration:none;font-weight:600;font-size:14px" style-hover="background:#008F8F;color:#FFFFFF">Request a Quote</a>
+    </div>
+  </div>
+</section>
+</sc-if>
+<sc-if value="{{ pageAbout }}" hint-placeholder-val="{{ false }}">
+<!-- ABOUT -->
+<section id="about" data-screen-label="08 About" style="padding:clamp(64px,8vw,112px) clamp(20px,5vw,72px)">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(56px,7vw,96px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(32px,5vw,72px);align-items:start">
+      <div style="position:relative;width:100%;max-width:400px;aspect-ratio:4/5;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;overflow:hidden"><media-slot sid="about-portrait" style="position:absolute;inset:0;display:block"><image-slot id="about-portrait" shape="rect" src="assets/about/portrait.png" placeholder="Professional portrait" style="position:absolute;inset:0"></image-slot></media-slot></div>
+      <div style="display:flex;flex-direction:column;gap:22px;padding-top:6px;grid-column:span 1;max-width:720px">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <h1 style="margin:0;font-weight:500;font-size:clamp(32px,3.6vw,48px);line-height:1.08;letter-spacing:-.02em">Ilham Aksan Maulana</h1>
+          <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--accentText,#007A7A)">Equipment Design · Thermal Engineering · Engineering Simulation</p>
+        </div>
+        <p style="margin:0;font-size:17px;line-height:1.65;color:var(--t2,#263238);text-wrap:pretty">I hold an M.Sc. in Chemistry from Universitas Indonesia, with research experience in advanced materials, electrochemistry, and material processing. I am developing an engineering practice focused on the conceptual design, 3D modeling, and simulation-based evaluation of equipment for material processing, laboratory operations, and industrial applications.</p>
+        <p style="margin:0;font-size:16px;line-height:1.65;color:var(--t4,#486581);text-wrap:pretty">My multidisciplinary background combines an understanding of material properties and experimental processes with CAD modeling, engineering calculations, and thermal and structural analysis. This enables me to approach equipment design from both the material and engineering perspectives, considering the operating conditions, functional requirements, and physical constraints that influence equipment performance.</p>
+        <p style="margin:0;font-size:16px;line-height:1.65;color:var(--t4,#486581);text-wrap:pretty">My focus is on translating process requirements into practical equipment concepts supported by clear engineering assumptions, technical documentation, and simulation-based evaluation.</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <h2 style="margin:0;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:12px;letter-spacing:.12em;color:var(--accentText,#007A7A)">ENGINEERING DESIGN FOCUS</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:20px 28px">
+        <sc-for list="{{ aboutFocus }}" as="f" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;gap:10px;padding-top:16px;border-top:1px solid var(--l15,rgba(16,42,67,.15))"><h3 style="margin:0;font-size:17px;font-weight:500;line-height:1.3">{{ f.t }}</h3><p style="margin:0;font-size:14px;line-height:1.55;color:var(--t4,#486581);text-wrap:pretty">{{ f.d }}</p></div></sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <h2 style="margin:0;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:12px;letter-spacing:.12em;color:var(--accentText,#007A7A)">TECHNICAL CAPABILITIES</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1px;background:var(--l12,rgba(16,42,67,.12));border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:6px;overflow:hidden">
+        <sc-for list="{{ aboutCaps }}" as="c" hint-placeholder-count="4"><div style="background:var(--card,#FFFFFF);padding:20px 22px;display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:500">{{ c.k }}</span><span style="font-size:14px;line-height:1.55;color:var(--t4,#486581)">{{ c.v }}</span></div></sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div style="display:flex;flex-direction:column;gap:12px"><h2 style="margin:0;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:12px;letter-spacing:.12em;color:var(--accentText,#007A7A)">RESEARCH &amp; ENGINEERING BACKGROUND</h2><p style="margin:0;font-size:16px;line-height:1.65;color:var(--t4,#486581);max-width:720px;text-wrap:pretty">My research experience provides a foundation for understanding the materials, processing conditions, and experimental requirements that influence equipment design.</p></div>
+      <div style="display:flex;flex-direction:column;border-top:1px solid var(--l15,rgba(16,42,67,.15))">
+        <sc-for list="{{ aboutResearch }}" as="r" hint-placeholder-count="4">
+          <article style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px clamp(24px,4vw,56px);padding:28px 0;border-bottom:1px solid var(--l15,rgba(16,42,67,.15))">
+            <div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;color:var(--mute,#627D98)">{{ r.org }}</span><h3 style="margin:0;font-size:19px;font-weight:500;line-height:1.3;text-wrap:pretty">{{ r.t }}</h3></div>
+            <div style="display:flex;flex-direction:column;gap:12px;grid-column:span 2;min-width:0">
+              <p style="margin:0;font-size:15px;line-height:1.65;color:var(--t2,#263238);text-wrap:pretty">{{ r.d }}</p>
+              <p style="margin:0;font-size:14px;line-height:1.6;color:var(--t4,#486581);text-wrap:pretty"><strong style="font-weight:600;color:var(--ink,#102A43)">Engineering relevance: </strong>{{ r.rel }}</p>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:24px clamp(32px,5vw,72px);padding:clamp(28px,4vw,56px);background:#102A43;color:#E6F7F7;border-radius:6px">
+      <div style="display:flex;flex-direction:column;gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;color:#2EC4C4">DESIGN APPROACH</span><p style="margin:0;font-size:clamp(24px,2.4vw,32px);font-weight:500;line-height:1.25;letter-spacing:-.01em;color:#FFFFFF;text-wrap:balance">Understand the process. Design the equipment. Evaluate the engineering.</p></div>
+      <div style="display:flex;flex-direction:column;gap:14px;font-size:15.5px;line-height:1.65;color:#BCCCDC">
+        <p style="margin:0;text-wrap:pretty">Equipment design begins with understanding the process, the material being handled, and the required operating conditions.</p>
+        <p style="margin:0;text-wrap:pretty">I approach each design by translating these requirements into equipment geometry, identifying relevant thermal and structural considerations, and evaluating the proposed concept through engineering calculations and simulation where appropriate.</p>
+        <p style="margin:0;text-wrap:pretty">The objective is to develop technically documented equipment concepts that can support further engineering development, design review, and potential fabrication.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</sc-if>
+<sc-if value="{{ pageBlog }}" hint-placeholder-val="{{ false }}">
+<!-- BLOG -->
+<section id="blog" data-screen-label="09 Blog" style="padding:clamp(64px,8vw,112px) clamp(20px,5vw,72px)">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(32px,4vw,48px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 56px;align-items:end">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h2 style="margin:0;font-weight:500;font-size:clamp(30px,3.4vw,46px);line-height:1.08;letter-spacing:-.02em">Engineering notes</h2>
+      </div>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:var(--t4,#486581);max-width:520px;text-wrap:pretty">Technical articles on equipment design, CAD modeling, structural analysis, heat transfer, and computational fluid dynamics. Explore engineering methods, modeling assumptions, preliminary calculations, and practical lessons from material-processing and laboratory equipment design.</p>
+    </div>
+    <div role="toolbar" aria-label="Filter by topic" style="display:flex;flex-wrap:wrap;gap:8px">
+      <sc-for list="{{ blogCats }}" as="c" hint-placeholder-count="5">
+        <button onClick="{{ c.pick }}" aria-pressed="{{ c.on }}" style="height:36px;padding:0 14px;border-radius:18px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};font:500 13px 'IBM Plex Sans',sans-serif;cursor:pointer">{{ c.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:20px">
+      <sc-for list="{{ posts }}" as="p" hint-placeholder-count="6">
+        <article style="background:var(--card,#FFFFFF);border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:6px;overflow:hidden;display:flex;flex-direction:column">
+          <div style="position:relative;aspect-ratio:16/9;border-bottom:1px solid var(--l1,rgba(16,42,67,.1))"><media-slot sid="{{ p.slot }}" style="position:absolute;inset:0;display:block"><image-slot id="{{ p.slot }}" shape="rect" placeholder="{{ p.image }}" style="position:absolute;inset:0"></image-slot></media-slot></div>
+          <div style="padding:22px;display:flex;flex-direction:column;gap:12px;flex:1">
+            <div style="display:flex;justify-content:space-between;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em"><span style="color:var(--accentText,#007A7A);text-transform:uppercase">{{ p.label }}</span><span style="flex:none;color:var(--mute,#627D98)">{{ p.num }}</span></div>
+            <h3 style="margin:0;font-size:18px;font-weight:500;line-height:1.35;text-wrap:pretty">{{ p.title }}</h3>
+            <p style="margin:0;font-size:14px;line-height:1.6;color:var(--t4,#486581);text-wrap:pretty">{{ p.summary }}</p>
+            <p style="margin:0;font-size:12.5px;line-height:1.5;color:var(--mute,#627D98)">{{ p.topics }}</p>
+            <div style="margin-top:auto;padding-top:12px;border-top:1px solid var(--l1,rgba(16,42,67,.1));display:flex;justify-content:space-between;align-items:center;gap:12px"><span style="font-size:13px;font-weight:500;color:var(--t3,#334E68)">Coming soon</span></div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px clamp(32px,5vw,72px);padding:clamp(28px,4vw,48px);background:#102A43;border-radius:6px">
+      <p style="margin:0;font-size:clamp(24px,2.4vw,32px);font-weight:500;line-height:1.2;letter-spacing:-.01em;color:#FFFFFF;text-wrap:balance">Engineering knowledge, documented.</p>
+      <p style="margin:0;font-size:15.5px;line-height:1.65;color:#BCCCDC;text-wrap:pretty">Each article focuses on the methods, assumptions, and engineering decisions behind equipment design. The objective is not merely to present simulation results, but to explain how models are constructed, how results should be interpreted, and where further verification is needed.</p>
+    </div>
+  </div>
+</section>
+</sc-if>
+<sc-if value="{{ pageContact }}" hint-placeholder-val="{{ false }}">
+<!-- CONTACT -->
+<section id="contact" data-screen-label="10 Contact" style="background:var(--navy,#102A43);color:#F5F8FA;padding:clamp(64px,8vw,112px) clamp(20px,5vw,72px)">
+  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(36px,5vw,72px)">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <h2 style="margin:0;font-weight:500;font-size:clamp(30px,3.4vw,46px);line-height:1.08;letter-spacing:-.02em">Request a quote</h2>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:#BCCCDC;max-width:460px;text-wrap:pretty">Tell us about the equipment you need to design or the engineering problem you need to evaluate. Share your project requirements, available drawings or technical data, and target timeline.</p>
+      <p style="margin:0;font-size:15px;line-height:1.65;color:#9FB3C8;max-width:460px;text-wrap:pretty">We will review your inquiry, clarify the project scope where necessary, and prepare a tailored proposal based on the requirements.</p>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:#2EC4C4">DIRECT CONTACT</span>
+        <dl style="margin:0;display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.1)">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px 16px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1)"><dt style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:#9FB3C8">EMAIL</dt><dd style="margin:0;font-size:14.5px;text-align:right;min-width:0;overflow-wrap:anywhere"><a href="mailto:ilhamaksanmaulana579@gmail.com" style="color:#CFE6EA" style-hover="color:#FFFFFF">ilhamaksanmaulana579@gmail.com</a></dd></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px 16px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1)"><dt style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:#9FB3C8">LINKEDIN</dt><dd style="margin:0;font-size:14.5px;text-align:right;min-width:0;overflow-wrap:anywhere"><a href="https://www.linkedin.com/company/mprep-engineering/" target="_blank" rel="noopener" style="color:#CFE6EA" style-hover="color:#FFFFFF">MPrep Engineering</a></dd></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px 16px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1)"><dt style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:#9FB3C8">FOUNDER</dt><dd style="margin:0;font-size:14.5px;text-align:right;min-width:0;overflow-wrap:anywhere"><a href="https://www.linkedin.com/in/ilhamaksan/" target="_blank" rel="noopener" style="color:#CFE6EA" style-hover="color:#FFFFFF">Ilham Aksan Maulana</a></dd></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px 16px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1)"><dt style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:#9FB3C8">LOCATION</dt><dd style="margin:0;font-size:14.5px;text-align:right;min-width:0;overflow-wrap:anywhere">Indonesia · Remote projects worldwide</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <form onSubmit="{{ submit }}" novalidate="" aria-label="Project inquiry" style="background:var(--bg,#F5F8FA);color:var(--ink,#102A43);border-radius:6px;padding:clamp(22px,3vw,36px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:18px">
+      <span style="grid-column:1/-1;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--accentText,#007A7A)">PROJECT DETAILS</span>
+      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500">Full name *
+        <input name="name" autocomplete="name" placeholder="Enter your name" value="{{ form.name }}" onChange="{{ on.name }}" aria-invalid="{{ invalid.name }}" style="height:46px;padding:0 12px;border:1px solid var(--l22,rgba(16,42,67,.22));border-radius:4px;background:var(--card,#FFFFFF);font:400 15px 'IBM Plex Sans',sans-serif;color:var(--ink,#102A43)">
+        <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-weight:400;color:var(--err,#A33A2A);font-size:12.5px">{{ errors.name }}</span></sc-if>
+      </label>
+      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500">Company / Organization
+        <input name="company" autocomplete="organization" placeholder="If applicable" value="{{ form.company }}" onChange="{{ on.company }}" style="height:46px;padding:0 12px;border:1px solid var(--l22,rgba(16,42,67,.22));border-radius:4px;background:var(--card,#FFFFFF);font:400 15px 'IBM Plex Sans',sans-serif;color:var(--ink,#102A43)">
+      </label>
+      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500">Work email *
+        <input name="email" type="email" autocomplete="email" placeholder="Where we can contact you" value="{{ form.email }}" onChange="{{ on.email }}" aria-invalid="{{ invalid.email }}" style="height:46px;padding:0 12px;border:1px solid var(--l22,rgba(16,42,67,.22));border-radius:4px;background:var(--card,#FFFFFF);font:400 15px 'IBM Plex Sans',sans-serif;color:var(--ink,#102A43)">
+        <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-weight:400;color:var(--err,#A33A2A);font-size:12.5px">{{ errors.email }}</span></sc-if>
+      </label>
+      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500">Required service *
+        <select name="service" value="{{ form.service }}" onChange="{{ on.service }}" aria-invalid="{{ invalid.service }}" style="height:46px;padding:0 10px;border:1px solid var(--l22,rgba(16,42,67,.22));border-radius:4px;background:var(--card,#FFFFFF);font:400 15px 'IBM Plex Sans',sans-serif;color:var(--ink,#102A43)">
+          <option value="">Select a service</option>
+          <sc-for list="{{ serviceOptions }}" as="o" hint-placeholder-count="8"><option value="{{ o }}">{{ o }}</option></sc-for>
+        </select>
+        <sc-if value="{{ errors.service }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-weight:400;color:var(--err,#A33A2A);font-size:12.5px">{{ errors.service }}</span></sc-if>
+      </label>
+      <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500">Project description *
+        <span style="font-weight:400;line-height:1.45;color:var(--mute,#627D98)">Describe the equipment, process, or engineering problem you need help with. Include relevant operating conditions, dimensions, materials, performance requirements, and expected deliverables where available.</span>
+        <textarea name="description" rows="6" value="{{ form.description }}" onChange="{{ on.description }}" aria-invalid="{{ invalid.description }}" style="padding:12px;border:1px solid var(--l22,rgba(16,42,67,.22));border-radius:4px;background:var(--card,#FFFFFF);font:400 15px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink,#102A43);resize:vertical"></textarea>
+        <sc-if value="{{ errors.description }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-weight:400;color:var(--err,#A33A2A);font-size:12.5px">{{ errors.description }}</span></sc-if>
+      </label>
+      <div style="grid-column:1/-1;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500">Drawings &amp; reference files <span style="font-weight:400;line-height:1.45;color:var(--mute,#627D98)">Optional. Upload files, or provide a shareable link to existing CAD files, technical drawings, specifications, or other project references. Ensure linked files are accessible.</span></div>
+        <label onDragOver="{{ fileDragOver }}" onDragLeave="{{ fileDragLeave }}" onDrop="{{ fileDrop }}" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:104px;padding:18px;border:1.5px dashed {{ dropBorder }};border-radius:6px;background:{{ dropBg }};text-align:center;cursor:pointer" style-hover="border-color:#00A6A6">
+          <input type="file" multiple="{{ true }}" accept="{{ fileAccept }}" onChange="{{ filePick }}" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none">
+          <span style="font-size:14.5px;font-weight:500;color:var(--ink,#102A43)">Drop files here or <span style="color:var(--accentText,#007A7A);text-decoration:underline">browse</span></span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--mute,#627D98)">PDF · STEP · IGES · STL · DWG · DXF · F3D · ZIP · JPG · PNG · up to 5 files, 20 MB each</span>
+        </label>
+        <sc-if value="{{ fileError }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size:12.5px;color:var(--err,#A33A2A)">{{ fileError }}</span></sc-if>
+        <sc-if value="{{ hasFiles }}" hint-placeholder-val="{{ false }}">
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;border:1px solid var(--l12,rgba(16,42,67,.12));border-radius:4px;background:var(--card,#FFFFFF)">
+            <sc-for list="{{ files }}" as="fl" hint-placeholder-count="1"><li style="display:flex;align-items:center;gap:12px;padding:8px 8px 8px 12px;border-bottom:1px solid var(--l1,rgba(16,42,67,.1))"><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px">{{ fl.name }}</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--mute,#627D98)">{{ fl.size }}</span><button type="button" onClick="{{ fl.remove }}" aria-label="Remove file" style="flex:none;width:32px;height:32px;border:0;border-radius:4px;background:transparent;color:var(--t4,#486581);font-size:18px;line-height:1;cursor:pointer" style-hover="background:var(--tint,#EAF0F4)">×</button></li></sc-for>
+          </ul>
+        </sc-if>
+        <input name="reference" value="{{ form.reference }}" onChange="{{ on.reference }}" placeholder="Or paste a shareable link (Google Drive, Dropbox, OneDrive…)" aria-label="Shareable link to reference files" style="height:46px;padding:0 12px;border:1px solid var(--l22,rgba(16,42,67,.22));border-radius:4px;background:var(--card,#FFFFFF);font:400 15px 'IBM Plex Sans',sans-serif;color:var(--ink,#102A43)">
+      </div>
+      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500">Target timeline
+        <select name="timeline" value="{{ form.timeline }}" onChange="{{ on.timeline }}" style="height:46px;padding:0 10px;border:1px solid var(--l22,rgba(16,42,67,.22));border-radius:4px;background:var(--card,#FFFFFF);font:400 15px 'IBM Plex Sans',sans-serif;color:var(--ink,#102A43)">
+          <option value="">Select your preferred timeframe</option>
+          <sc-for list="{{ timelineOptions }}" as="o" hint-placeholder-count="4"><option value="{{ o }}">{{ o }}</option></sc-for>
+        </select>
+      </label>
+      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500">Estimated budget
+        <input name="budget" placeholder="Optional, e.g. USD 500–1,000" value="{{ form.budget }}" onChange="{{ on.budget }}" style="height:46px;padding:0 12px;border:1px solid var(--l22,rgba(16,42,67,.22));border-radius:4px;background:var(--card,#FFFFFF);font:400 15px 'IBM Plex Sans',sans-serif;color:var(--ink,#102A43)">
+      </label>
+      <p style="grid-column:1/-1;margin:-6px 0 0;font-size:12.5px;line-height:1.5;color:var(--mute,#627D98)">An approximate budget helps us recommend an appropriate project scope.</p>
+      <div style="grid-column:1/-1;display:flex;flex-direction:column;gap:14px;padding-top:16px;border-top:1px solid var(--l12,rgba(16,42,67,.12))">
+        <p style="margin:0;font-size:13px;line-height:1.55;color:var(--t4,#486581);text-wrap:pretty">By submitting this form, you agree that the information provided may be used to review and respond to your project inquiry. Please do not include confidential or sensitive technical information unless appropriate confidentiality arrangements are in place.</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px">
+          <button type="submit" style="height:48px;padding:0 24px;border:0;border-radius:5px;background:var(--btn,#102A43);color:#FFFFFF;font:500 15px 'IBM Plex Sans',sans-serif;cursor:pointer" disabled="{{ sending }}" style-hover="background:#1E3352">{{ submitLabel }}</button>
+          <span style="font-size:12.5px;color:var(--mute,#627D98)">* Required</span>
+        </div>
+      </div>
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div role="status" style="grid-column:1/-1;padding:14px 16px;border:1px solid #7FC8B4;background:#E6F5F0;border-radius:4px;font-size:14px;line-height:1.5;color:#0F3D33"><strong style="font-weight:600">Inquiry sent.</strong> Thank you — we will review your project and reply by email.</div>
+      </sc-if>
+      <sc-if value="{{ sendError }}" hint-placeholder-val="{{ false }}">
+        <div role="alert" style="grid-column:1/-1;padding:14px 16px;border:1px solid #E3A196;background:#FBE9E7;border-radius:4px;font-size:14px;line-height:1.5;color:#7A1F12">{{ sendError }}</div>
+      </sc-if>
+    </form>
+  </div>
+</section>
+
+</sc-if>
+
+<footer style="background:var(--navy2,#0C2236);color:#9FB3C8;padding:24px clamp(20px,5vw,72px);font-size:12.5px">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px">
+    <span style="flex:none;white-space:nowrap;display:flex;align-items:center;gap:10px"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 120 120" style="flex:none;display:block"><path d="M29 24.8 33 38M14 33.5 33 38M47 14.5 33 38M47 14.5 55 26M33 38 55 26M60 7 55 26M74 15.1 55 26M74 15.1 80 30M55 26 80 30M95 27.2 80 30M106 33.5 92 48M95 27.2 92 48M80 30 92 48M106 52 92 48M55 26 63 42M80 30 63 42M80 30 74 52M92 48 74 52M33 38 47 47M55 26 47 47M63 42 47 47M14 47 33 38M33 38 28 58M14 47 28 58M47 47 28 58M43 63 28 58M14 68 28 58M28 58 30 80M14 68 30 80M43 63 30 80M14 86.5 30 80M24 92.3 30 80M42 102.6 30 80M30 80 52 92M42 102.6 52 92M52 76 30 80M52 76 52 92M60 113 52 92M71 106.7 52 92M52 92 78 88M71 106.7 78 88M68 77 52 92M52 76 68 77M68 77 78 88M88 96.9 78 88M106 86.5 90 66M88 96.9 90 66M90 66 78 88M106 71 90 66M106 52 90 66M92 48 90 66M92 48 78 64M78 64 90 66M78 64 78 88M74 52 63 42M47 47 43 63M43 63 52 76M68 77 78 64M78 64 74 52M56 55 64 67M56 55 74 52M56 55 63 42M56 55 47 47M56 55 43 63M64 67 43 63M64 67 52 76M64 67 68 77M64 67 78 64M64 67 74 52" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round"></path><path d="M60 7 106 33.5v53L60 113 14 86.5v-53Z" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linejoin="round"></path></svg>© 2026 {{ brandName }}</span>
+    <span style="flex:none;white-space:nowrap;font-family:'IBM Plex Mono',monospace">CAD · FEA · CFD · Thermal · Process equipment</span>
+  </div>
+</footer>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;brandName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;MPrep Engineering&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const SERVICES = [
+  { num: '01', tag: 'CAD', short: 'CAD design & 3D modeling', title: 'CAD Design and 3D Modeling',
+    summary: 'Parametric part and assembly models built for manufacture, analysis and review.',
+    deliverables: ['Native and neutral CAD files (e.g. STEP)', 'Assemblies with clear part structure', 'Renders and exploded views'],
+    applications: 'Equipment concepts, fixtures and enclosures, redesign of existing parts, simulation-ready geometry.',
+    value: 'Resolves fit, layout and interference questions before material is cut.' },
+  { num: '02', tag: 'FEA', short: 'Finite element analysis', title: 'Finite Element Analysis (FEA)',
+    summary: 'Structural analysis of stress, deformation and stiffness under defined loads.',
+    deliverables: ['Model setup and mesh documentation', 'Stress and displacement results', 'Short report with assumptions and limits'],
+    applications: 'Load-bearing frames, pressure-containing parts, brackets, thermally loaded components.',
+    value: 'Shows where a design has margin and where it needs attention, relative to stated inputs.' },
+  { num: '03', tag: 'THERMAL', short: 'Thermal simulation', title: 'Thermal Simulation',
+    summary: 'Conduction, convection and radiation modeling for components and equipment.',
+    deliverables: ['Temperature fields and heat-flow paths', 'Boundary-condition summary', 'Parameter or design-variant comparison'],
+    applications: 'Furnaces and hot zones, heat sinks, insulation layouts, thermally driven deformation.',
+    value: 'Compares design options on heat loss, gradients and hot spots before prototyping.' },
+  { num: '04', tag: 'CFD', short: 'CFD simulation', title: 'Computational Fluid Dynamics (CFD)',
+    summary: 'Simulation of fluid flow, mixing and convective heat transfer inside equipment.',
+    deliverables: ['Flow, velocity and pressure fields', 'Mixing and residence-time indicators', 'Report with mesh, models and assumptions'],
+    applications: 'Slurry mixing vessels and impellers, gas flow in furnaces and chambers, drying ovens, cooling channels.',
+    value: 'Shows how flow behaves inside the equipment, so geometry can be improved before fabrication.' },
+  { num: '05', tag: 'PROCESS', short: 'Process equipment design', title: 'Chemical and Process Equipment Design',
+    summary: 'Concept and detail design of vessels, chambers and process hardware.',
+    deliverables: ['Equipment layout and sizing calculations', 'CAD models and general arrangement drawings', 'Design basis document'],
+    applications: 'Reaction and heating chambers, lab-scale and pilot equipment, custom process hardware.',
+    value: 'Turns process requirements into equipment geometry that can be quoted and reviewed.' },
+  { num: '06', tag: 'DOCS', short: 'Drawings & documentation', title: 'Technical Drawings and Documentation',
+    summary: 'Manufacturing drawings, calculation sheets and analysis reports.',
+    deliverables: ['2D drawings with dimensions and tolerances', 'Engineering calculation sheets', 'Technical reports in your template'],
+    applications: 'Supplier packages, internal design reviews, project handover and records.',
+    value: 'Gives reviewers and suppliers one traceable record of what was designed and why.' },
+];
+
+const EQUIPMENT = [
+  { num: '01', title: 'Powder Preparation', examples: 'Ball mill, powder mixer, grinder, sieve shaker', work: 'Mechanical components, housings, shafts, vibration and stress analysis' },
+  { num: '02', title: 'Sample Preparation', examples: 'Hydraulic press, pellet press, sample-cutting fixture', work: 'Pressing mechanisms, stress analysis and structural optimisation' },
+  { num: '03', title: 'Slurry & Suspension Preparation', examples: 'Laboratory mixer, overhead stirrer, slurry mixing vessel', work: 'Impellers, vessels, shafts and mixing systems; CFD of flow and mixing' },
+  { num: '04', title: 'Thermal Processing', examples: 'Laboratory furnace, tube furnace, heating chamber', work: 'Heat transfer, temperature distribution, insulation, gas-flow CFD and structural analysis' },
+  { num: '05', title: 'Material Coating & Processing', examples: 'Dip-coating system, spin-coating fixture, drying oven', work: 'Mechanisms, component modeling, thermal analysis and drying-airflow CFD' },
+  { num: '06', title: 'Crystal Growth & Melt Processing', examples: 'Czochralski puller, Bridgman furnace, induction-heated crucible assembly', work: 'Hot-zone design, thermal gradient and melt-flow CFD, susceptor/crucible thermal stress, pull-mechanism modeling' },
+  { num: '07', title: 'Electrochemical & Photoelectrochemical Cells', examples: 'Electrochemical cells, PEC reactors, electrodeposition baths, flow cells', work: 'Cell and fixture design, electrolyte flow CFD, light-window and sealing design, thermal management' },
+];
+const THEMES = { light: {"bg":"#F5F8FA","paper":"#FFFFFF","card":"#FFFFFF","tint":"#EAF0F4","ink":"#102A43","t1":"#263238","t2":"#263238","t3":"#334E68","t4":"#486581","t5":"#52677D","mute":"#627D98","faint":"#829AB1","link":"#007A7A","err":"#A33A2A","btn":"#102A43","accentText":"#007A7A","scheme":"light","navy":"#102A43","navy2":"#0C2236","well":"#173552","l1":"rgba(16,42,67,.1)","l12":"rgba(16,42,67,.12)","l08":"rgba(16,42,67,.08)","l14":"rgba(16,42,67,.14)","l25":"rgba(16,42,67,.25)","l15":"rgba(16,42,67,.15)","l22":"rgba(16,42,67,.22)"}, dark: {"bg":"#0A1826","paper":"#0E2033","card":"#11263C","tint":"#163049","ink":"#E6EEF4","t1":"#D3DEE8","t2":"#C4D2DE","t3":"#B3C3D2","t4":"#A3B5C6","t5":"#98ABBE","mute":"#8EA3B8","faint":"#7A90A6","link":"#2EC4C4","err":"#EE9A8A","btn":"#00A6A6","accentText":"#2EC4C4","scheme":"dark","navy":"#071522","navy2":"#050F19","well":"#0D2134","l1":"rgba(255,255,255,.08)","l12":"rgba(255,255,255,.1)","l08":"rgba(255,255,255,.064)","l14":"rgba(255,255,255,.112)","l25":"rgba(255,255,255,.2)","l15":"rgba(255,255,255,.12)","l22":"rgba(255,255,255,.18)"} };
+const SUN = 'M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4';
+const MOON = 'M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z';
+const POSTS = [
+  { num: '01', label: 'Thermal Analysis', cats: ['Thermal'], title: 'Setting Thermal Boundary Conditions for a Laboratory Furnace: Heaters, Radiation, and Heat Losses', summary: 'A practical guide to defining heater power, thermal insulation, surface emissivity, radiation, and cooled boundaries when building a furnace thermal model. Learn how modeling assumptions affect predicted temperatures and how to document them.', topics: 'Heat transfer · Thermal simulation · Furnace design', image: 'Furnace temperature field', slot: 'blog-1' },
+  { num: '02', label: 'Finite Element Analysis', cats: ['FEA'], title: 'FEA Mesh Convergence: How to Determine Whether Your Mesh Is Fine Enough', summary: 'Explore mesh refinement, stress convergence, element quality, and sensitivity studies. Understand why a visually smooth stress contour does not necessarily indicate an accurate solution and how to report numerical limitations transparently.', topics: 'FEA · Meshing · Stress analysis · Verification', image: 'Mesh refinement comparison', slot: 'blog-2' },
+  { num: '03', label: 'Equipment Design', cats: ['Equipment', 'FEA'], title: 'Laboratory Ball Mill Design: Shaft Sizing, Bearing Loads, and Structural Checks', summary: 'Examine the mechanical considerations behind a laboratory-scale ball mill, from shaft torque and bearing reactions to mounting loads and structural deformation. Learn which preliminary calculations can inform the CAD model before detailed simulation.', topics: 'Mechanical design · Shaft calculations · Structural analysis', image: 'Ball mill CAD assembly', slot: 'blog-3' },
+  { num: '04', label: 'CAD Modeling', cats: ['CAD'], title: 'Preparing 3D CAD Models for FEA: Geometry Cleanup, Contacts, and Assemblies', summary: 'Learn how to prepare simulation-ready equipment geometry by removing unnecessary features, simplifying small components, defining assembly interfaces, and identifying contact conditions. A well-prepared model can make meshing and analysis more efficient.', topics: 'CAD · Assembly modeling · Simulation preparation', image: 'Simplified vs. full geometry', slot: 'blog-4' },
+  { num: '05', label: 'Computational Fluid Dynamics', cats: ['CFD'], title: 'CFD for Slurry Mixing: Impeller Flow Patterns, Dead Zones, and Model Limitations', summary: 'Explore how impeller geometry, rotational speed, fluid properties, and vessel configuration influence mixing. Learn what single-phase CFD can reveal about flow patterns and where additional modeling is needed for non-Newtonian fluids, solid particles, or multiphase systems.', topics: 'CFD · Mixing systems · Impeller design · Fluid mechanics', image: 'Impeller flow field', slot: 'blog-5' },
+  { num: '06', label: 'Thermal & Fluid Flow', cats: ['CFD', 'Thermal'], title: 'Gas Flow in a Tube Furnace: Evaluating Reynolds and Richardson Numbers', summary: 'Investigate the preliminary calculations used to characterize gas flow in a tube furnace. Learn how Reynolds and Richardson numbers help assess the relative importance of forced flow and buoyancy before selecting an appropriate simulation approach.', topics: 'CFD · Tube furnaces · Gas flow · Heat transfer', image: 'Tube furnace gas flow', slot: 'blog-6' },
+  { num: '07', label: 'Thermal Equipment Design', cats: ['Thermal', 'Equipment'], title: 'Designing High-Temperature Furnace Insulation: Heat Loss, Wall Temperature, and Energy Requirements', summary: 'Explore how insulation thickness, thermal conductivity, surface temperature, and heat-transfer mechanisms influence furnace performance. Use first-order calculations to estimate conductive heat loss and identify the limitations of simplified thermal models.', topics: 'Furnace design · Insulation · Thermal calculations', image: 'Furnace insulation layers', slot: 'blog-7' },
+  { num: '08', label: 'Structural Analysis', cats: ['FEA'], title: 'Pressure Vessel Design Basics: Hoop Stress, Wall Thickness, and FEA Considerations', summary: 'Understand the preliminary calculations used to estimate membrane stresses in thin-walled cylindrical vessels. Examine when simplified analytical equations are useful, what they leave out, and why external-pressure buckling and applicable design codes require separate consideration.', topics: 'Pressure vessels · Structural FEA · Engineering calculations', image: 'Pressure vessel stress plot', slot: 'blog-8' },
+  { num: '09', label: 'Material Processing Equipment', cats: ['Equipment'], title: 'From Biomass Adsorption to Equipment Design: Preliminary Sizing of an Adsorption Column', summary: 'Explore how process requirements, adsorbent properties, flow rate, and residence time can inform the preliminary design of an adsorption column. Connect material-processing knowledge with equipment geometry and the engineering considerations needed for further design development.', topics: 'Process equipment · Adsorption · Material processing', image: 'Adsorption column layout', slot: 'blog-9' },
+  { num: '10', label: 'Engineering Workflow', cats: ['Equipment', 'CAD', 'FEA', 'Thermal'], title: 'From Design Requirements to Simulation: A Practical Workflow for Equipment Development', summary: 'Follow the engineering workflow from defining operating conditions and developing a 3D CAD assembly to performing preliminary calculations, preparing simulation geometry, evaluating results, and documenting design limitations.', topics: 'Equipment design · CAD · FEA · Thermal analysis · Documentation', image: 'Design-to-simulation workflow', slot: 'blog-10' },
+];
+const PROJECTS = [
+  { num: '02', cat: 'Electrochemical', title: 'Photoelectrochemical & Electrochemical Test Cells', desc: 'A family of laboratory cells for illuminated-electrode and electrolysis experiments: PEC cell with quartz optical window, membrane-separated H-cell, and compact flow cell. Designed around electrode positioning, optical access, sealing, gas evolution, and reference-electrode placement.', type: 'Laboratory Testing Equipment', focus: 'CAD · Experimental Design · Sealing & Materials Selection', visual: 'Cutaway PEC cell showing working, counter, and reference electrodes, electrolyte chamber, and illumination window.' },
+  { num: '03', cat: 'Oil & Gas', title: 'Core-Flooding Apparatus for Enhanced Oil Recovery (EOR)', desc: 'Laboratory core-flooding system for evaluating chemical EOR formulations (surfactant, polymer, alkaline–surfactant–polymer) under reservoir conditions. Covers Hassler-type core holder design under confining pressure, transfer cylinders, injection and back-pressure arrangement, heating oven, and pressure-rated sealing.', type: 'Oil & Gas Laboratory Equipment', focus: '3D CAD · Pressure-Vessel FEA · Thermal Calculations · Flow Arrangement', visual: 'Sectional view of core holder with rubber sleeve, core sample, and end platens, plus a schematic of pumps, transfer cylinders, oven, and back-pressure regulator.' },
+  { num: '04', cat: 'Minerals & Metallurgy', title: 'Laboratory HPAL Autoclave for Nickel Laterite', desc: 'Bench-scale high-pressure acid leaching (HPAL) autoclave for nickel–cobalt extraction from laterite ore under high temperature, high pressure, and sulfuric-acid conditions. Study covers titanium-lined pressure vessel design, magnetically coupled agitator, acid-injection and sampling ports, heating and cooling arrangement, and corrosion-driven materials selection, referencing ASME Section VIII principles.', type: 'Hydrometallurgical Pressure Equipment', focus: '3D CAD · Pressure-Vessel FEA · Thermal Analysis · Materials Selection', visual: 'Sectional view of the lined autoclave showing agitator, liner, heating jacket, sampling dip tube, and pressure fittings.' },
+  { num: '05', cat: 'Thermal', title: 'Hydrothermal Synthesis Autoclave', desc: 'Teflon-lined stainless-steel autoclave for hydrothermal and solvothermal synthesis of functional materials. Covers wall thickness, closure and thread design, liner fit, and pressure/temperature limits, referencing ASME Section VIII principles.', type: 'Pressure Equipment Design', focus: '3D CAD · Pressure-Vessel FEA · Thermal Calculations', visual: 'Exploded view of steel body, PTFE liner, lid, and closure, plus an FEA stress plot.' },
+  { num: '06', cat: 'Process', title: 'Biomass-to-Adsorbent Process Line', desc: 'A connected series covering the full route from biomass feedstock to tested adsorbent: hopper and screw feeder, pyrolysis/activation reactor, and batch adsorption vessel for chromium (Cr) removal testing. Relevant to coconut-shell charcoal and activated-carbon producers.', type: 'Process Equipment Series', focus: 'CAD · Heat Transfer · Mechanical Sizing · Process Calculations', visual: 'Process-flow layout linking feeder → reactor → adsorption vessel, with a cutaway of the reactor.' },
+  { num: '07', cat: 'Process', title: 'Bitumen Emulsion Preparation Unit', desc: 'Pilot-scale unit for preparing bitumen emulsions: heated bitumen tank, jacketed aqueous-phase vessel, and colloid mill arrangement. Examines heating requirements, mixing, shear zone, and shaft and support design. Informed by applied bitumen-emulsion research.', type: 'Process Equipment Design', focus: 'CAD · Thermal Calculations · Structural Analysis · CFD Development', visual: '3D layout of bitumen tank, aqueous-phase vessel, colloid mill, and piping.' },
+  { num: '08', cat: 'Oil & Gas', title: 'Wax Deposition Test Rig', desc: 'Cold-finger and flow-loop apparatus for studying paraffin wax deposition from waxy crude oils and evaluating wax inhibitors. Covers jacketed oil bath design, controlled temperature differential at the deposition surface, coolant circuit, and heat-transfer calculations.', type: 'Oil & Gas Laboratory Equipment', focus: 'CAD · Heat-Transfer Calculations · Thermal Simulation', visual: 'Cutaway of the jacketed oil bath with the cooled cold finger and a schematic of heating and cooling circuits.' },
+  { num: '09', cat: 'Minerals & Metallurgy', title: 'Co-Precipitation Reactor for Battery Cathode Precursors', desc: 'Laboratory continuous stirred-tank reactor for synthesising nickel-rich hydroxide precursors (NCM/NCA) by co-precipitation. Study covers vessel and baffle geometry, impeller selection, pH and dosing ports, inert-gas blanketing, jacket temperature control, and overflow arrangement.', type: 'Battery-Materials Process Equipment', focus: 'CAD · Mixing & CFD · Thermal Calculations · Process Sizing', visual: 'Sectional view of the reactor with impeller, baffles, dosing lines, pH probe port, N₂ inlet, and heating jacket.' },
+  { num: '10', cat: 'Electrochemical', title: 'Lab-Scale Electrolyzer Stack (AEM/PEM)', desc: 'Compact multi-cell electrolyzer for green-hydrogen and electro-oxidation research. Covers bipolar-plate and flow-field geometry, membrane-electrode assembly compression, gasket sealing, current collection, and gas/liquid manifolding.', type: 'Electrochemical Equipment Design', focus: 'CAD · Flow-Field CFD · Compression FEA · Materials Selection', visual: 'Exploded stack showing end plates, bipolar plates with flow channels, MEAs, gaskets, and tie rods.' },
+  { num: '11', cat: 'Thermal', title: 'Controlled-Atmosphere Tube & Calcination Furnace', desc: 'Furnace for thermal treatment and calcination under controlled gas atmosphere — relevant to catalyst, ceramic, and battery-material preparation. Covers heating-zone arrangement, process-tube support, gas connections, and temperature uniformity.', type: 'Thermal Processing Equipment', focus: 'CAD · Thermal Analysis · Heat-Transfer Calculations', visual: 'Isometric cutaway of housing, process tube, heating elements, insulation, and gas fittings.' },
+  { num: '12', cat: 'Oil & Gas', title: 'Spinning-Drop Interfacial Tension (IFT) Cell', desc: 'Test cell for measuring ultra-low interfacial tension between crude oil and surfactant solutions, used to screen chemical EOR formulations. Covers rotating capillary support, drive and speed stability, temperature control, and optical access for drop imaging.', type: 'Oil & Gas Laboratory Equipment', focus: 'CAD · Mechanical Design · Thermal Control Requirements', visual: '3D model of the rotating capillary housing, drive motor, heating block, and camera viewing axis.' },
+  { num: '13', cat: 'Minerals & Metallurgy', title: 'Atmospheric Leaching Reactor', desc: 'Jacketed, acid-resistant reactor for atmospheric leaching of nickel, cobalt, and other metals from ores, concentrates, or recycled battery black mass. Covers slurry agitation, reflux condenser, acid-dosing and sampling arrangement, lining selection, and jacket heat duty.', type: 'Hydrometallurgical Process Equipment', focus: 'CAD · Mixing Calculations · Heat Transfer · Materials Selection', visual: 'Cutaway of the jacketed reactor with slurry impeller, reflux condenser, dosing line, and bottom discharge valve.' },
+  { num: '14', cat: 'Process', title: 'Fixed-Bed Adsorption Column', desc: 'Continuous-flow column for evaluating adsorbent performance through breakthrough-curve testing, extending batch adsorption studies to flow conditions. Covers column sizing, packing support, flow distribution, sampling points, and pressure-drop estimates.', type: 'Separation Equipment Design', focus: 'CAD · Process Calculations · Pressure-Drop Analysis', visual: 'Sectional column showing inlet distributor, packed adsorbent bed, support mesh, and sampling ports.' },
+  { num: '15', cat: 'Electrochemical', title: 'Corrosion Flat Cell & Electrodeposition Cell', desc: 'Two complementary lab cells: a flat cell for electrochemical corrosion testing of coated and uncoated metal samples, and an electrodeposition cell for thin-film and coating preparation. Covers exposed-area definition, sealing, electrode alignment, and electrolyte circulation.', type: 'Laboratory Testing Equipment', focus: 'CAD · Experimental Design · Sealing & Materials Selection', visual: 'Exploded flat cell showing sample clamp, O-ring, reference electrode port, and counter-electrode mesh.' },
+  { num: '16', cat: 'Mechanical', title: 'Spin & Dip Coater for Thin-Film Electrodes', desc: 'Benchtop coating system for preparing thin-film photoelectrodes and functional coatings on glass/FTO substrates. Covers substrate chuck design, speed and withdrawal-rate control, solvent containment, and vibration considerations.', type: 'Materials Processing Equipment', focus: 'CAD · Mechanical Design · Motion & Control Requirements', visual: 'Side-by-side 3D models of the spin-coater bowl with vacuum chuck and the dip-coater lift mechanism.' },
+  { num: '17', cat: 'Mechanical', title: 'Hydraulic Pellet Press & Die Set', desc: 'Laboratory press and die set for preparing pellets for XRD, FTIR (KBr), and XRF analysis. Covers die geometry, punch and sleeve stresses, frame stiffness, hydraulic loading, and pellet ejection.', type: 'Mechanical Equipment Design', focus: '3D CAD · Structural FEA · Mechanical Calculations', visual: 'Exploded die set beside the press frame, with an FEA stress plot of the die under load.' },
+  { num: '18', cat: 'Thermal', title: 'Laboratory Vacuum Drying Oven', desc: 'Vacuum oven for low-temperature drying of powders, electrodes, and heat-sensitive materials. Covers chamber wall design under external pressure, door sealing, shelf heating, insulation, and vacuum connections.', type: 'Laboratory Equipment Design', focus: '3D CAD · External-Pressure FEA · Heat-Loss Calculations', visual: 'Front 3D view with the door open, showing heated shelves and vacuum port.' },
+  { num: '19', cat: 'Mechanical', title: 'Laboratory Ball Mill', desc: 'Lab-scale ball mill for particle-size reduction of catalysts, ceramics, ores, and adsorbent precursors. Covers drum geometry, critical-speed calculation, shaft and bearing sizing, drive system, and support-frame analysis.', type: 'Mechanical Equipment Design', focus: '3D CAD · Mechanical Calculations · Structural FEA', visual: 'Exploded assembly of drum, shaft, bearings, motor, coupling, and frame.' },
+].map(p => ({ ...p, slot: 'proj-' + p.num }));
+const ROADMAP = ['Rotary Kiln for Laterite Calcination & Pre-Reduction', 'HPHT Corrosion Test Autoclave', 'Battery Pouch & Coin-Cell Test Fixture', 'Spray Dryer for Catalyst & Battery Powders', 'Stirred-Tank Reactor for Process Studies', 'Polymer Membrane Casting & Drying System', 'Sieve Shaker for Particle-Size Analysis', 'Solid–Liquid Filtration Unit', 'Shell-and-Tube Heat Exchanger', 'Glovebox / Inert-Atmosphere Workstation'].map((t, i) => ({ n: 'R' + (i + 1), t }));
+const NAV = [['home','Home'],['services','Services'],['projects','Projects'],['process','How I Work'],['pricing','Pricing'],['tools','Tools'],['calculators','Calculators'],['about','About'],['blog','Blog'],['contact','Contact']];
+const ICONS = {
+  home: 'M3 11l9-7 9 7M5 9.5V20h14V9.5M10 20v-5h4v5',
+  services: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
+  projects: 'M12 3l8 4.5v9L12 21l-8-4.5v-9zM12 12l8-4.5M12 12L4 7.5M12 12v9',
+  process: 'M4 5h6v5H4zM14 14h6v5h-6zM7 10v3a3 3 0 0 0 3 3h4',
+  about: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4 3.6-6 8-6s8 2 8 6',
+  blog: 'M6 3h9l3 3v15H6zM9 9h6M9 13h6M9 17h4',
+  pricing: 'M3 12V4h8l10 10-8 8zM7.5 8h.01',
+  tools: 'M3 4h18v12H3zM8 20h8M12 16v4',
+  calculators: 'M5 3h14v18H5zM8 7h8M8 12h2M14 12h2M8 16h2M14 16h2',
+  contact: 'M3 6h18v12H3zM3 7l9 6 9-6',
+};
+const PAGES = NAV.map(n => n[0]);
+const CHAPTERS = [['cz-overview','Overview'],['cz-cad','CAD assembly'],['cz-params','Assumptions & parameters'],['cz-thermal','Thermal model'],['cz-fea','FEA methodology'],['cz-verify','Verification'],['cz-results','Results & limitations'],['cz-conclusions','Conclusions'],['cz-model','3D model'],['cz-docs','Documentation']];
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/ilhamaksanmaulana579@gmail.com';
+const MODEL_SRC = 'models/cz-r4-furnace.glb';
+const MV_SRC = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js';
+
+const _fx = x => { if (!isFinite(x)) return '—'; const a = Math.abs(x); if (a !== 0 && (a >= 1e7 || a < 1e-3)) return x.toExponential(3); return Number(x.toPrecision(4)).toLocaleString('en-US', { maximumFractionDigits: 6 }); };
+const _W = q => !isFinite(q) ? '—' : Math.abs(q) >= 1000 ? _fx(q / 1000) + ' kW' : _fx(q) + ' W';
+const _segs = s => { const p = s.split(/_\{([^}]*)\}/), o = []; for (let i = 0; i < p.length; i += 2) { const b = p[i], sb = p[i + 1]; if (b || sb) o.push({ b, s: sb || '', hasS: !!sb }); } return o; };
+const _ln = (lhs, ...parts) => ({ lhs: _segs(lhs), parts: parts.map(p => typeof p === 'string' ? { isText: true, isFrac: false, segs: _segs(p) } : { isFrac: true, isText: false, num: _segs(p[0]), den: _segs(p[1]) }) });
+const SB = 5.670374419e-8;
+const _f4 = x => { if (!isFinite(x)) return '—'; const a = Math.abs(x); if (a >= 1e4) return Number(x.toPrecision(4)).toLocaleString('en-US'); if (a !== 0 && a < 1e-3) return x.toExponential(3); return x.toPrecision(4); };
+const _sc = units => x => { if (!isFinite(x)) return '—'; let u = units[0]; for (const c of units) if (Math.abs(x) >= c[1]) u = c; return _f4(x / u[1]) + ' ' + u[0]; };
+const fW = _sc([['W', 1], ['kW', 1e3], ['MW', 1e6]]), fJ = _sc([['J', 1], ['kJ', 1e3], ['MJ', 1e6], ['GJ', 1e9]]), fN = _sc([['N', 1], ['kN', 1e3], ['MN', 1e6]]), fPa = _sc([['Pa', 1], ['kPa', 1e3], ['MPa', 1e6]]);
+const DT_HELP = 'A difference of 1 K equals 1 °C.';
+const I = (k, label, d, rule, help, mode) => ({ k, label, d, rule: rule || '', help: help || '', mode: mode || '' });
+const RULES = { pos: v => v > 0 ? '' : 'Must be greater than 0', nonneg: v => v >= 0 ? '' : 'Must be 0 or greater', eps: v => v > 0 && v <= 1 ? '' : 'Must be between 0 and 1', eta: v => v > 0 && v <= 100 ? '' : 'Must be between 0 and 100', tabs: v => v + 273.15 > 0 ? '' : 'Must be above absolute zero (−273.15 °C)' };
+const WARN = { amber: ['#FBF3E2', '#D9B26A', '#4A3410'], red: ['#FBE9E7', '#E3A196', '#7A1F12'], info: ['var(--tint,#EAF0F4)', 'var(--l14,rgba(16,42,67,.14))', 'var(--t2,#263238)'] };
+const CALC_GROUPS = [
+  { tag: 'THERMAL', items: [
+    { id: 'cond', title: 'Conductive heat loss through insulation', f: [_ln('Q̇', ['k · A · ΔT', 'L'])],
+      in: [I('k', 'Thermal conductivity k [W/m·K]', '0.1', 'pos'), I('A', 'Area A [m²]', '1', 'pos'), I('dT', 'Temperature difference ΔT [K]', '800', '', DT_HELP), I('L', 'Insulation thickness L [mm]', '100', 'pos')],
+      out: ['Heat transfer rate'], run: v => ({ o: [['Heat transfer rate', fW(v.k * v.A * v.dT / (v.L / 1000))]] }),
+      note: 'Steady-state, one-dimensional conduction through a flat wall with constant thermal conductivity. Thickness is converted to metres internally. Radiation, contact resistance, thermal bridges, and edge effects are excluded.' },
+    { id: 'conv', title: 'Convective heat transfer', f: [_ln('Q̇', 'h · A · (T_{s} − T_{∞})')],
+      in: [I('h', 'Heat transfer coefficient h [W/m²·K]', '10', 'pos'), I('A', 'Surface area A [m²]', '1', 'pos'), I('Ts', 'Surface temperature Ts [°C]', '80', 'tabs'), I('Tf', 'Fluid temperature T∞ [°C]', '25', 'tabs')],
+      out: ['Convective heat transfer rate'], run: v => ({ o: [['Convective heat transfer rate', fW(v.h * v.A * (v.Ts - v.Tf))]] }),
+      note: 'Uses a constant heat transfer coefficient over the selected surface. Appropriate for preliminary estimates of heat exchange between equipment surfaces and surrounding fluids.' },
+    { id: 'rad', title: 'Radiative heat transfer', f: [_ln('Q̇', 'ε · σ · A · (T_{s}⁴ − T_{sur}⁴)')],
+      in: [I('e', 'Surface emissivity ε [0–1]', '0.8', 'eps'), I('A', 'Radiating area A [m²]', '1', 'pos'), I('Ts', 'Surface temperature Ts [°C]', '500', 'tabs'), I('Tsur', 'Surrounding temperature Tsur [°C]', '25', 'tabs')],
+      out: ['Net radiative heat transfer rate'], run: v => { const q = v.e * SB * v.A * ((v.Ts + 273.15) ** 4 - (v.Tsur + 273.15) ** 4); return q < 0 ? { o: [['Net radiative heat gain', fW(-q)]], w: [['info', 'Surface is colder than surroundings — net heat flows into the surface.']] } : { o: [['Net radiative heat transfer rate', fW(q)]] }; },
+      note: 'Uses the Stefan–Boltzmann law with temperatures converted to kelvin internally. Assumes a simplified radiative exchange between a surface and large, approximately isothermal surroundings. Complex view factors and enclosure effects are excluded.' },
+    { id: 'heat', title: 'Heating energy and power requirement', f: [_ln('E', 'm · c_{p} · ΔT'), _ln('P_{avg}', ['E', 't'])],
+      in: [I('m', 'Material mass m [kg]', '10', 'pos'), I('cp', 'Specific heat capacity cp [kJ/kg·K]', '0.5', 'pos'), I('dT', 'Temperature change ΔT [K]', '800', '', DT_HELP), I('t', 'Heating time t [min]', '60', 'pos')],
+      out: ['Heating energy', 'Average heating power'], run: v => { const E = v.m * v.cp * 1000 * v.dT; return { o: [['Heating energy', fJ(E)], ['Average heating power', fW(E / (v.t * 60))]] }; },
+      note: "Estimates the sensible heat required to raise a material's temperature and the average power needed over a specified heating period. Assumes constant specific heat capacity. Heat losses, phase changes, and temperature-dependent material properties are excluded." },
+    { id: 'exp', title: 'Linear thermal expansion', f: [_ln('ΔL', 'α · L_{0} · ΔT')],
+      in: [I('a', 'Coefficient of thermal expansion α [×10⁻⁶ /K]', '12', '', 'Typical: carbon steel ≈ 12, stainless 304 ≈ 17, aluminium ≈ 23.'), I('L0', 'Initial length L₀ [mm]', '1000', 'pos'), I('dT', 'Temperature change ΔT [K]', '800', '', DT_HELP)],
+      out: ['Change in length ΔL'], run: v => ({ o: [['Change in length ΔL', _f4(v.a * 1e-6 * v.L0 * v.dT) + ' mm']] }),
+      note: 'Assumes uniform temperature change and unrestricted expansion. Mechanical constraints, temperature gradients, and thermal stresses are not considered.' },
+  ] },
+  { tag: 'STRUCTURAL', items: [
+    { id: 'tor', title: 'Torsional shear stress in a shaft', modes: [['solid', 'Solid shaft'], ['hollow', 'Hollow shaft']],
+      f: { solid: [_ln('τ_{max}', ['16 · T', 'π · d³'])], hollow: [_ln('τ_{max}', ['16 · T · d', 'π · (d⁴ − d_{i}⁴)'])] },
+      in: [I('T', 'Torque T [N·m]', '50'), I('d', 'Shaft diameter d [mm]', '20', 'pos'), I('di', 'Inner diameter di [mm]', '10', 'pos', '', 'hollow')],
+      check: (v, m) => m === 'hollow' && v.di >= v.d ? { di: 'Must be smaller than shaft diameter d' } : {},
+      out: ['Maximum shear stress'], run: (v, m) => ({ o: [['Maximum shear stress', fPa((m === 'hollow' ? 16 * v.T * 1000 * v.d / (Math.PI * (v.d ** 4 - v.di ** 4)) : 16 * v.T * 1000 / (Math.PI * v.d ** 3)) * 1e6)]] }),
+      note: 'For a circular shaft under pure torsion. Torque is converted internally to N·mm to maintain consistent units. Stress concentrations, bending loads, fatigue, and geometric discontinuities are excluded.' },
+    { id: 'ax', title: 'Axial stress in a structural member', f: [_ln('σ', ['F', 'A'])],
+      in: [I('F', 'Axial force F [N]', '10000'), I('A', 'Cross-sectional area A [mm²]', '100', 'pos')],
+      out: ['Average normal stress'], run: v => ({ o: [['Average normal stress', fPa(v.F / v.A * 1e6)]] }),
+      note: 'Assumes a uniform, concentric axial load and a uniform cross-section. Local stress concentrations, buckling, and eccentric loading are excluded.' },
+    { id: 'pv', title: 'Thin-walled pressure vessel stress', f: [_ln('σ_{h}', ['p · D', '2 · t']), _ln('σ_{l}', ['p · D', '4 · t'])],
+      in: [I('p', 'Internal differential pressure p [MPa]', '1'), I('D', 'Internal diameter D [mm]', '500', 'pos'), I('t', 'Wall thickness t [mm]', '10', 'pos')],
+      out: ['Hoop stress σh', 'Longitudinal stress σl', 'Wall ratio t/D'], run: v => { const r = v.t / v.D, w = []; if (r > 0.10) w.push(['red', 'Thin-wall assumption is not valid for this geometry.']); else if (r > 0.05) w.push(['amber', 'Thin-wall assumption becomes inaccurate (D/t < 20). Consider thick-wall (Lamé) equations.']); return { o: [['Hoop stress σh', fPa(v.p * v.D / (2 * v.t) * 1e6)], ['Longitudinal stress σl', fPa(v.p * v.D / (4 * v.t) * 1e6)], ['Wall ratio t/D', _f4(r)]], w }; },
+      note: 'Estimates membrane stresses in a thin-walled cylindrical vessel with closed ends under internal pressure. Assumes wall thickness is small relative to vessel diameter. Uses internal diameter. Design codes such as ASME BPVC Section VIII use different formulations (e.g. t = PR / (SE − 0.6P)) including joint efficiency and allowable stress. Excludes head geometry, nozzle reinforcement, weld efficiency, local stresses, external-pressure buckling, and code-specific requirements. This is a preliminary screening calculation, not a pressure-vessel design verification.' },
+    { id: 'eul', title: 'Critical buckling load (Euler / Johnson)', f: [_ln('P_{cr,Euler}', ['π² · E · I', '(K · L)²']), _ln('P_{cr,Johnson}', 'A · [S_{y} − ', ['S_{y}²', '4 · π² · E'], ' · λ²]'), _ln('λ_{c}', '√(2 · π² · E / S_{y})')],
+      in: [I('E', "Young's modulus E [MPa]", '200000', 'pos'), I('I', 'Second moment of area I [mm⁴]', '13333', 'pos', 'Default (A = 400 mm², I = 13,333 mm⁴) corresponds to a 20 × 20 mm solid square bar. Rectangle: I = b·h³/12. Solid round: I = π·d⁴/64.'), I('A', 'Cross-sectional area A [mm²]', '400', 'pos'), I('Sy', 'Material yield strength Sy [MPa]', '250', 'pos'), I('L', 'Unsupported length L [mm]', '1000', 'pos'), I('K', 'Effective length factor K [–]', '1', 'pos')],
+      out: ['Critical load Pcr', 'Slenderness ratio λ', 'Critical slenderness λc', 'Method used'], run: v => { const r = Math.sqrt(v.I / v.A), lam = v.K * v.L / r, lc = Math.sqrt(2 * Math.PI ** 2 * v.E / v.Sy), eu = lam >= lc; const P = eu ? Math.PI ** 2 * v.E * v.I / (v.K * v.L) ** 2 : v.A * (v.Sy - v.Sy ** 2 / (4 * Math.PI ** 2 * v.E) * lam ** 2); return { o: [['Critical load Pcr', fN(P)], ['Slenderness ratio λ', _f4(lam)], ['Critical slenderness λc', _f4(lc)], ['Method used', eu ? 'Euler (elastic)' : 'Johnson (inelastic)']], w: eu ? [] : [['amber', 'Column is short/intermediate — yielding governs before elastic buckling, so the Euler result would be non-conservative.']] }; },
+      note: 'Slenderness λ = K·L / r with r = √(I/A). Euler applies to slender columns (λ ≥ λc); the Johnson parabola is used for shorter columns. Assumes concentric axial compression, linear-elastic material up to yield, and idealized end restraints. Initial imperfections, residual stresses, and local buckling are excluded.' },
+    { id: 'fos', title: 'Yield-based factor of safety', f: [_ln('FoS', ['S_{y}', 'σ_{eq}'])],
+      in: [I('Sy', 'Material yield strength Sy [MPa]', '250', 'pos'), I('s', 'Equivalent von Mises stress σeq [MPa]', '100', 'pos')],
+      out: ['Yield-based factor of safety'], run: v => ({ o: [['Yield-based factor of safety', _f4(v.Sy / v.s)]] }),
+      note: 'Provides a preliminary yield-margin estimate for ductile materials using von Mises equivalent stress. Material condition, fatigue, fracture, instability, load uncertainty, and applicable design criteria must be assessed separately.' },
+  ] },
+  { tag: 'CFD & FLUID FLOW', items: [
+    { id: 're', title: 'Impeller Reynolds number in a mixing vessel', f: [_ln('Re', ['ρ · N · D²', 'μ'])],
+      in: [I('rho', 'Fluid density ρ [kg/m³]', '1500', 'pos'), I('N', 'Impeller speed N [rpm]', '300'), I('D', 'Impeller diameter D [mm]', '80', 'pos'), I('mu', 'Dynamic viscosity μ [mPa·s]', '50', 'pos')],
+      out: ['Impeller Reynolds number', 'Estimated flow regime'], run: v => { const re = v.rho * (v.N / 60) * (v.D / 1000) ** 2 / (v.mu / 1000); return { o: [['Impeller Reynolds number', _f4(re)], ['Estimated flow regime', re < 10 ? 'Laminar' : re < 1e4 ? 'Transitional' : 'Turbulent']] }; },
+      note: 'Rotational speed, diameter, and viscosity are converted to consistent SI units internally. Impeller speed is converted from rpm to revolutions per second (N/60), not rad/s, as required by the standard mixing Reynolds number definition. For Newtonian fluids in stirred vessels, indicative regimes are laminar below Re = 10, transitional from approximately Re = 10 to 10⁴, and turbulent above Re = 10⁴. Actual transition behaviour depends on impeller geometry, vessel configuration, and fluid properties. Non-Newtonian fluids may require an apparent viscosity evaluated at a representative shear rate.' },
+    { id: 'vel', title: 'Mean velocity in a circular pipe', f: [_ln('v', ['4 · Q', 'π · D²'])],
+      in: [I('Q', 'Volumetric flow rate Q [L/min]', '20'), I('D', 'Internal pipe diameter D [mm]', '25', 'pos')],
+      out: ['Mean flow velocity'], run: v => ({ o: [['Mean flow velocity', _f4(4 * (v.Q / 60000) / (Math.PI * (v.D / 1000) ** 2)) + ' m/s']] }),
+      note: 'Calculates the cross-sectional average velocity for steady flow through a fully filled circular pipe. Assumes the specified volumetric flow rate corresponds to the operating conditions.' },
+    { id: 'dw', title: 'Darcy–Weisbach pressure drop', modes: [['manual', 'Enter f manually'], ['calc', 'Calculate f']],
+      f: { manual: [_ln('Δp', 'f · ', ['L', 'D_{h}'], ' · ', ['ρ · v²', '2'])], calc: [_ln('Δp', 'f · ', ['L', 'D_{h}'], ' · ', ['ρ · v²', '2']), _ln('Re', ['ρ · v · D_{h}', 'μ']), _ln('1/√f', '−2 · log₁₀(', ['ε/D_{h}', '3.7'], ' + ', ['2.51', 'Re · √f'], ')')] },
+      in: [I('f', 'Darcy friction factor f [–] (not Fanning; f_Darcy = 4 × f_Fanning)', '0.02', 'pos', '', 'manual'), I('L', 'Pipe length L [m]', '10', 'pos'), I('Dh', 'Hydraulic diameter Dh [mm]', '25', 'pos'), I('rho', 'Fluid density ρ [kg/m³]', '1000', 'pos'), I('v', 'Mean flow velocity v [m/s]', '1.5'), I('mu', 'Dynamic viscosity μ [mPa·s]', '1.0', 'pos', '', 'calc'), I('rough', 'Absolute roughness ε [mm]', '0.045', 'nonneg', 'Commercial steel ≈ 0.045, drawn tubing ≈ 0.0015, PVC ≈ 0.0015–0.007', 'calc')],
+      out: m => m === 'calc' ? ['Straight-pipe frictional pressure drop', 'Reynolds number', 'Flow regime', 'Calculated friction factor f'] : ['Straight-pipe frictional pressure drop'],
+      run: (v, m) => { let f = v.f, o = [], w = []; if (m === 'calc') { const Re = v.rho * Math.abs(v.v) * (v.Dh / 1000) / (v.mu / 1000); let reg; if (Re < 2300) { f = 64 / Re; reg = 'Laminar'; } else { const er = (v.rough / v.Dh) / 3.7; let x = -1.8 * Math.log10(er ** 1.11 + 6.9 / Re); for (let k = 0; k < 30; k++) x = -2 * Math.log10(er + 2.51 * x / Re); f = 1 / (x * x); reg = Re < 4000 ? 'Transitional' : 'Turbulent'; if (Re < 4000) w.push(['amber', 'Friction factor is uncertain in the transitional regime.']); } o = [['Reynolds number', _f4(Re)], ['Flow regime', reg], ['Calculated friction factor f', _f4(f)]]; } return { o: [['Straight-pipe frictional pressure drop', fPa(f * (v.L / (v.Dh / 1000)) * (v.rho * v.v ** 2 / 2))], ...o], w }; },
+      note: 'Estimates major pressure losses for steady, incompressible flow. The friction factor must correspond to the applicable flow regime and pipe roughness; in calculated mode it uses f = 64/Re for laminar flow and the Colebrook–White equation (solved iteratively) otherwise. Fittings, valves, entrances, exits, and other minor losses are excluded.' },
+    { id: 'pump', title: 'Pump shaft power estimate', f: [_ln('P_{hyd}', 'Δp · Q'), _ln('P_{shaft}', ['Δp · Q', 'η'])],
+      in: [I('dp', 'Required pressure rise Δp [kPa]', '200'), I('Q', 'Volumetric flow rate Q [L/min]', '100'), I('eta', 'Pump efficiency η [%]', '70', 'eta')],
+      out: ['Hydraulic power', 'Estimated pump shaft power'], run: v => { const h = v.dp * 1000 * (v.Q / 60000); return { o: [['Hydraulic power', fW(h)], ['Estimated pump shaft power', fW(h / (v.eta / 100))]] }; },
+      note: 'Estimates the shaft power required to deliver the specified flow against a given pressure rise. Efficiency is converted to a fraction internally. Static elevation, additional system losses, motor efficiency, and operating-point limitations must be considered separately.' },
+  ] },
+];
+const CALC_DEFAULTS = Object.fromEntries(CALC_GROUPS.flatMap(g => g.items.flatMap(c => [...c.in.map(i => [c.id + '.' + i.k, i.d]), ...(c.modes ? [[c.id + '.__mode', c.modes[0][0]]] : [])])));
+
+class Component extends DCLogic {
+  _calcSet = {};
+  state = { calc: { ...CALC_DEFAULTS }, blogCat: 'All', theme: 'light', w: typeof window !== 'undefined' ? window.innerWidth : 1280, active: 'home', collapsed: false, drawer: false, sideWidth: 256, resizing: false,
+    model: 'idle', form: { name: '', company: '', email: '', service: '', description: '', reference: '', timeline: '', budget: '' }, files: [], fileError: '', dragOn: false, errors: {}, sending: false, sent: false, sendError: '' };
+
+  componentDidMount() {
+    try { const sd = JSON.parse(localStorage.getItem('mprep-side') || 'null'); if (sd) this.setState({ collapsed: !!sd.collapsed, sideWidth: Math.min(380, Math.max(200, +sd.w || 256)) }); } catch (e) {}
+    this.onResize = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onResize);
+    this.onHash = () => { const p = this.pageFromHash(); if (p !== this.state.active) { this.setState({ active: p }); window.scrollTo(0, 0); } };
+    window.addEventListener('hashchange', this.onHash);
+    this.onHash();
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); window.removeEventListener('hashchange', this.onHash); }
+  pageFromHash() { const id = (location.hash || '').replace(/^#\/?/, ''); return PAGES.includes(id) ? id : 'home'; }
+
+  scrollToEl = id => {
+    const el = document.getElementById(id); if (!el) return;
+    const off = this.state.w < 960 ? 64 : 16;
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - off, behavior: 'smooth' });
+  };
+  openCase = e => { e && e.preventDefault(); this.setState({ active: 'projects', caseView: true, drawer: false }); history.replaceState(null, '', '#/projects'); window.scrollTo(0, 0); };
+  closeCase = e => { e && e.preventDefault(); this.setState({ caseView: false }); window.scrollTo(0, 0); };
+  go = id => e => {
+    e && e.preventDefault();
+    if (PAGES.includes(id)) {
+      this.setState({ active: id, drawer: false, caseView: false });
+      history.replaceState(null, '', '#/' + id);
+      window.scrollTo(0, 0);
+      document.title = (id === 'home' ? '' : NAV.find(n => n[0] === id)[1] + ' — ') + 'MPrep Engineering';
+      return;
+    }
+    if (this.state.active !== 'projects') { this.setState({ active: 'projects', drawer: false }); history.replaceState(null, '', '#/projects'); setTimeout(() => this.scrollToEl(id), 60); }
+    else this.scrollToEl(id);
+  };
+
+  loadModel = async () => {
+    this.setState({ model: 'checking' });
+    try {
+      const r = await fetch(MODEL_SRC, { method: 'HEAD' });
+      const type = r.headers.get('content-type') || '';
+      if (!r.ok || type.includes('text/html')) return this.setState({ model: 'missing' });
+      if (!customElements.get('model-viewer')) {
+        await new Promise((res, rej) => { const s = document.createElement('script'); s.type = 'module'; s.src = MV_SRC; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
+      }
+      this.setState({ model: 'ready' });
+    } catch (err) { this.setState({ model: 'missing' }); }
+  };
+
+  setField = k => e => { const v = e.target.value; this.setState(s => ({ form: { ...s.form, [k]: v }, errors: { ...s.errors, [k]: '' }, sent: false, sendError: '' })); };
+
+  _addFiles = list => {
+    const MAX = 20 * 1024 * 1024, OK = /\.(pdf|step|stp|iges|igs|stl|dwg|dxf|f3d|zip|jpe?g|png)$/i;
+    const cur = this.state.files || [], add = [], bad = [];
+    for (const f of list) { if (!OK.test(f.name)) bad.push(f.name + ' (type)'); else if (f.size > MAX) bad.push(f.name + ' (over 20 MB)'); else if (!cur.some(c => c.name === f.name && c.size === f.size)) add.push(f); }
+    let next = [...cur, ...add], err = bad.length ? 'Not added: ' + bad.join(', ') : '';
+    if (next.length > 5) { next = next.slice(0, 5); err = (err ? err + '. ' : '') + 'Maximum 5 files.'; }
+    this.setState({ files: next, fileError: err, dragOn: false });
+  };
+
+  submit = async e => {
+    e.preventDefault();
+    if (this.state.sending) return;
+    const f = this.state.form, errors = {};
+    if (!f.name.trim()) errors.name = 'Please enter your name.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) errors.email = 'Please enter a valid email address.';
+    if (!f.service) errors.service = 'Please select a service.';
+    if (f.description.trim().length < 20) errors.description = 'Please describe the project (at least 20 characters).';
+    const ok = !Object.keys(errors).length;
+    this.setState({ errors, sendError: '', sent: false });
+    if (!ok) { const first = e.target.querySelector('[name="' + Object.keys(errors)[0] + '"]'); first && first.focus(); return; }
+    const fd = new FormData();
+    fd.append('_subject', 'New project inquiry — ' + f.service + ' — ' + f.name.trim());
+    fd.append('_template', 'table'); fd.append('_captcha', 'false'); fd.append('_replyto', f.email.trim());
+    fd.append('Name', f.name.trim()); fd.append('Company', f.company.trim() || '—'); fd.append('Email', f.email.trim());
+    fd.append('Service', f.service); fd.append('Timeline', f.timeline || '—'); fd.append('Budget', f.budget.trim() || '—');
+    fd.append('Reference link', f.reference.trim() || '—'); fd.append('Project description', f.description.trim());
+    (this.state.files || []).forEach(file => fd.append('attachment', file, file.name));
+    this.setState({ sending: true });
+    try {
+      const r = await fetch(FORM_ENDPOINT, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || j.success === false || j.success === 'false') throw new Error(j.message || 'Request failed');
+      this.setState({ sending: false, sent: true, files: [], fileError: '', form: { name: '', company: '', email: '', service: '', description: '', reference: '', timeline: '', budget: '' } });
+    } catch (err) {
+      this.setState({ sending: false, sendError: 'Your inquiry could not be sent. Please try again, or email ilhamaksanmaulana579@gmail.com directly.' });
+    }
+  };
+
+  toggleTheme = () => this.setState(s => { const theme = s.theme === 'dark' ? 'light' : 'dark'; try { localStorage.setItem('mprep-theme', theme); } catch (e) {} document.body.style.background = THEMES[theme].bg; return { theme }; });
+  startResize = (e) => {
+    e.preventDefault();
+    const x0 = e.clientX, w0 = this.state.collapsed ? 76 : this.state.sideWidth;
+    let moved = false;
+    this.setState({ resizing: true });
+    const mv = ev => { const w = Math.min(380, Math.max(76, w0 + ev.clientX - x0)); if (Math.abs(ev.clientX - x0) > 3) moved = true; this.setState(w < 150 ? { collapsed: true } : { collapsed: false, sideWidth: Math.max(200, w) }); };
+    const up = () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); this.setState({ resizing: false }); if (moved) try { localStorage.setItem('mprep-side', JSON.stringify({ collapsed: this.state.collapsed, w: this.state.sideWidth })); } catch (e) {} };
+    window.addEventListener('pointermove', mv); window.addEventListener('pointerup', up);
+  };
+  renderVals() {
+    const { w, active, collapsed, drawer, model, form, errors } = this.state;
+    const isDesktop = w >= 960;
+    const expanded = !collapsed;
+    const fields = ['name','company','email','service','description','reference','timeline','budget'];
+    const msgs = {
+      idle: 'Interactive 3D model of the CZ-R4 furnace assembly. Not loaded by default to keep the page light.',
+      checking: 'Checking for the model file…',
+      missing: 'Model file not found. Place the exported GLB at the path below and reload.',
+    };
+    const dark = this.state.theme === 'dark';
+    if (typeof document !== 'undefined') document.body.style.background = THEMES[this.state.theme].bg;
+    return {
+      th: THEMES[this.state.theme], toggleTheme: this.toggleTheme,
+      themeIcon: dark ? SUN : MOON, themeText: dark ? 'Light mode' : 'Dark mode', themeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      brandName: this.props.brandName ?? 'MPrep Engineering',
+      isDesktop, isMobile: !isDesktop, expanded, collapsed,
+      sideW: collapsed ? '76px' : this.state.sideWidth + 'px',
+      sideTrans: this.state.resizing ? 'none' : 'width .2s ease',
+      startResize: this.startResize,
+      headJustify: collapsed ? 'center' : 'flex-start', headPadL: collapsed ? '0px' : '22px', headPadR: collapsed ? '0px' : '16px', topPad: isDesktop ? '72px' : '0px', toggleJustify: collapsed ? 'center' : 'flex-start', toggleRot: collapsed ? 'scaleX(-1)' : 'none', stickyTop: '28px', scrollM: '72px', pageTitle: (NAV.find(n => n[0] === active) || [, 'Home'])[1],
+      collapseGlyph: collapsed ? '»' : '«',
+      collapseLabel: collapsed ? 'Expand sidebar' : 'Collapse sidebar',
+      toggleCollapse: () => this.setState(s => { const collapsed = !s.collapsed; try { localStorage.setItem('mprep-side', JSON.stringify({ collapsed, w: s.sideWidth })); } catch (e) {} return { collapsed }; }),
+      drawerOpen: drawer, openDrawer: () => this.setState({ drawer: true }), closeDrawer: () => this.setState({ drawer: false }),
+      navItems: NAV.map(([id, label], i) => {
+        const on = active === id;
+        return { id, label, icon: ICONS[id], go: this.go(id), current: on ? 'page' : undefined,
+          color: on ? 'var(--ink,#102A43)' : 'var(--t4,#486581)', bg: on ? 'rgba(0,166,166,.1)' : 'transparent',
+          bar: on ? '#00A6A6' : 'transparent', numColor: on ? '#00A6A6' : 'var(--mute,#627D98)' };
+      }),
+      goHome: this.go('home'), goServices: this.go('services'), goProjects: this.go('projects'), goContact: this.go('contact'), goCase: this.openCase,
+      pageHome: active === 'home', pageServices: active === 'services', pageProjects: active === 'projects', pageProcess: active === 'process', pageAbout: active === 'about', pageContact: active === 'contact', pageBlog: active === 'blog', pagePricing: active === 'pricing', pageTools: active === 'tools', pageCalculators: active === 'calculators',
+      toolGroups: [
+        { tag: 'CAD', title: '3D modeling & assemblies', items: [{ n: 'Autodesk Fusion', l: 'Working knowledge' }, { n: 'AutoCAD', l: 'Working knowledge' }], use: 'Part and assembly modeling, parametric design, equipment layout, and simulation-ready geometry for engineering applications.' },
+        { tag: 'FEA', title: 'Structural analysis', items: [{ n: 'Autodesk Fusion Simulation', l: 'Working knowledge' }, { n: 'PrePoMax / CalculiX', l: 'Developing' }], use: 'Structural analysis workflows for evaluating stress, deformation, and stability under defined loading conditions. Analysis assumptions and boundary conditions are documented in project reports.' },
+        { tag: 'THERMAL', title: 'Thermal simulation', items: [{ n: 'Autodesk Fusion Simulation', l: 'Working knowledge' }], use: 'Thermal studies for furnaces and heated equipment, including temperature distribution, heat-transfer assumptions, and evaluation of thermal performance.' },
+        { tag: 'CFD', title: 'Fluid flow simulation', items: [{ n: 'CFD solver', l: 'Capability in development' }], use: 'CFD capabilities are currently being developed. Fluid-flow and convective heat-transfer simulations will be introduced as the relevant solver workflows are established and validated.' },
+        { tag: 'DRAWINGS', title: 'Technical drawings', items: [{ n: 'AutoCAD', l: 'Working knowledge' }], use: '2D engineering drawings, equipment layouts, dimensioning, and drawing preparation to support fabrication and design communication.' },
+        { tag: 'CALC', title: 'Engineering calculations', items: [{ n: 'Microsoft Excel', l: 'Working knowledge' }], use: 'Engineering calculations, parameter studies, design comparisons, and supporting calculation sheets for equipment design and simulation projects.' },
+        { tag: 'DOCS', title: 'Reporting & documentation', items: [{ n: 'Microsoft Word / PowerPoint', l: 'Working knowledge' }], use: 'Technical reports, design basis documents, simulation summaries, engineering calculations, and project presentations.' },
+      ],
+      formats: [{ k: 'Native formats', v: ['F3D', 'DWG'] }, { k: '3D exchange', v: ['STEP', 'GLB'] }, { k: 'Drawings & reports', v: ['DXF', 'PDF'] }],
+      plans: [
+        { tag: 'FIXED SCOPE · MOST COMMON', title: 'Design project', from: 'From', price: '$450', unit: 'per project', note: '', badge: '', best: 'For developing new equipment concepts or improving existing designs through 3D CAD modeling and engineering documentation.', items: ['3D CAD models and assemblies', 'Manufacturing and technical drawings', 'Equipment and component design', 'Design basis and technical documentation', 'Agreed revision rounds'], foot: '', cta: 'Request a Quote', border: '#00A6A6' },
+        { tag: 'ENGINEERING ANALYSIS', title: 'FEA / CFD / thermal study', from: 'From', price: '$700', unit: 'per study', note: 'Simple structural FEA from $500 · CFD studies from $800', badge: '', best: 'For evaluating structural integrity, fluid flow, and thermal performance under defined operating conditions.', items: ['Structural FEA and stress analysis', 'CFD simulations for fluid flow and pressure distribution', 'Thermal analysis and heat-transfer studies', 'Model setup, mesh refinement, and convergence checks', 'Results for agreed load cases and operating conditions', 'Technical report covering assumptions, methodology, and results', 'Engineering recommendations for design improvement'], foot: '', cta: 'Request a Quote', border: 'var(--l12,rgba(16,42,67,.12))' },
+        { tag: 'FLEXIBLE · ON DEMAND', title: 'Hourly engineering support', from: '', price: '$40', unit: 'per hour', note: '', badge: '', best: 'For ongoing technical assistance, design reviews, engineering calculations, or projects with evolving requirements.', items: ['CAD and engineering design support', 'FEA, CFD, and thermal analysis assistance', 'Design reviews and technical calculations', 'Engineering documentation and revisions', 'Flexible scheduling based on availability'], foot: '', cta: 'Request a Quote', border: 'var(--l12,rgba(16,42,67,.12))' },
+        { tag: 'ONGOING COLLABORATION', title: 'Monthly engineering retainer', from: 'From', price: '$650', unit: 'per month', note: '', badge: 'Effective rate ~$32/hour', best: 'For businesses that need recurring engineering support without committing to a full-time engineering hire.', items: ['Up to 20 hours of engineering support per month', 'Priority scheduling', 'Design reviews and engineering calculations', 'CAD model and documentation updates', 'Ongoing technical consultation', 'Monthly timesheet and work summary'], foot: 'Additional hours and work beyond the agreed scope are quoted separately.', cta: 'Discuss Your Requirements', border: 'var(--l12,rgba(16,42,67,.12))' },
+      ],
+      trustPoints: [
+        { t: 'Clear scope and fixed quotes before work starts', icon: 'M9 12l2 2 4-4M4 4h16v16H4z' },
+        { t: 'Async-friendly collaboration · UTC+7, replies within 24 hours', icon: 'M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z' },
+        { t: 'Research-grade methodology and documented assumptions', icon: 'M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5' },
+        { t: 'Secure file handling · NDA available on request', icon: 'M6 11h12v10H6zM8.5 11V7.5a3.5 3.5 0 0 1 7 0V11' },
+      ],
+      quoteFactors: [
+        { k: 'Design complexity', v: 'Geometry, component count, assemblies, and manufacturing requirements.' },
+        { k: 'Analysis requirements', v: 'Number of load cases, operating conditions, design variants, and simulation scenarios.' },
+        { k: 'Physics involved', v: 'Structural behavior, fluid flow, turbulence, heat transfer, or coupled multiphysics.' },
+        { k: 'Input data', v: 'Availability of existing CAD files, technical drawings, material properties, and operating conditions.' },
+        { k: 'Documentation', v: 'Required calculations, technical reports, manufacturing drawings, and supporting documentation.' },
+        { k: 'Project timeline', v: 'Standard delivery schedules versus urgent turnaround requirements.' },
+      ],
+      quoteSteps: [
+        { t: 'Share your project', b: 'Send your drawings, CAD files, technical brief, or a description of the engineering problem.' },
+        { t: 'Define the scope', b: 'We review the requirements, available data, deliverables, and expected timeline.' },
+        { t: 'Receive a proposal', b: 'You receive a project-specific quotation with the agreed scope, deliverables, and schedule.' },
+        { t: 'Engineering and delivery', b: 'Work proceeds according to the approved proposal, with agreed revisions and technical documentation.' },
+      ],
+      calcGroups: CALC_GROUPS.map(g => ({ tag: g.tag, items: g.items.map(c => {
+        const st = this.state.calc, m = c.modes ? (st[c.id + '.__mode'] || c.modes[0][0]) : '';
+        const act = c.in.filter(i => !i.mode || i.mode === m), v = {}, err = {};
+        act.forEach(i => { const raw = st[c.id + '.' + i.k], x = parseFloat(raw); v[i.k] = x; err[i.k] = (raw === '' || raw == null || !isFinite(x)) ? 'Enter a number' : (i.rule ? RULES[i.rule](x) : ''); });
+        if (!Object.values(err).some(Boolean) && c.check) Object.assign(err, c.check(v, m));
+        const bad = Object.values(err).some(Boolean); let r = null;
+        if (!bad) { try { r = c.run(v, m); } catch (e) {} }
+        const labels = typeof c.out === 'function' ? c.out(m) : c.out;
+        const set = k => this._calcSet[k] || (this._calcSet[k] = e => { const val = e.target.value; this.setState(s => ({ calc: { ...s.calc, [k]: val } })); });
+        const pick = (k, val) => this._calcSet[k + '=' + val] || (this._calcSet[k + '=' + val] = () => this.setState(s => ({ calc: { ...s.calc, [k]: val } })));
+        return { title: c.title, formulas: Array.isArray(c.f) ? c.f : c.f[m], note: c.note,
+          hasModes: !!c.modes, modes: (c.modes || []).map(([id, label]) => ({ label, on: id === m, pick: pick(c.id + '.__mode', id), bg: id === m ? 'var(--ink,#102A43)' : 'transparent', color: id === m ? 'var(--bg,#FFFFFF)' : 'var(--t3,#334E68)' })),
+          inputs: act.map(i => ({ label: i.label, v: st[c.id + '.' + i.k], on: set(c.id + '.' + i.k), help: i.help, err: err[i.k] || '', invalid: err[i.k] ? 'true' : undefined, border: err[i.k] ? 'var(--err,#A33A2A)' : 'var(--l22,rgba(16,42,67,.22))' })),
+          outputs: r ? r.o.map(([label, val]) => ({ label, val })) : labels.map(label => ({ label, val: '—' })),
+          warns: (r && r.w || []).map(([lvl, text]) => ({ text, bg: WARN[lvl][0], border: WARN[lvl][1], color: WARN[lvl][2] })) };
+      }) })),
+      blogCats: ['All','Thermal','FEA','CFD','CAD','Equipment'].map(label => { const on = this.state.blogCat === label; return { label, on, pick: () => this.setState({ blogCat: label }), bg: on ? 'var(--ink,#102A43)' : 'transparent', color: on ? 'var(--bg,#F5F8FA)' : 'var(--t3,#334E68)', border: on ? 'var(--ink,#102A43)' : 'var(--l22,rgba(16,42,67,.22))' }; }),
+      posts: POSTS.filter(p => this.state.blogCat === 'All' || p.cats.includes(this.state.blogCat)),
+      services: SERVICES, equipment: EQUIPMENT,
+      serviceOptions: ['CAD Design & 3D Modeling', 'Finite Element Analysis (FEA)', 'Thermal Simulation', 'Computational Fluid Dynamics (CFD)', 'Chemical & Process Equipment Design', 'Technical Drawings & Engineering Documentation', 'Engineering Calculations & Preliminary Sizing', 'Other / Not Sure'],
+      timelineOptions: ['As soon as possible', 'Within 2–4 weeks', 'Within 1–3 months', 'Flexible / To be discussed'],
+      fileAccept: '.pdf,.step,.stp,.iges,.igs,.stl,.dwg,.dxf,.f3d,.zip,.jpg,.jpeg,.png',
+      files: (this.state.files || []).map((f, i) => ({ name: f.name, size: f.size >= 1048576 ? (f.size / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(f.size / 1024)) + ' KB', remove: () => this.setState(s => ({ files: s.files.filter((_, j) => j !== i), fileError: '' })) })),
+      hasFiles: (this.state.files || []).length > 0, fileError: this.state.fileError || '',
+      filePick: e => { const l = [...e.target.files]; e.target.value = ''; this._addFiles(l); },
+      fileDragOver: e => { e.preventDefault(); if (!this.state.dragOn) this.setState({ dragOn: true }); },
+      fileDragLeave: () => this.setState({ dragOn: false }),
+      fileDrop: e => { e.preventDefault(); this._addFiles([...(e.dataTransfer?.files || [])]); },
+      dropBorder: this.state.dragOn ? '#00A6A6' : 'var(--l25,rgba(16,42,67,.25))', dropBg: this.state.dragOn ? 'rgba(0,166,166,.08)' : 'var(--card,#FFFFFF)',
+      projCats: ['All', 'Thermal', 'Electrochemical', 'Process', 'Oil & Gas', 'Minerals & Metallurgy', 'Mechanical'].map(label => { const on = (this.state.projCat || 'All') === label; return { label, on, pick: () => this.setState({ projCat: label }), bg: on ? 'var(--ink,#102A43)' : 'transparent', color: on ? 'var(--bg,#FFFFFF)' : 'var(--t3,#334E68)', border: on ? 'var(--ink,#102A43)' : 'var(--l22,rgba(16,42,67,.22))' }; }),
+      projects: PROJECTS.filter(p => (this.state.projCat || 'All') === 'All' || p.cat === this.state.projCat),
+      showFeatured: ['All', 'Thermal'].includes(this.state.projCat || 'All'),
+      projEmpty: !['All', 'Thermal'].includes(this.state.projCat || 'All') && !PROJECTS.some(p => p.cat === this.state.projCat),
+      featuredFocus: ['3D CAD', 'Thermal Analysis', 'Structural FEA', 'Insulation Study'],
+      roadmap: ROADMAP,
+      caseView: !!this.state.caseView, projList: !this.state.caseView,
+      openCase: this.openCase, closeCase: this.closeCase,
+      caseCols: isDesktop ? '230px minmax(0,1fr)' : 'minmax(0,1fr)',
+      chapters: CHAPTERS.map(([id, label], i) => ({ id, label, num: String(i + 1).padStart(2, '0'), go: this.go(id) })),
+      czParts: [
+        { n: '01', t: 'Pressure-vessel design and sizing to ASME VIII-1' },
+        { n: '02', t: 'Static stress and linear buckling under full vacuum' },
+        { n: '03', t: 'Hot-zone thermal analysis with cavity radiation, plus coupled thermal expansion' },
+        { n: '04', t: 'C++ furnace energy model and control software, built stage by stage' },
+      ],
+      subsystems: [
+        { name: 'Vessel', note: 'SS304, Ø500 mm ID, 8 mm shell, 30 mm flange & bottom plate, water-cooled' },
+        { name: 'Ports', note: 'Viewport, pyrometer port, bottom vacuum-pump port' },
+        { name: 'Refractory insulation', note: 'Graphite felt, bore r 150 mm' },
+        { name: 'Induction coil (heater)', note: 'Graphite IG-110 ring, r 125–135 mm' },
+        { name: 'Susceptor & crucible', note: 'Graphite IG-110 holder, fused-silica crucible' },
+        { name: 'Charge', note: 'Si melt, r 95 mm, about 2.8 L' },
+      ],
+      params: [
+        { name: 'Chamber inner diameter', value: '500 mm', basis: 'Design' },
+        { name: 'Crucible diameter / height', value: '202 / 147 mm', basis: 'Design' },
+        { name: 'Internal design pressure', value: '1.0 MPa', basis: 'Design basis' },
+        { name: 'External pressure', value: '0.101 MPa (full vacuum)', basis: 'Design basis' },
+        { name: 'Heater temperature', value: '1500 °C (prescribed)', basis: 'Assumed' },
+        { name: 'Melt temperature', value: '1420 °C (Si)', basis: 'Literature' },
+        { name: 'Cooling', value: 'Water jacket h = 1000 W/m²K, 25 °C', basis: 'Assumed' },
+        { name: 'Materials', value: 'SS304 / graphite felt / IG-110 / fused silica', basis: 'Literature' },
+      ],
+      bcs: [
+        { k: 'Heater coil', v: 'Fixed T · 1500 °C', n: '' },
+        { k: 'Melt / crystal', v: 'Fixed T · 1420 °C', n: '' },
+        { k: 'Cavity radiation', v: 'ε = 0.85 / 0.85 / 0.80 / 0.30 / 0.85 / 0.35', n: 'Heater, susceptor, crucible rim, melt top, insulator, vessel inner wall. Open top radiates to a 25 °C sink.' },
+        { k: 'Vessel wall', v: 'Water film · h = 1000 W/m²K, 25 °C', n: 'Shell outer wall and bottom plate' },
+        { k: 'Top flange', v: 'Air film · h = 10 W/m²K, 25 °C', n: '' },
+        { k: 'Gas convection', v: 'Not modeled', n: '' },
+      ],
+      feaSteps: [
+        { k: 'STRUCTURAL MESH', v: '3D half model with a symmetry BC, second-order tetrahedra, 99,763 nodes / 58,249 elements, local refinement at the ports and the wall–bottom joint.' },
+        { k: 'STRUCTURAL ANALYSIS', v: 'Static solve at 1 MPa internal pressure, then linear buckling under full vacuum.' },
+        { k: 'THERMAL ANALYSIS', v: '2D axisymmetric CAX6, 22,954 nodes, 6 parts tied, steady-state with cavity radiation, then an uncoupled temperature–displacement step with contact and gravity.' },
+      ],
+      verify: [
+        { q: 'Hoop stress', h: '31.3 MPa', f: '0–46 MPa band' },
+        { q: 'Radial growth', h: '0.036 mm', f: '≈0.04 mm' },
+        { q: 'Bottom deflection', h: '0.13–0.53 mm', f: '0.434 mm' },
+        { q: 'vs reference study', h: '0.414 mm', f: '+4.8 %' },
+        { q: 'Vessel inner wall T', h: '≈68 °C', f: '66.9 °C' },
+      ],
+      results: [
+        { label: 'SUSCEPTOR TEMPERATURE', value: '1459 °C', sub: 'Matches reference study' },
+        { label: 'SHELL MEMBRANE STRESS', value: '≈31 MPa', sub: 'SS304 yield ≈205 MPa' },
+        { label: 'MAX DISPLACEMENT', value: '0.434 mm', sub: 'At 1 MPa internal pressure' },
+        { label: 'LOWEST BUCKLING FACTOR', value: '144.8', sub: 'Pcr ≈ 14.6 MPa' },
+      ],
+      limitations: [
+        'Peak 412.4 MPa at the bottom-port junction is a mesh-sensitive singularity at a sharp re-entrant corner.',
+        'Linear buckling ignores imperfections and plasticity.',
+        'Insulator is open at the top.',
+        'FE radiative flux at the vessel is about 1.8× the hand estimate, which is conservative.',
+        'Ties assume perfect thermal contact.',
+        'Material k(T) is temperature-dependent; melt convection is not modeled.',
+      ],
+      findings: [
+        'AutoCAD → Fusion → STEP → PrePoMax workflow produced a consistent half model.',
+        'Static deflection 0.434 mm, within 4.8 % of the reference and bounded by plate theory.',
+        'Shell membrane stress ≈31 MPa, well below SS304 yield (≈205 MPa).',
+        'Lowest buckling factor 144.8 under full vacuum — stability is not critical.',
+        'Hot-zone temperatures match the reference (susceptor 1459 °C).',
+        'Felt insulation carries a ~700 K drop; the vessel stays below 70 °C.',
+        'Thermal expansion reproduces the reference trend: susceptor ≈1.4 mm, crucible ≈0.14 mm, side gap opens.',
+      ],
+      nextSteps: [
+        'Add a fillet / reinforcing pad at the bottom port and re-run.',
+        'Linearise stresses through the thickness (ASME VIII-2 Part 5) to separate membrane, bending and peak.',
+        'Mesh-convergence check at the hotspot; compare wall-thickness variants.',
+        'Combined load case: hydrostatic melt pressure + 0.101 MPa vacuum → stress and safety factor.',
+        'Contact-layer model for h_c sensitivity.',
+      ],
+      docs: [
+        { kind: 'PDF', name: 'Analysis report — CZ-R4', href: 'docs/cz-r4-analysis-report.pdf', size: 'PDF', pending: false },
+        { kind: 'PDF', name: 'General arrangement drawing', href: 'docs/cz-r4-general-arrangement.pdf', size: 'PDF', pending: false },
+        { kind: 'STEP', name: 'Simplified assembly geometry', href: 'docs/cz-r4-simplified-assembly.step', size: 'STEP', pending: false },
+      ],
+      steps: [
+        { num: '01', title: 'Define the problem and requirements', body: 'Agree the question the work must answer, the acceptance criteria, and what is in and out of scope.' },
+        { num: '02', title: 'Establish geometry, materials, loads and BCs', body: 'Collect drawings and data; document every assumption where data is missing.' },
+        { num: '03', title: 'Develop the CAD model', body: 'Build clean, structured geometry — simplified for simulation where appropriate, with simplifications recorded.' },
+        { num: '04', title: 'Simulate and review convergence', body: 'Run analyses, check mesh sensitivity and solver convergence where applicable, and sanity-check against hand calculations.' },
+        { num: '05', title: 'Interpret results and implications', body: 'Translate fields and numbers into design implications, with limitations stated alongside.' },
+        { num: '06', title: 'Deliver drawings and documentation', body: 'Hand over models, drawings and a report your team can review, reuse and build on.' },
+      ],
+      aboutFocus: [
+        { t: 'Thermal & High-Temperature Equipment', d: 'Furnaces, heating chambers, thermal-processing systems, insulation assemblies, and temperature-control concepts.' },
+        { t: 'Material Processing Equipment', d: 'Equipment concepts for biomass processing, material preparation, thermal treatment, and laboratory-scale operations.' },
+        { t: 'Laboratory & Process Equipment', d: 'Reactors, experimental vessels, adsorption systems, testing fixtures, and equipment for material characterization and process evaluation.' },
+        { t: 'Structural & Thermal Analysis', d: 'Preliminary stress and deformation assessment, heat-transfer calculations, temperature distribution, and thermal-structural considerations.' },
+        { t: 'CAD & Engineering Development', d: '3D part modeling, mechanical assemblies, equipment layouts, technical drawings, and simulation-ready geometry.' },
+      ],
+      aboutCaps: [
+        { k: 'CAD & 3D Modeling', v: 'Autodesk Fusion · AutoCAD' },
+        { k: 'Structural & Thermal Simulation', v: 'Autodesk Fusion Simulation · PrePoMax / CalculiX workflow development' },
+        { k: 'Engineering Calculations', v: 'Heat transfer · Thermal expansion · Structural stress · Preliminary equipment sizing' },
+        { k: 'Technical Documentation', v: 'Design basis documents · Calculation sheets · Technical drawings · Engineering reports' },
+      ],
+      aboutResearch: [
+        { org: 'Universitas Indonesia', t: 'Advanced Materials & Photoelectrochemical Systems', d: 'Conducted M.Sc. research on transition-metal MXenes for photoelectrochemical glycerol oxidation using BiVO₄-based photoanodes. The work involved material preparation, material characterization, electrochemical testing, and HPLC-based product analysis.', rel: 'Understanding material preparation procedures, thermal-treatment requirements, electrochemical test configurations, and operating conditions relevant to laboratory-scale processing and testing equipment.' },
+        { org: 'Universitas Islam Indonesia', t: 'Biomass-Derived Adsorbents & Laboratory Operations', d: 'Worked on the development of adsorbents from coffee waste for chromium (Cr) removal, exploring the use of biomass-derived materials for environmental remediation. Also served as a laboratory assistant, supporting undergraduate practical sessions for more than 100 students per week.', rel: 'Material preparation, biomass processing, adsorption processes, and laboratory workflows. These areas provide a technical foundation for exploring equipment concepts such as biomass-processing systems, adsorption columns, and laboratory-scale treatment units.' },
+        { org: 'Chulalongkorn University', t: 'Polymer Membranes for Fuel Cell Applications', d: 'Worked on sulfonated poly(ether ether ketone) (SPEEK) membranes for proton-exchange membrane fuel cells, focusing on polymer materials for electrochemical energy applications.', rel: 'Understanding polymer processing, membrane preparation, and electrochemical testing requirements relevant to membrane-processing equipment and laboratory testing systems.' },
+        { org: 'LDM Research Group, Universitas Indonesia', t: 'Applied Materials & Product Development', d: 'Contributed to laboratory-based research involving bitumen-emulsion waterproofing and sealant formulations, connecting material properties with practical product development requirements.', rel: 'Understanding material formulation, handling, and processing considerations that can inform the conceptual design of mixing equipment, material-handling systems, and laboratory-scale process equipment.' },
+      ],
+      modelReady: model === 'ready', modelNotReady: model !== 'ready',
+      modelCanLoad: model === 'idle', modelMessage: msgs[model] || '',
+      modelViewer: model === 'ready' ? React.createElement('model-viewer', { src: MODEL_SRC, alt: 'Interactive 3D model of the CZ-R4 crystal-growth furnace', 'camera-controls': '', 'touch-action': 'pan-y', 'shadow-intensity': '0.8', exposure: '1', 'environment-image': 'neutral', style: { position: 'absolute', inset: 0, width: '100%', height: '100%', background: '#102A43' } }) : null,
+      form,
+      on: Object.fromEntries(fields.map(k => [k, this.setField(k)])),
+      errors, invalid: Object.fromEntries(fields.map(k => [k, errors[k] ? 'true' : undefined])),
+      submit: this.submit, sending: !!this.state.sending, sent: !!this.state.sent, sendError: this.state.sendError || '', submitLabel: this.state.sending ? 'Sending…' : 'Submit inquiry',
+    };
+  }
+}
+</script>
+</body>
+</html>

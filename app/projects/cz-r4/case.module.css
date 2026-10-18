@@ -1,0 +1,99 @@
+.back {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
+  font-size: 14px; font-weight: 500; color: var(--teal-text); text-decoration: none;
+}
+.back:hover { text-decoration: underline; }
+
+.article { border: 1px solid var(--l12); border-radius: 6px; background: var(--card); overflow: clip; }
+
+.header {
+  background: var(--navy); color: var(--on-dark); padding: clamp(28px, 4vw, 48px);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 32px;
+}
+.headerText { display: flex; flex-direction: column; gap: 14px; }
+.kicker { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .12em; color: var(--teal); }
+.title { font-weight: 500; font-size: clamp(28px, 3vw, 40px); line-height: 1.1; letter-spacing: -.015em; }
+.summary { font-size: 16px; line-height: 1.6; color: var(--on-dark-body); max-width: 520px; text-wrap: pretty; }
+.meta {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; align-self: start;
+  background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .1); border-radius: 4px; overflow: hidden;
+}
+.meta > div { background: var(--navy); padding: 14px 16px; }
+.meta dt { font-family: var(--font-mono); font-size: 10.5px; color: var(--on-dark-muted); letter-spacing: .1em; }
+.meta dd { margin-top: 6px; font-size: 14.5px; line-height: 1.4; }
+
+.body { display: grid; grid-template-columns: minmax(0, 1fr); }
+.toc { display: none; }
+@media (min-width: 960px) {
+  .body { grid-template-columns: 230px minmax(0, 1fr); }
+  .toc { display: block; border-right: 1px solid var(--l10); padding: 32px 20px; }
+}
+.toc ol { position: sticky; top: 28px; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.toc a {
+  display: flex; padding: 7px 8px; border-radius: 4px; text-decoration: none;
+  color: var(--t3); font-size: 13px; line-height: 1.35;
+}
+.toc a:hover { background: var(--tint); color: var(--ink); }
+
+.chapters { min-width: 0; padding: clamp(24px, 4vw, 48px); display: flex; flex-direction: column; gap: clamp(44px, 5vw, 64px); }
+.chapter { display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 72px; }
+@media (max-width: 959.98px) { .chapter { scroll-margin-top: calc(var(--header-h) + 16px); } }
+
+/* The embedded PDF needs height to be usable; the phone preview just follows the drawing's aspect. */
+.drawingFrame { aspect-ratio: 16 / 10; }
+@media (min-width: 720px) { .drawingFrame { min-height: 320px; } }
+@media (max-width: 719.98px) { .drawingFrame { aspect-ratio: 1800 / 1273; } }
+
+.p17 { font-size: 17px; line-height: 1.65; color: var(--t1); max-width: 760px; text-wrap: pretty; }
+.p15 { font-size: 15px; line-height: 1.65; color: var(--t2); max-width: 760px; text-wrap: pretty; }
+.p15muted { font-size: 15px; line-height: 1.65; color: var(--t4); max-width: 760px; text-wrap: pretty; }
+.p14muted { font-size: 14px; line-height: 1.65; color: var(--t4); max-width: 760px; text-wrap: pretty; }
+.h3 { font-size: 14px; font-weight: 500; }
+.stack12 { display: flex; flex-direction: column; gap: 12px; }
+.stack14 { display: flex; flex-direction: column; gap: 14px; }
+
+.parts { list-style: none; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+.parts > li { background: var(--card); padding: 14px 16px; display: flex; gap: 12px; align-items: baseline; font-size: 14.5px; line-height: 1.5; }
+.partNum { flex: none; font-family: var(--font-mono); font-size: 12px; color: var(--teal-text); }
+
+.cell { padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+.cellTitle { font-size: 14px; font-weight: 500; }
+.cellNote { font-size: 13px; line-height: 1.45; color: var(--t5); }
+
+.ruled { list-style: none; display: flex; flex-direction: column; border-top: 1px solid var(--l10); }
+.ruled > li { display: flex; flex-direction: column; gap: 3px; padding: 10px 0; border-bottom: 1px solid var(--l10); }
+.bcRow { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 16px; font-size: 14px; }
+.bcVal { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink); }
+.bcNote { font-size: 12.5px; line-height: 1.45; color: var(--mute); }
+.stepKey { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; color: var(--mute); }
+.stepVal { font-size: 14.5px; line-height: 1.6; color: var(--t2); text-wrap: pretty; }
+
+.kpi { padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+.kpiLabel { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em; color: var(--mute); }
+.kpiValue { font-family: var(--font-mono); font-size: 24px; line-height: 1.1; color: var(--ink); }
+.kpiSub { font-size: 12.5px; color: var(--t4); }
+
+.limits { padding: 18px 20px; border: 1px solid var(--l14); border-radius: 4px; background: var(--paper); display: flex; flex-direction: column; gap: 10px; }
+.limitsLabel { font-family: var(--font-mono); font-size: 10.5px; font-weight: 400; letter-spacing: .12em; color: #7A4B12; }
+.limits ul { padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 1.55; color: var(--t2); }
+
+.concl { display: flex; flex-direction: column; gap: 10px; padding-top: 14px; border-top: 2px solid var(--ink); }
+.conclNext { border-top-color: var(--teal); }
+.conclTitle { font-size: 15px; font-weight: 500; }
+.concl ul { padding-left: 18px; display: flex; flex-direction: column; gap: 7px; font-size: 14px; line-height: 1.55; color: var(--t2); }
+
+.hint { font-size: 13px; color: var(--mute); }
+
+.docs { list-style: none; border: 1px solid var(--l12); border-radius: 4px; overflow: hidden; }
+.docs > li {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 18px; border-bottom: 1px solid var(--l08); background: var(--card);
+}
+.docs > li:last-child { border-bottom: 0; }
+.docName { display: flex; gap: 14px; align-items: baseline; min-width: 0; font-size: 14.5px; }
+.docKind { font-family: var(--font-mono); font-size: 11px; color: var(--teal-text); flex: none; width: 36px; }
+.docLink {
+  flex: none; display: inline-flex; align-items: center; min-height: 44px;
+  font-size: 13.5px; font-weight: 500; color: var(--teal-text); text-decoration: none;
+}
+.docLink:hover { text-decoration: underline; }

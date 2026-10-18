@@ -1,0 +1,62 @@
+{
+  "/assets/about/portrait.webp": [
+    800,
+    1000
+  ],
+  "/assets/cz-r4/00-buckling-mode1.webp": [
+    602,
+    760
+  ],
+  "/assets/cz-r4/01-assembly-overview.webp": [
+    570,
+    880
+  ],
+  "/assets/cz-r4/02-section-hot-zone.webp": [
+    455,
+    587
+  ],
+  "/assets/cz-r4/03-temperature-distribution.webp": [
+    775,
+    852
+  ],
+  "/assets/cz-r4/04-mesh-global.webp": [
+    552,
+    766
+  ],
+  "/assets/cz-r4/05-stress-von-mises.webp": [
+    732,
+    832
+  ],
+  "/assets/cz-r4/06-deformation.webp": [
+    782,
+    855
+  ],
+  "/assets/cz-r4/07-ga-drawing.webp": [
+    1800,
+    1273
+  ],
+  "/assets/cz-r4/buckling-mode2.webp": [
+    606,
+    760
+  ],
+  "/assets/cz-r4/buckling-mode3.webp": [
+    601,
+    761
+  ],
+  "/assets/cz-r4/thermal-run1-conduction-only.webp": [
+    815,
+    857
+  ],
+  "/assets/cz-r4/thermal-run2-with-radiation.webp": [
+    705,
+    807
+  ],
+  "/assets/cz-r4/verification-run1-missing-load.webp": [
+    737,
+    851
+  ],
+  "/assets/home/hero-cz-r4.webp": [
+    1200,
+    604
+  ]
+}

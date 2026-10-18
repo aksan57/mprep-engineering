@@ -1,0 +1,18 @@
+.grid {
+  max-width: var(--max); margin: 0 auto; display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(36px, 5vw, 72px);
+}
+.intro { display: flex; flex-direction: column; gap: 22px; }
+.lead { font-size: 16px; line-height: 1.65; color: var(--on-dark-body); max-width: 460px; text-wrap: pretty; }
+.sub { font-size: 15px; line-height: 1.65; color: var(--on-dark-muted); max-width: 460px; text-wrap: pretty; }
+.direct { display: flex; flex-direction: column; gap: 10px; }
+.directLabel { font-family: var(--font-mono); font-size: 11px; font-weight: 400; letter-spacing: .12em; color: var(--teal-on-dark); }
+.dl { display: flex; flex-direction: column; border-top: 1px solid rgba(255, 255, 255, .1); }
+.dl > div {
+  display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px 16px;
+  padding: 14px 0; border-bottom: 1px solid rgba(255, 255, 255, .1);
+}
+.dl dt { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; color: var(--on-dark-muted); }
+.dl dd { font-size: 14.5px; text-align: right; min-width: 0; overflow-wrap: anywhere; }
+.dl a { color: var(--on-dark-link); }
+.dl a:hover { color: #fff; }
