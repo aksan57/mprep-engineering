@@ -89,3 +89,12 @@
 .legend { list-style: none; display: grid; gap: 8px 20px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--l10); font-size: 13px; line-height: 1.4; color: var(--t2); }
 .legend li { display: flex; gap: 10px; align-items: center; }
 .legendNum { flex: none; width: 20px; height: 20px; border-radius: 50%; background: var(--teal-text); color: #fff; font-family: var(--font-mono); font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; }
+
+.cite { font-family: var(--font-mono); font-size: .68em; line-height: 0; margin-left: 2px; color: var(--mute); white-space: nowrap; }
+.cite a { color: var(--teal-text); text-decoration: none; }
+.cite a:hover { text-decoration: underline; }
+.refs { list-style: none; display: flex; flex-direction: column; border-top: 1px solid var(--l10); max-width: 820px; }
+.refs li { display: flex; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--l10); font-size: 13.5px; line-height: 1.55; color: var(--t2); scroll-margin-top: 80px; }
+.refs li:target { background: var(--tint); }
+.refNum { flex: none; width: 30px; font-family: var(--font-mono); font-size: 12px; color: var(--teal-text); }
+.refLink { color: var(--teal-text); word-break: break-all; }
