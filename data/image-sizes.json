@@ -7,6 +7,30 @@
     1600,
     900
   ],
+  "/assets/cold-gas/card-tank.webp": [
+    900,
+    900
+  ],
+  "/assets/cold-gas/cfd-axis.webp": [
+    1088,
+    550
+  ],
+  "/assets/cold-gas/cfd-nozzle.webp": [
+    1131,
+    1124
+  ],
+  "/assets/cold-gas/copv-cutaway.webp": [
+    801,
+    800
+  ],
+  "/assets/cold-gas/copv-vonmises.webp": [
+    1418,
+    952
+  ],
+  "/assets/cold-gas/nozzle-cad.webp": [
+    845,
+    957
+  ],
   "/assets/cz-r4/00-buckling-mode1.webp": [
     602,
     760

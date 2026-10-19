@@ -4,41 +4,41 @@ import Link from 'next/link';
 import { useState } from 'react';
 import FilterPills from '@/components/FilterPills';
 import Img from '@/components/Img';
-import { FEATURED, PROJECT_CATS, PROJECTS, type ProjectCat } from '@/data/projects';
+import { CASE_STUDIES, PROJECT_CATS, PROJECTS, type ProjectCat } from '@/data/projects';
 import s from './projects.module.css';
 
 export default function ProjectsList() {
   const [cat, setCat] = useState<ProjectCat>('All');
-  const showFeatured = cat === 'All' || cat === FEATURED.cat;
+  const featured = CASE_STUDIES.filter(c => cat === 'All' || c.cat === cat);
   const list = PROJECTS.filter(p => cat === 'All' || p.cat === cat);
-  const count = list.length + (showFeatured ? 1 : 0);
+  const count = list.length + featured.length;
 
   return (
     <>
       <FilterPills label="Filter projects" options={PROJECT_CATS} value={cat} onChange={setCat} scroll />
       <p className="sr-only" aria-live="polite">{count} {count === 1 ? 'project' : 'projects'} shown</p>
 
-      {showFeatured && (
-        <article className={s.featured}>
-          <div className={s.featuredMedia}><Img src={FEATURED.image.src} alt={FEATURED.image.alt} /></div>
+      {featured.map(c => (
+        <article key={c.num} className={s.featured}>
+          <div className={s.featuredMedia}><Img src={c.image.src} alt={c.image.alt} /></div>
           <div className={s.featuredBody}>
             <div className={s.cardTop}>
-              <span className={s.numCat}><span className={s.num}>{FEATURED.num}</span><span className="label" style={{ letterSpacing: '.1em' }}>{FEATURED.cat}</span></span>
+              <span className={s.numCat}><span className={s.num}>{c.num}</span><span className="label" style={{ letterSpacing: '.1em' }}>{c.cat}</span></span>
               <span className="badge badge--teal">PUBLISHED CASE STUDY</span>
             </div>
-            <h2 className={s.featuredTitle}>{FEATURED.title}</h2>
-            <p className={s.featuredDesc}>{FEATURED.desc}</p>
+            <h2 className={s.featuredTitle}>{c.title}</h2>
+            <p className={s.featuredDesc}>{c.desc}</p>
             <dl className={s.dl}>
-              <div><dt className="label">TYPE</dt><dd>{FEATURED.type}</dd></div>
-              <div><dt className="label">FOCUS</dt><dd className={s.pills}>{FEATURED.focus.map(f => <span key={f} className="pill">{f}</span>)}</dd></div>
+              <div><dt className="label">TYPE</dt><dd>{c.type}</dd></div>
+              <div><dt className="label">FOCUS</dt><dd className={s.pills}>{c.focus.map(f => <span key={f} className="pill">{f}</span>)}</dd></div>
             </dl>
             <div className={s.featuredFoot}>
-              <Link href={FEATURED.href} className="btn btn--primary" style={{ height: 46, padding: '0 20px', fontSize: 14.5 }}>View case study <span aria-hidden="true">→</span></Link>
+              <Link href={c.href} className="btn btn--primary" style={{ height: 46, padding: '0 20px', fontSize: 14.5 }}>View case study <span aria-hidden="true">→</span></Link>
               <span className={s.disclaimer}>Conceptual · not fabricated or experimentally validated</span>
             </div>
           </div>
         </article>
-      )}
+      ))}
 
       {list.length > 0 && (
         <ul className={s.devList} aria-label="Projects in development">

@@ -1,16 +1,29 @@
 export const PROJECT_CATS = ['All', 'Thermal', 'Electrochemical', 'Process', 'Oil & Gas', 'Minerals & Metallurgy', 'Mechanical'] as const;
 export type ProjectCat = (typeof PROJECT_CATS)[number];
 
-/** The published case study. Shown for "All" and "Thermal". */
-export const FEATURED = {
-  num: '01', cat: 'Thermal' as ProjectCat,
-  title: 'CZ-R4 Crystal-Growth Furnace',
-  desc: 'Conceptual design and engineering analysis of a Czochralski-type furnace: hot-zone thermal behaviour, heat shields, insulation layering, water-cooled shell, and structural FEA.',
-  type: 'Concept Design & Engineering Analysis',
-  focus: ['3D CAD', 'Thermal Analysis', 'Structural FEA', 'Insulation Study'],
-  image: { src: '/assets/cz-r4/02-section-hot-zone.webp', alt: 'Sectional view of the CZ-R4 hot zone: crucible, susceptor, induction coil, insulation and cooled chamber wall.' },
-  href: '/projects/cz-r4/',
-};
+/** Published case studies, shown as large cards above the in-development list. */
+export type CaseStudy = { num: string; cat: Exclude<ProjectCat, 'All'>; title: string; desc: string; type: string; focus: string[]; image: { src: string; alt: string }; href: string };
+
+export const CASE_STUDIES: CaseStudy[] = [
+  {
+    num: '01', cat: 'Thermal',
+    title: 'CZ-R4 Crystal-Growth Furnace',
+    desc: 'Conceptual design and engineering analysis of a Czochralski-type furnace: hot-zone thermal behaviour, heat shields, insulation layering, water-cooled shell, and structural FEA.',
+    type: 'Concept Design & Engineering Analysis',
+    focus: ['3D CAD', 'Thermal Analysis', 'Structural FEA', 'Insulation Study'],
+    image: { src: '/assets/cz-r4/02-section-hot-zone.webp', alt: 'Sectional view of the CZ-R4 hot zone: crucible, susceptor, induction coil, insulation and cooled chamber wall.' },
+    href: '/projects/cz-r4/',
+  },
+  {
+    num: '20', cat: 'Mechanical',
+    title: 'Cold-Gas Thruster: Air Tank & Nozzle',
+    desc: 'A compressed-air thruster system sized from the figures reported for the new Roadster: a 450-bar Type III composite tank and a 5 kN supersonic nozzle, checked with axisymmetric FEA and compressible CFD.',
+    type: 'Concept Design & Engineering Analysis',
+    focus: ['3D CAD', 'Pressure-Vessel FEA', 'Compressible CFD', 'Real-Gas Calculations'],
+    image: { src: '/assets/cold-gas/card-tank.webp', alt: 'Cut-away of the spherical composite air tank showing the carbon overwrap, aluminium liner and titanium boss.' },
+    href: '/projects/cold-gas-thruster/',
+  },
+];
 
 /**
  * Projects 02–19 are in development. They are listed as compact text rows (no image slots)
