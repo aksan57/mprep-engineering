@@ -36,20 +36,20 @@ export const IMAGES = {
 };
 
 export const BRIEF = [
-  { k: 'Stored gas', v: '≈600 L of air', n: 'Reported from the reveal livestream; attributed to Tesla engineering.' },
-  { k: 'Gas mass', v: '≈250 kg', n: 'Press report.' },
-  { k: 'Pressure on screen', v: '5,500 psi ≈ 379 bar', n: 'Read from a photo; not an official figure.' },
+  { k: 'Stored gas', v: '≈600 L of air', n: 'Two COPVs combined; stated on the livestream by Tesla VP of vehicle engineering Lars Moravy.' },
+  { k: 'Gas mass', v: '≈250 kg, ten nozzles', n: 'Same statement, as reported.' },
+  { k: 'Pressure on screen', v: '5,500 psi ≈ 379 bar', n: '“Thruster” readout in an official interior photo; Tesla gave no storage pressure.' },
   { k: 'Consistency check', v: '600 L @ 379 bar, 27 °C → ≈223 kg', n: 'Real-gas (Z ≈ 1.2). 250 kg needs ≈454 bar, so the design point here is 450 bar.' },
   { k: 'Minimum refill work', v: '≈37 kWh', n: 'Reversible isothermal limit (exergy) for 250 kg at 450 bar.' },
 ];
 
 export const PARAMS = [
   { name: 'Tanks', value: '2 spheres × 0.30 m³, ID 830 mm, OD 888 mm', basis: 'Design' },
-  { name: 'Working / burst pressure', value: '45 / 101 MPa (×2.25)', basis: 'Design; FMVSS 308 minimum is ×2' },
-  { name: 'Liner', value: 'Al 6061-T6, 3 mm', basis: 'Assumed' },
-  { name: 'Overwrap', value: 'Carbon/epoxy, quasi-isotropic, 26 mm, E = 50 GPa', basis: 'Assumed; sized to 800 MPa at burst' },
+  { name: 'Working / burst pressure', value: '45 / 101 MPa (×2.25)', basis: 'Assumed; between FMVSS 308 (×2) and the ×3 of EN 12245' },
+  { name: 'Liner', value: 'Al 6061-T6, 3 mm, E = 69 GPa', basis: 'Assumed; properties as in Rocha et al.' },
+  { name: 'Overwrap', value: 'Carbon/epoxy, quasi-isotropic, 26 mm, E = 50 GPa', basis: 'Assumed; sized to 800 MPa at burst (laminate check below)' },
   { name: 'Polar boss', value: 'Ti-6Al-4V, Ø70 mm neck, Ø24 mm port', basis: 'Assumed' },
-  { name: 'Shell mass, two tanks', value: '≈208 kg', basis: 'Calculated' },
+  { name: 'Shell mass, two tanks', value: '≈224 kg (188 composite, 35 liner)', basis: 'Calculated' },
   { name: 'Nozzle chamber pressure', value: '100 bar regulated, 300 K', basis: 'Design' },
   { name: 'Nozzle thrust', value: '5 kN, exit matched to 1 atm', basis: 'Design' },
 ];
@@ -61,15 +61,15 @@ export const FEA_STEPS = [
 ];
 
 export const VERIFY = [
-  { q: 'Overwrap membrane stress, equator', h: '313 MPa', f: '298 MPa' },
-  { q: 'Liner membrane stress, equator', h: '451 MPa', f: '434 MPa' },
-  { q: 'Radial growth, equator', h: '≈1.9 mm', f: '1.78 mm' },
+  { q: 'Overwrap membrane stress, equator', h: '298 MPa', f: '298 MPa' },
+  { q: 'Liner membrane stress, equator', h: '430 MPa', f: '434 MPa' },
+  { q: 'Radial growth at the outer surface, equator', h: '1.85 mm', f: '1.78 mm' },
 ];
 
 export const FEA_RESULTS = [
-  { label: 'OVERWRAP AT BURST', value: '≈670 MPa', sub: 'vs ≈800 MPa assumed strength' },
-  { label: 'LINER, EQUATOR', value: '434 MPa', sub: 'Above Al 6061-T6 yield (≈276 MPa)' },
-  { label: 'BOSS, PORT SIDE', value: '≈775 MPa', sub: 'Near Ti-6Al-4V yield at working pressure' },
+  { label: 'OVERWRAP AT BURST', value: '≈670 MPa', sub: 'vs 800 MPa assumed; ≈1,110 MPa laminate estimate' },
+  { label: 'LINER, EQUATOR', value: '434 MPa', sub: 'Above 6061-T6 liner yield (256 MPa)' },
+  { label: 'BOSS, PORT SIDE', value: '≈775 MPa', sub: 'Ti-6Al-4V typical yield ≈880 MPa' },
   { label: 'MAX DISPLACEMENT', value: '3.6 mm', sub: 'At 450 bar' },
 ];
 
@@ -79,7 +79,7 @@ export const NOZZLE = [
   { name: 'Exit Mach number', value: '3.68' },
   { name: 'Exit velocity / Isp', value: '664 m/s / 68 s' },
   { name: 'Mass flow per nozzle', value: '7.5 kg/s' },
-  { name: 'Exit static temperature', value: '≈81 K (air condenses at ≈79 K, 1 atm)' },
+  { name: 'Exit static temperature', value: '≈81 K (dew point of air at 1 atm ≈82 K)' },
 ];
 
 export const CFD_VERIFY = [
@@ -103,18 +103,20 @@ export const LIMITATIONS = [
   'No mesh-convergence study; the liner is about two elements thick. Membrane stresses are reliable, local peaks indicative only.',
   'The peak at the boss re-entrant corner is a mesh-dependent singularity and is not used for assessment.',
   'No fatigue or composite stress-rupture assessment.',
-  'CFD uses perfect-gas air with slip walls (no boundary layer); real-gas effects and condensation in the plume are not modelled.',
+  'CFD uses perfect-gas air with slip walls (no boundary layer); real-gas effects and condensation are not modelled.',
+  'Only the start-up is simulated (0.3 ms): the nozzle flow is quasi-steady, the plume and the small plenum are not.',
+  'Matrix cracking: at working strain (≈0.4 %) the transverse plies of a real laminate would micro-crack; the isotropic model cannot show this.',
 ];
 
 export const FINDINGS = [
   '250 kg in 600 L needs ≈450 bar once real-gas behaviour is included; the reported 5,500 psi holds ≈223 kg.',
-  'Two 888 mm spheres: shells ≈208 kg, close to the mass of air they store.',
-  'FEA matches membrane theory within 5 % away from the boss.',
+  'Two 888 mm spheres: shells ≈224 kg, close to the mass of air they store.',
+  'FEA matches membrane theory within 4 % away from the boss.',
   'The liner yields at working pressure, so autofrettage is part of the design, not an option.',
   'The titanium boss is the critical detail: ≈775 MPa near the port at working pressure.',
   'CFD confirms the nozzle: 4.86 kN and 7.47 kg/s, within 3 % of the 1D design; the gap is the expected divergence loss of a 15° cone.',
-  'The sharp throat sends a shock onto the axis; the plume locally over-expands to below 50 K, under the condensation point of air.',
-  'At Isp ≈ 68 s, four 5 kN nozzles empty 250 kg in about 8 s — enough for hops, not sustained flight.',
+  'The sharp throat sends a shock onto the axis; from mid-nozzle on, the gas is colder than the dew point of air at its local pressure (down to 48 K in the plume).',
+  'At Isp ≈ 68 s, 250 kg of air carries ≈166 kN·s of impulse: four 5 kN nozzles would empty it in about 8 s — enough for hops, not sustained flight.',
 ];
 
 export const NEXT_STEPS = [
@@ -127,18 +129,20 @@ export const NEXT_STEPS = [
 ];
 
 export const DOCS = [
-  { kind: 'STEP', name: 'Tank, 3D (liner, overwrap, boss as separate bodies)', href: '/docs/coldgas-copv-tank-450bar.step', size: 'STEP · 43 KB' },
-  { kind: 'STEP', name: 'Tank, 2D axisymmetric FEA section', href: '/docs/coldgas-copv-axisym-section.step', size: 'STEP · 24 KB' },
-  { kind: 'STEP', name: 'Convergent–divergent nozzle, 5 kN', href: '/docs/coldgas-nozzle-5kN.step', size: 'STEP · 18 KB' },
+  { kind: 'ZIP', name: 'CAD — STEP (tank, FEA section, nozzle), STL, FreeCAD file, FreeCAD macro and CadQuery script', href: '/docs/coldgas-cad.zip', size: 'ZIP · 115 KB' },
+  { kind: 'ZIP', name: 'FEA — CalculiX input deck, results (.frd), PrePoMax model, deck builder and plotting scripts', href: '/docs/coldgas-fea-calculix.zip', size: 'ZIP · 13.8 MB' },
+  { kind: 'ZIP', name: 'CFD — complete OpenFOAM rhoCentralFoam case with mesh, results at 0.3 ms, log and post-processing', href: '/docs/coldgas-cfd-openfoam.zip', size: 'ZIP · 2.6 MB' },
+  { kind: 'ZIP', name: 'Hand calculations — real-gas budget, tank, laminate check and nozzle sizing (Python)', href: '/docs/coldgas-hand-calcs.zip', size: 'ZIP · 3 KB' },
 ];
 
 export const REFS = [
-  { id: 'evxl', text: 'H. Kesteloo, "Tesla Roadster thrusters up close: a tank of air and four nozzles," EVXL, 16 October 2026.', url: 'https://evxl.co/2026/10/16/tesla-roadster-thrusters-compressed-air-tank/' },
-  { id: 'techcrunch', text: 'TechCrunch, "Tesla reveals SpaceX-powered Roadster that flies and falls with style," 15 October 2026.', url: 'https://techcrunch.com/2026/10/15/tesla-reveals-spacex-powered-roadster-that-flies-and-falls-with-style/' },
+  { id: 'techcrunch', text: 'S. O\'Kane, "Tesla reveals SpaceX-powered Roadster that flies and falls with style," TechCrunch, 15 October 2026.', url: 'https://techcrunch.com/2026/10/15/tesla-reveals-spacex-powered-roadster-that-flies-and-falls-with-style/' },
+  { id: 'paultan', text: 'H. Sidhu, "Tesla Roadster revealed – flies on SpaceX air thrusters, 0-96 km/h in 0.81s, production 2028," Paul Tan\'s Automotive News, 16 October 2026.', url: 'https://paultan.org/2026/10/16/tesla-roadster-revealed-flies-on-spacex-air-thrusters-0-96-km-h-in-0-81s-production-2028/' },
   { id: 'lemmon', text: 'E. W. Lemmon, R. T. Jacobsen, S. G. Penoncello and D. G. Friend, "Thermodynamic properties of air and mixtures of nitrogen, argon, and oxygen from 60 to 2000 K at pressures to 2000 MPa," J. Phys. Chem. Ref. Data, vol. 29, no. 3, pp. 331–385, 2000.', url: 'https://doi.org/10.1063/1.1285884' },
   { id: 'coolprop', text: 'I. H. Bell, J. Wronski, S. Quoilin and V. Lemort, "Pure and pseudo-pure fluid thermophysical property evaluation and the open-source thermophysical property library CoolProp," Ind. Eng. Chem. Res., vol. 53, no. 6, pp. 2498–2508, 2014.', url: 'https://doi.org/10.1021/ie4033999' },
   { id: 'fmvss308', text: '49 CFR § 571.308, FMVSS No. 308 — Compressed hydrogen fuel container integrity, paragraph S5.1.1.1.', url: 'https://www.law.cornell.edu/cfr/text/49/571.308' },
-  { id: 'rocha', text: 'H. Rocha, P. Antunes, U. Lafont and J. P. Nunes, "Processing and structural health monitoring of a composite overwrapped pressure vessel for hydrogen storage," Structural Health Monitoring, 2024.', url: 'https://doi.org/10.1177/14759217231204242' },
-  { id: 'sutton', text: 'G. P. Sutton and O. Biblarz, Rocket Propulsion Elements, 9th ed. Hoboken, NJ: Wiley, 2017. ISBN 978-1-118-75365-1.' },
+  { id: 'rocha', text: 'H. Rocha, P. Antunes, U. Lafont and J. P. Nunes, "Processing and structural health monitoring of a composite overwrapped pressure vessel for hydrogen storage," Structural Health Monitoring, vol. 23, no. 4, pp. 2391–2406, 2024.', url: 'https://doi.org/10.1177/14759217231204242' },
+  { id: 'ti64', text: 'Ulbrich Stainless Steels & Special Metals, "Grade 5 Titanium (Ti-6Al-4V), UNS R56400" — typical annealed properties (yield 880 MPa, E 113.8 GPa).', url: 'https://www.ulbrich.com/alloys/ti-6-al-4-v-uns-r56400/' },
+  { id: 'sutton', text: 'G. P. Sutton and O. Biblarz, Rocket Propulsion Elements, 9th ed. Hoboken, NJ: Wiley, 2017. ISBN 978-1-118-75365-1. Chapter 3, nozzle theory.' },
   { id: 'greenshields', text: 'C. J. Greenshields, H. G. Weller, L. Gasparini and J. M. Reese, "Implementation of semi-discrete, non-staggered central schemes in a colocated, polyhedral, finite volume framework, for high-speed viscous flows," Int. J. Numer. Methods Fluids, vol. 63, no. 1, pp. 1–21, 2010.', url: 'https://doi.org/10.1002/fld.2069' },
 ] as const;

@@ -46,7 +46,7 @@ export default function CaseStudyPage() {
             <div className={s.chapters}>
               <section id="cg-overview" className={s.chapter} aria-labelledby="h-overview">
                 <h2 id="h-overview" className="chapter-label">Overview</h2>
-                <p className={s.p17}>The second-generation Tesla Roadster, shown on 15 October 2026, uses cold-gas thrusters to jump and to hold itself through an inverted manoeuvre.<Cite r={['techcrunch']} /> Almost no engineering data has been published. This study treats the few reported figures as a design brief and works out what the two key parts would need to be. It has four parts:</p>
+                <p className={s.p17}>The second-generation Tesla Roadster, shown in mid-October 2026 at SpaceX&apos;s test site near Waco, Texas, used cold-gas thrusters to jump over a row of other Tesla vehicles and to climb an inverted ramp.<Cite r={['techcrunch', 'paultan']} /> Almost no engineering data has been published. This study treats the few reported figures as a design brief and works out what the two key parts would need to be. It has four parts:</p>
                 <ol className={`hairline hairline--sm ${s.parts}`}>
                   {CG_PARTS.map(pt => <li key={pt.n}><span className={s.partNum}>{pt.n}</span><span>{pt.t}</span></li>)}
                 </ol>
@@ -55,7 +55,7 @@ export default function CaseStudyPage() {
 
               <section id="cg-brief" className={s.chapter} style={{ gap: 16 }} aria-labelledby="h-brief">
                 <h2 id="h-brief" className="chapter-label">Design brief · what has been reported</h2>
-                <p className={s.p15}>Press reports of the livestream give a stored volume, a gas mass and one pressure reading.<Cite r={['evxl']} /> At these densities air is far from an ideal gas, so the figures were checked with the reference equation of state for air<Cite r={['lemmon']} /> through CoolProp.<Cite r={['coolprop']} /></p>
+                <p className={s.p15}>Reports of the livestream give a stored volume, a gas mass and one pressure reading.<Cite r={['paultan']} /> At these densities air is far from an ideal gas, so the figures were checked with the reference equation of state for air<Cite r={['lemmon']} /> through CoolProp.<Cite r={['coolprop']} /></p>
                 <ul className={s.ruled}>
                   {BRIEF.map(b => (
                     <li key={b.k}>
@@ -85,7 +85,7 @@ export default function CaseStudyPage() {
                     </tbody>
                   </table>
                 </div>
-                <p className={s.p14muted}>US rules for compressed-hydrogen vehicle tanks require a burst pressure of at least twice the nominal working pressure;<Cite r={['fmvss308']} /> this study uses 2.25. The overwrap is sized with the sphere membrane formula σ = p r / 2t.</p>
+                <p className={s.p14muted}>US rules for compressed-hydrogen vehicle tanks require a burst pressure of at least twice the nominal working pressure;<Cite r={['fmvss308']} /> a published aluminium-lined COPV was designed to a factor of three following EN 12245.<Cite r={['rocha']} /> This study uses 2.25. The overwrap is sized with the thin-wall sphere formula σ = p r / 2t. As a check on the assumed laminate, a [0/±45/90] stack built from the published ITS50/epoxy ply data of the same study gives E ≈ 52 GPa and fibre failure at ≈1,110 MPa under equal biaxial stress, so 50 GPa and 800 MPa are on the conservative side.</p>
               </section>
 
               <section id="cg-fea" className={`${s.chapter} grid-fit`} style={{ ['--min' as string]: '320px', gap: '24px 32px', display: 'grid' }} aria-labelledby="h-fea">
@@ -108,7 +108,7 @@ export default function CaseStudyPage() {
                     </tbody>
                   </table>
                 </div>
-                <p className={s.p14muted}>Agreement within 5 %; the remainder is the thick-wall effect (r/t ≈ 14). With the model confirmed against theory, its local results at the boss can be read with more confidence.</p>
+                <p className={s.p14muted}>Hand values come from force equilibrium across the equator, with liner and overwrap strained equally. Agreement is within 4 %; the growth differs most because the radial stress, ignored by membrane theory, compresses the wall. With the model confirmed against theory, its local results at the boss can be read with more confidence.</p>
                 <div className="hairline hairline--sm" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,190px),1fr))' }}>
                   {FEA_RESULTS.map(r => (
                     <div key={r.label} className={s.kpi}>
@@ -118,7 +118,7 @@ export default function CaseStudyPage() {
                     </div>
                   ))}
                 </div>
-                <p className={s.p15}>The liner yields at working pressure. That is normal for Type III vessels: the finished tank is over-pressurised once (autofrettage) so the liner springs back into compression; one published aluminium-lined COPV was autofrettaged at 600 bar.<Cite r={['rocha']} /> The boss is the real weak point. Pressure on the polar opening pushes it outward and its flange bends against the composite, reaching about 775 MPa beside the port at working pressure.</p>
+                <p className={s.p15}>The liner yields at working pressure. That is normal for Type III vessels: the finished tank is over-pressurised once (autofrettage) so the liner springs back into compression; one published COPV with a 6061-T6 liner (yield 256 MPa) for 350 bar service was autofrettaged at 600 bar for two minutes.<Cite r={['rocha']} /> The boss is the real weak point. Pressure on the polar opening pushes it outward and its flange bends against the composite, reaching about 775 MPa beside the port at working pressure, against a typical yield of about 880 MPa for annealed Ti-6Al-4V.<Cite r={['ti64']} /></p>
               </section>
 
               <section id="cg-nozzle" className={s.chapter} style={{ gap: 16 }} aria-labelledby="h-nozzle">
@@ -132,7 +132,7 @@ export default function CaseStudyPage() {
                     </tbody>
                   </table>
                 </div>
-                <p className={s.p14muted}>The exit temperature sits right at the condensation point of air.<Cite r={['lemmon']} /> The feed air must be dry, or the expansion made less aggressive.</p>
+                <p className={s.p14muted}>The exit temperature sits right at the dew point of air at 1 atm (≈82 K), where liquid would first start to form.<Cite r={['lemmon']} /> Any moisture in the feed would freeze long before, so the air must be dry.</p>
               </section>
 
               <section id="cg-cfd" className={s.chapter} style={{ gap: 16 }} aria-labelledby="h-cfd">
@@ -151,9 +151,9 @@ export default function CaseStudyPage() {
                     </tbody>
                   </table>
                 </div>
-                <p className={s.p15}>Thrust and mass flow land within 3 % of the hand calculation. Most of the gap is expected: a 15° conical nozzle throws part of its momentum sideways, and the classic divergence factor (1 + cos 15°)/2 = 0.983 alone takes the exhaust velocity from 664 to 653 m/s, against 651 m/s from CFD. Exit pressure ends close to ambient, as designed.</p>
+                <p className={s.p15}>Thrust and mass flow land within 3 % of the hand calculation. Most of the gap is expected: a 15° conical nozzle throws part of its momentum sideways, and the classic divergence factor (1 + cos 15°)/2 = 0.983 alone takes the exhaust velocity from 664 to about 652 m/s, against 651 m/s from CFD.<Cite r={['sutton']} /> Exit pressure ends close to ambient, as designed.</p>
                 <Figure {...IMAGES.cfdAxis} ratio="1088/550" />
-                <p className={s.p15}>What the 1D model cannot show is the shock structure. The sharp corner at the throat turns the flow abruptly; the resulting waves focus on the axis about 40 mm downstream, where the Mach number drops suddenly before recovering. The core of the jet therefore leaves slightly slower and warmer (Mach 3.3, 94 K) than the flow near the wall (Mach 3.7, 82 K). Outside the nozzle the jet over-expands further, and the local temperature falls below 50 K, well under the condensation point of air. A rounded throat and a contoured bell would remove the axis shock and shorten the nozzle; condensation would need a two-phase model.</p>
+                <p className={s.p15}>What the 1D model cannot show is the shock structure. The sharp corner at the throat turns the flow abruptly; the resulting waves focus on the axis about 40 mm downstream, where the Mach number drops suddenly before recovering. The core of the jet therefore leaves slightly slower and warmer (Mach 3.3, 94 K) than the flow near the wall (Mach 3.7, 82 K). From about the middle of the divergent section, the gas is colder than the dew point of air at its local pressure, and outside the nozzle it over-expands to 48 K. Whether droplets actually form depends on how far the gas supercools before nucleating, which needs a condensation model. A rounded throat and a contoured bell would remove the axis shock and shorten the nozzle.</p>
                 <p className={s.p14muted}>The plume in the figure is the starting jet 0.3 ms after the valve opens, with its head and starting vortex still moving downstream. The flow inside the nozzle has settled; the plume has not.</p>
               </section>
 
