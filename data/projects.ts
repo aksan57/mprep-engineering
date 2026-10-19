@@ -15,6 +15,15 @@ export const CASE_STUDIES: CaseStudy[] = [
     href: '/projects/cz-r4/',
   },
   {
+    num: '03', cat: 'Minerals & Metallurgy',
+    title: 'Industrial Ball Mill Shell & Trunnion Fatigue Study',
+    desc: 'Structural and fatigue assessment of a generic Ø4.0 m × 6.0 m overflow ball mill (~1.3 MW): Bond–Rowland sizing, 3D FEA of shell, heads and trunnions under the rotating charge, and IIW hot-spot fatigue at the welds. The baseline fails at the shell-to-head weld; 70 mm end courses fix it for +2.2 t of steel.',
+    type: 'Structural Analysis & Assessment',
+    focus: ['3D CAD', 'Structural FEA', 'Weld Fatigue (IIW)', 'Design Study'],
+    image: { src: '/assets/ball-mill/s33-base-weld.webp', alt: 'PrePoMax close-up of axial stress at the discharge-end shell-to-head weld of the baseline mill, with a tension hot spot at the weld toe.' },
+    href: '/projects/ball-mill/',
+  },
+  {
     num: '20', cat: 'Mechanical',
     title: 'Cold-Gas Thruster: Air Tank & Nozzle',
     desc: 'A compressed-air thruster system sized from the figures reported for the new Roadster: a 450-bar Type III composite tank and a 5 kN supersonic nozzle, checked with axisymmetric FEA and compressible CFD.',
@@ -26,14 +35,13 @@ export const CASE_STUDIES: CaseStudy[] = [
 ];
 
 /**
- * Projects 02–19 are in development. They are listed as compact text rows (no image slots)
+ * Projects 02 and 04–19 are in development. They are listed as compact text rows (no image slots)
  * until each is published. When one is published, give it `image` and a case-study page.
  */
 export type Project = { num: string; cat: Exclude<ProjectCat, 'All'>; title: string; desc: string; type: string; focus: string; visual: string };
 
 export const PROJECTS: Project[] = [
   { num: '02', cat: 'Electrochemical', title: 'Photoelectrochemical & Electrochemical Test Cells', desc: 'A family of laboratory cells for illuminated-electrode and electrolysis experiments: PEC cell with quartz optical window, membrane-separated H-cell, and compact flow cell. Designed around electrode positioning, optical access, sealing, gas evolution, and reference-electrode placement.', type: 'Laboratory Testing Equipment', focus: 'CAD · Experimental Design · Sealing & Materials Selection', visual: 'Cutaway PEC cell showing working, counter, and reference electrodes, electrolyte chamber, and illumination window.' },
-  { num: '03', cat: 'Minerals & Metallurgy', title: 'Industrial Ball Mill Shell & Trunnion Fatigue Study', desc: 'Structural and fatigue assessment of a representative Ø3.6 m × 5.5 m overflow ball mill for mineral grinding. Covers mill sizing and power draw (Bond method), critical-speed and charge-load estimation, shell and head FEA under rotating charge loads, frozen-charge and start-up cases, fatigue at the head–shell junction and manhole, and trunnion bearing loads.', type: 'Structural Analysis & Assessment', focus: 'Structural FEA · Fatigue Assessment · Mechanical Calculations', visual: 'Cutaway mill model with a hot-spot stress contour at the head–shell junction, beside a charge-load distribution diagram.' },
   { num: '04', cat: 'Oil & Gas', title: 'Core-Flooding Apparatus for Enhanced Oil Recovery (EOR)', desc: 'Laboratory core-flooding system for evaluating chemical EOR formulations (surfactant, polymer, alkaline–surfactant–polymer) under reservoir conditions. Covers Hassler-type core holder design under confining pressure, transfer cylinders, injection and back-pressure arrangement, heating oven, and pressure-rated sealing.', type: 'Oil & Gas Laboratory Equipment', focus: '3D CAD · Pressure-Vessel FEA · Thermal Calculations · Flow Arrangement', visual: 'Sectional view of core holder with rubber sleeve, core sample, and end platens, plus a schematic of pumps, transfer cylinders, oven, and back-pressure regulator.' },
   { num: '05', cat: 'Minerals & Metallurgy', title: 'Laboratory HPAL Autoclave for Nickel Laterite', desc: 'Bench-scale high-pressure acid leaching (HPAL) autoclave for nickel–cobalt extraction from laterite ore under high temperature, high pressure, and sulfuric-acid conditions. Study covers titanium-lined pressure vessel design, magnetically coupled agitator, acid-injection and sampling ports, heating and cooling arrangement, and corrosion-driven materials selection, referencing ASME Section VIII principles.', type: 'Hydrometallurgical Pressure Equipment', focus: '3D CAD · Pressure-Vessel FEA · Thermal Analysis · Materials Selection', visual: 'Sectional view of the lined autoclave showing agitator, liner, heating jacket, sampling dip tube, and pressure fittings.' },
   { num: '06', cat: 'Thermal', title: 'Hydrothermal Synthesis Autoclave', desc: 'Teflon-lined stainless-steel autoclave for hydrothermal and solvothermal synthesis of functional materials. Covers wall thickness, closure and thread design, liner fit, and pressure/temperature limits, referencing ASME Section VIII principles.', type: 'Pressure Equipment Design', focus: '3D CAD · Pressure-Vessel FEA · Thermal Calculations', visual: 'Exploded view of steel body, PTFE liner, lid, and closure, plus an FEA stress plot.' },
