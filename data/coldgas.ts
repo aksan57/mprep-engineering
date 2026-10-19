@@ -30,6 +30,8 @@ export const CG_PARTS = [
 export const IMAGES = {
   tank: { src: A + 'copv-cutaway.webp', alt: 'Cut-away CAD model of the spherical tank: black carbon overwrap, grey aluminium liner and titanium boss at the pole.', caption: 'Tank cut-away · overwrap, liner and polar boss' },
   nozzle: { src: A + 'nozzle-cad.webp', alt: 'CAD model of the conical convergent–divergent nozzle with mounting flange.', caption: '5 kN nozzle · 30° convergent, 15° divergent' },
+  cfd: { src: A + 'cfd-nozzle.webp', alt: 'Mach number and static temperature in the nozzle and starting plume at 0.3 ms, axisymmetric section mirrored about the axis.', caption: 'Mach number (top) and static temperature (bottom) at t = 0.3 ms · section mirrored about the axis' },
+  cfdAxis: { src: A + 'cfd-axis.webp', alt: 'Mach number along the nozzle axis from CFD compared with one-dimensional isentropic theory.', caption: 'Mach number on the axis · CFD vs 1D isentropic theory' },
   vonMises: { src: A + 'copv-vonmises.webp', alt: 'Von Mises stress on the axisymmetric tank section at 450 bar, with a zoomed view of the polar boss.', caption: 'Von Mises stress at 450 bar · full section and polar boss' },
 };
 
@@ -80,10 +82,19 @@ export const NOZZLE = [
   { name: 'Exit static temperature', value: '≈81 K (air condenses at ≈79 K, 1 atm)' },
 ];
 
+export const CFD_VERIFY = [
+  { q: 'Exit Mach number (area-averaged)', h: '3.68', f: '3.61' },
+  { q: 'Exit static temperature', h: '81 K', f: '83 K' },
+  { q: 'Exit static pressure', h: '1.01 bar', f: '1.07 bar' },
+  { q: 'Mass flow', h: '7.53 kg/s', f: '7.47 kg/s' },
+  { q: 'Effective exhaust velocity', h: '664 m/s', f: '651 m/s' },
+  { q: 'Thrust', h: '5.00 kN', f: '4.86 kN' },
+];
+
 export const CFD_STEPS = [
-  { k: 'SOLVER', v: 'rhoCentralFoam (density-based, Kurganov–Tadmor central scheme), set up and run in SimFlow 5.1 on OpenFOAM v2512.' },
-  { k: 'DOMAIN & MESH', v: '5° axisymmetric wedge: plenum, nozzle and 250 mm of plume. Structured mesh, ≈25,000 cells.' },
-  { k: 'BOUNDARIES', v: 'Inlet at 100 bar total pressure, 300 K. Ambient at 1 atm. Slip walls (inviscid), perfect-gas air.' },
+  { k: 'SOLVER', v: 'rhoCentralFoam (density-based, Kurganov central scheme with van Leer reconstruction), set up in SimFlow 5.1 and run on its bundled OpenFOAM v2512 with an internal-energy formulation.' },
+  { k: 'DOMAIN & MESH', v: '5° axisymmetric wedge: 40 mm plenum, nozzle and 400 mm of plume, out to r = 160 mm. Structured mesh, 25,360 cells.' },
+  { k: 'BOUNDARIES', v: 'Inlet at 100 bar total pressure, 300 K. Ambient at 1 atm; the nozzle base outside the lip is a slip wall. Perfect-gas air with constant viscosity, slip walls (no boundary layer). Run to 0.3 ms of physical time from rest, by which the flow inside the nozzle has started and is quasi-steady.' },
 ];
 
 export const LIMITATIONS = [
@@ -92,7 +103,7 @@ export const LIMITATIONS = [
   'No mesh-convergence study; the liner is about two elements thick. Membrane stresses are reliable, local peaks indicative only.',
   'The peak at the boss re-entrant corner is a mesh-dependent singularity and is not used for assessment.',
   'No fatigue or composite stress-rupture assessment.',
-  'CFD is inviscid with perfect-gas air; condensation in the plume is not modelled.',
+  'CFD uses perfect-gas air with slip walls (no boundary layer); real-gas effects and condensation in the plume are not modelled.',
 ];
 
 export const FINDINGS = [
@@ -101,6 +112,8 @@ export const FINDINGS = [
   'FEA matches membrane theory within 5 % away from the boss.',
   'The liner yields at working pressure, so autofrettage is part of the design, not an option.',
   'The titanium boss is the critical detail: ≈775 MPa near the port at working pressure.',
+  'CFD confirms the nozzle: 4.86 kN and 7.47 kg/s, within 3 % of the 1D design; the gap is the expected divergence loss of a 15° cone.',
+  'The sharp throat sends a shock onto the axis; the plume locally over-expands to below 50 K, under the condensation point of air.',
   'At Isp ≈ 68 s, four 5 kN nozzles empty 250 kg in about 8 s — enough for hops, not sustained flight.',
 ];
 
@@ -110,6 +123,7 @@ export const NEXT_STEPS = [
   'Elastic–plastic autofrettage cycle for the liner.',
   'Mesh-convergence study at the boss.',
   'Blow-down model: tank pressure and temperature during a firing.',
+  'Contoured (bell) nozzle with a rounded throat to remove the axis shock; longer CFD run for a fully developed plume.',
 ];
 
 export const DOCS = [

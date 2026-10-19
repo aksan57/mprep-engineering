@@ -2,7 +2,7 @@ import Link from 'next/link';
 import CtaBand from '@/components/CtaBand';
 import { Figure } from '@/components/Img';
 import {
-  BRIEF, CFD_STEPS, CG, CG_PARTS, CHAPTERS, DOCS, FEA_RESULTS, FEA_STEPS, FINDINGS, IMAGES, LIMITATIONS, NEXT_STEPS, NOZZLE, PARAMS, REFS, VERIFY,
+  BRIEF, CFD_STEPS, CFD_VERIFY, CG, CG_PARTS, CHAPTERS, DOCS, FEA_RESULTS, FEA_STEPS, FINDINGS, IMAGES, LIMITATIONS, NEXT_STEPS, NOZZLE, PARAMS, REFS, VERIFY,
 } from '@/data/coldgas';
 import { pageMeta } from '@/lib/meta';
 import s from '../cz-r4/case.module.css';
@@ -141,7 +141,20 @@ export default function CaseStudyPage() {
                   {CFD_STEPS.map(m => <li key={m.k} style={{ gap: 4, padding: '12px 0' }}><span className={s.stepKey}>{m.k}</span><span className={s.stepVal}>{m.v}</span></li>)}
                 </ul>
                 <p className={s.p14muted}>Solver reference: Greenshields et al.<Cite r={['greenshields']} /></p>
-                {/* CFD_RESULTS */}
+                <Figure {...IMAGES.cfd} ratio="1131/1124" />
+                <h3 className={s.h3}>Verification · 1D theory vs CFD at the nozzle exit</h3>
+                <div className="table-wrap">
+                  <table className="table" style={{ minWidth: 480 }}>
+                    <thead><tr><th scope="col">Quantity</th><th scope="col">1D theory</th><th scope="col">CFD</th></tr></thead>
+                    <tbody>
+                      {CFD_VERIFY.map(v => <tr key={v.q}><td>{v.q}</td><td className="mono">{v.h}</td><td className="mono" style={{ color: 'var(--ink)', fontWeight: 500 }}>{v.f}</td></tr>)}
+                    </tbody>
+                  </table>
+                </div>
+                <p className={s.p15}>Thrust and mass flow land within 3 % of the hand calculation. Most of the gap is expected: a 15° conical nozzle throws part of its momentum sideways, and the classic divergence factor (1 + cos 15°)/2 = 0.983 alone takes the exhaust velocity from 664 to 653 m/s, against 651 m/s from CFD. Exit pressure ends close to ambient, as designed.</p>
+                <Figure {...IMAGES.cfdAxis} ratio="1088/550" />
+                <p className={s.p15}>What the 1D model cannot show is the shock structure. The sharp corner at the throat turns the flow abruptly; the resulting waves focus on the axis about 40 mm downstream, where the Mach number drops suddenly before recovering. The core of the jet therefore leaves slightly slower and warmer (Mach 3.3, 94 K) than the flow near the wall (Mach 3.7, 82 K). Outside the nozzle the jet over-expands further, and the local temperature falls below 50 K, well under the condensation point of air. A rounded throat and a contoured bell would remove the axis shock and shorten the nozzle; condensation would need a two-phase model.</p>
+                <p className={s.p14muted}>The plume in the figure is the starting jet 0.3 ms after the valve opens, with its head and starting vortex still moving downstream. The flow inside the nozzle has settled; the plume has not.</p>
               </section>
 
               <section id="cg-conclusions" className={s.chapter} aria-labelledby="h-conc">
