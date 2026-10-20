@@ -1,0 +1,6 @@
+# keep binary documents byte-exact (no CRLF conversion on Windows checkouts)
+*.pdf binary
+*.step binary
+*.stp binary
+*.webp binary
+*.glb binary
