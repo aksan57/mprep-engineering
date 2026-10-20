@@ -49,7 +49,7 @@ export const BASIS = [
   { name: 'Core plug', value: '1.5 in × up to 12 in (38.1 × 305 mm)', basis: '1 in cores via adapters (note only)' },
   { name: 'Confining / pore pressure', value: '10,000 / 9,000 psi', basis: 'Net confining 500–1,000 psi in operation' },
   { name: 'Temperature', value: '150 °C operating, 177 °C design', basis: 'Allowables taken at 177 °C (350 °F)' },
-  { name: 'Flow rate', value: '0.01–20 mL/min', basis: '1 ft/day frontal velocity = 0.048 mL/min' },
+  { name: 'Flow rate', value: '0.01–20 mL/min', basis: '1 ft/day frontal velocity = 0.048 mL/min (φ = 0.20)' },
   { name: 'Fluids', value: 'High-chloride brine, crude, HPAM, surfactant, CO₂', basis: 'Traces of H₂S as a sour-service note' },
   { name: 'Fatigue', value: '20,000 pressure cycles', basis: 'Assumed: 8 tests a day, 250 days, 10 years' },
 ];
@@ -58,8 +58,8 @@ export const SYSTEM = [
   { k: 'PUMPS', v: 'Dual-cylinder syringe pump (0.01–20 mL/min, pulse-free) drives water under the floating pistons of four 1,000 mL transfer vessels (10 PV of the longest core plus 30 %). A second syringe pump holds the confining pressure and follows the inlet pressure plus a net set point.' },
   { k: 'INSTRUMENTS', v: 'Four dP transducers, 5 / 50 / 500 / 1,500 psid on a 10,000 psi manifold. Together they cover every runnable Darcy case between 0.5 and 1,500 psi at ≤ 1 % of reading. Above roughly the net confining stress, dP lifts the sleeve, so higher ranges are pointless.' },
   { k: 'RELIEF', v: 'PSV-102 at MAWP on the confining circuit, plus a 10,500 psi rupture disc on the holder for trapped-liquid expansion (multiple-device rule). PSV-101 at 9,500 psi on the pore side keeps pore pressure ≥ 500 psi below the maximum confining pressure. Interlock: net confining < 500 psi stops injection.' },
-  { k: 'TUBING', v: 'ASME B31.3 eq. (3a) at 177 °C with −15 % wall tolerance: 1/8 × 0.035 in for the pore circuit and 1/4 × 0.083 in for the confining circuit. 1/8 × 0.028 in drops to 6,700 psi at temperature and is not adequate.' },
-  { k: 'CO₂', v: 'A 1 L vessel at 9,000 psi and 150 °C stores ~69 kJ, about 80× the same vessel of water. CO₂ cools to about −29 °C across the BPR, so the BPR is heat-traced. After CO₂ exposure, depressurise at ≤ 2 MPa/min to avoid rapid gas decompression damage to the sleeve.' },
+  { k: 'TUBING', v: 'ASME B31.3 eq. (3a) at 177 °C with −15 % wall tolerance: 1/8 × 0.035 in for the pore circuit (~11,800 psi on the 0.9 Sy basis allowed for austenitic tube) and 1/4 × 0.083 in for the confining circuit (~14,600 psi). 1/8 × 0.028 in reaches only ~9,000 psi on the same basis, below the 9,500 psi PSV set point, and is not adequate.' },
+  { k: 'CO₂', v: 'A 1 L vessel at 9,000 psi and 150 °C stores ~69 kJ, about 80× the same vessel of water. CO₂ cools to about −29 °C across the BPR (outlet at 6 bar), so the BPR is heat-traced. After CO₂ exposure, depressurise at ≤ 2 MPa/min to avoid rapid gas decompression damage to the sleeve.' },
 ];
 
 export const KPIS = [
@@ -91,7 +91,7 @@ export const FINDINGS = [
   'C-276 removes both issues and is the right wetted alloy for hot chloride brine, CO₂ and trace H₂S, so it is the recommendation; 316 remains fine for sweet, low-chloride work.',
   'At the 16,640 psi hydrotest the 316 port ligament exceeds the test limits applied to its local SCL (223 vs 195 MPa): another reason for C-276.',
   'The innermost thread tooth carries ~21 % of the 177 kN plug load. A longer thread adds galling margin, not strength; fatigue is set by the root radius at the first loaded tooth.',
-  'The sleeve closes 20 µm surface waviness at ~80 psi net. The usual ≥ 500 psi rule is that figure plus margin for rougher faces, harder sleeves and inlet pore pressure, and it must be applied at the inlet.',
+  'Under uniform net stress the sleeve closes 20 µm surface waviness at ~80 psi; with the 0.83× dip at the joint it needs ~95 psi net (280 psi at 50 µm). The usual ≥ 500 psi rule is that figure plus margin for rougher faces, harder sleeves and inlet pore pressure, and it must be applied at the inlet.',
   'The usable dP is capped by the net confining stress, which sets both the transducer ranges and the flood rate for tight cores and viscous polymer.',
   'A heating jacket with insulated end caps reaches ±1 °C in ~1.8 h, against ~10 h in an oven; the oven still heats the transfer vessels and lines.',
   'A two-start spiral distributor gives the most uniform inflow (UI 0.86 at 1 mm, against 0.76 for the rings-plus-radial baseline); a centre hole alone is unacceptable.',
