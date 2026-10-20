@@ -24,6 +24,15 @@ export const CASE_STUDIES: CaseStudy[] = [
     href: '/projects/ball-mill/',
   },
   {
+    num: '04', cat: 'Oil & Gas',
+    title: 'Core-Flooding Apparatus for Enhanced Oil Recovery (EOR)',
+    desc: 'System design and analysis of a 10,000 psi / 150 °C core-flooding rig for surfactant–polymer and CO₂ EOR: P&ID and instrument sizing, a parametric Hassler core holder checked to ASME VIII-2 with CalculiX (threads, cross-bore, fatigue), hyperelastic sleeve sealing, heat-up, inlet-distributor CFD and a Buckley–Leverett model behind the specification.',
+    type: 'Oil & Gas Laboratory Equipment',
+    focus: ['System Design & P&ID', 'Pressure-Vessel FEA', 'Hyperelastic Contact', 'Thermal & CFD'],
+    image: { src: '/assets/core-flooding/card.webp', alt: 'Quarter cut-away of the Hassler core holder: body, threaded end plugs, floating end piece, black sleeve and the rock core.' },
+    href: '/projects/core-flooding/',
+  },
+  {
     num: '20', cat: 'Mechanical',
     title: 'Cold-Gas Thruster: Air Tank & Nozzle',
     desc: 'A compressed-air thruster system sized from the figures reported for the new Roadster: a 450-bar Type III composite tank and a 5 kN supersonic nozzle, checked with axisymmetric FEA and compressible CFD.',
@@ -35,14 +44,13 @@ export const CASE_STUDIES: CaseStudy[] = [
 ];
 
 /**
- * Projects 02 and 04–19 are in development. They are listed as compact text rows (no image slots)
+ * Projects 02 and 05–19 are in development. They are listed as compact text rows (no image slots)
  * until each is published. When one is published, give it `image` and a case-study page.
  */
 export type Project = { num: string; cat: Exclude<ProjectCat, 'All'>; title: string; desc: string; type: string; focus: string; visual: string };
 
 export const PROJECTS: Project[] = [
   { num: '02', cat: 'Electrochemical', title: 'Photoelectrochemical & Electrochemical Test Cells', desc: 'A family of laboratory cells for illuminated-electrode and electrolysis experiments: PEC cell with quartz optical window, membrane-separated H-cell, and compact flow cell. Designed around electrode positioning, optical access, sealing, gas evolution, and reference-electrode placement.', type: 'Laboratory Testing Equipment', focus: 'CAD · Experimental Design · Sealing & Materials Selection', visual: 'Cutaway PEC cell showing working, counter, and reference electrodes, electrolyte chamber, and illumination window.' },
-  { num: '04', cat: 'Oil & Gas', title: 'Core-Flooding Apparatus for Enhanced Oil Recovery (EOR)', desc: 'Laboratory core-flooding system for evaluating chemical EOR formulations (surfactant, polymer, alkaline–surfactant–polymer) under reservoir conditions. Covers Hassler-type core holder design under confining pressure, transfer cylinders, injection and back-pressure arrangement, heating oven, and pressure-rated sealing.', type: 'Oil & Gas Laboratory Equipment', focus: '3D CAD · Pressure-Vessel FEA · Thermal Calculations · Flow Arrangement', visual: 'Sectional view of core holder with rubber sleeve, core sample, and end platens, plus a schematic of pumps, transfer cylinders, oven, and back-pressure regulator.' },
   { num: '05', cat: 'Minerals & Metallurgy', title: 'Laboratory HPAL Autoclave for Nickel Laterite', desc: 'Bench-scale high-pressure acid leaching (HPAL) autoclave for nickel–cobalt extraction from laterite ore under high temperature, high pressure, and sulfuric-acid conditions. Study covers titanium-lined pressure vessel design, magnetically coupled agitator, acid-injection and sampling ports, heating and cooling arrangement, and corrosion-driven materials selection, referencing ASME Section VIII principles.', type: 'Hydrometallurgical Pressure Equipment', focus: '3D CAD · Pressure-Vessel FEA · Thermal Analysis · Materials Selection', visual: 'Sectional view of the lined autoclave showing agitator, liner, heating jacket, sampling dip tube, and pressure fittings.' },
   { num: '06', cat: 'Thermal', title: 'Hydrothermal Synthesis Autoclave', desc: 'Teflon-lined stainless-steel autoclave for hydrothermal and solvothermal synthesis of functional materials. Covers wall thickness, closure and thread design, liner fit, and pressure/temperature limits, referencing ASME Section VIII principles.', type: 'Pressure Equipment Design', focus: '3D CAD · Pressure-Vessel FEA · Thermal Calculations', visual: 'Exploded view of steel body, PTFE liner, lid, and closure, plus an FEA stress plot.' },
   { num: '07', cat: 'Process', title: 'Biomass-to-Adsorbent Process Line', desc: 'A connected series covering the full route from biomass feedstock to tested adsorbent: hopper and screw feeder, pyrolysis/activation reactor, and batch adsorption vessel for chromium (Cr) removal testing. Relevant to coconut-shell charcoal and activated-carbon producers.', type: 'Process Equipment Series', focus: 'CAD · Heat Transfer · Mechanical Sizing · Process Calculations', visual: 'Process-flow layout linking feeder → reactor → adsorption vessel, with a cutaway of the reactor.' },

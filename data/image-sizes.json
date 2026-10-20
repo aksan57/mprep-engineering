@@ -79,6 +79,70 @@
     845,
     957
   ],
+  "/assets/core-flooding/bl-recovery.webp": [
+    2160,
+    640
+  ],
+  "/assets/core-flooding/cad-cutaway.webp": [
+    1120,
+    780
+  ],
+  "/assets/core-flooding/card.webp": [
+    1120,
+    780
+  ],
+  "/assets/core-flooding/cfd-ui.webp": [
+    1024,
+    608
+  ],
+  "/assets/core-flooding/contact-profile.webp": [
+    1120,
+    576
+  ],
+  "/assets/core-flooding/dp-envelope.webp": [
+    1152,
+    672
+  ],
+  "/assets/core-flooding/fatigue-sn.webp": [
+    1088,
+    640
+  ],
+  "/assets/core-flooding/ga-drawing.webp": [
+    1819,
+    1285
+  ],
+  "/assets/core-flooding/heatup.webp": [
+    1760,
+    608
+  ],
+  "/assets/core-flooding/lame-vs-fea.webp": [
+    1024,
+    576
+  ],
+  "/assets/core-flooding/micro-closure.webp": [
+    1024,
+    576
+  ],
+  "/assets/core-flooding/pid.webp": [
+    2977,
+    2104
+  ],
+  "/assets/core-flooding/ppm-port.webp": [
+    2518,
+    1306
+  ],
+  "/assets/core-flooding/ppm-thread.webp": [
+    2518,
+    1306
+  ],
+  "/assets/core-flooding/pv-spiral.webp": [
+    1600,
+    1300
+  ],
+  "/assets/core-flooding/tooth-load.webp": [
+    1024,
+    544
+  ],
   "/assets/cz-r4/00-buckling-mode1.webp": [
     602,
     760
