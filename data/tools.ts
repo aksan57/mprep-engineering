@@ -7,7 +7,7 @@ export const TOOL_GROUPS = [
   { tag: 'THERMAL', title: 'Thermal simulation', items: [{ n: 'Autodesk Fusion Simulation', l: 'Working knowledge' }],
     use: 'Thermal studies for furnaces and heated equipment, including temperature distribution, heat-transfer assumptions, and evaluation of thermal performance.' },
   { tag: 'CFD', title: 'Fluid flow simulation', items: [{ n: 'OpenFOAM', l: 'Working knowledge' }, { n: 'SimFlow', l: 'Working knowledge' }],
-    use: 'Fluid-flow and convective heat-transfer simulation for mixing, gas flow and cooling problems. CFD is a newer service line: published CFD case studies will be added as projects are completed.' },
+    use: 'Fluid-flow and convective heat-transfer simulation for mixing, gas flow and cooling problems. Published case studies cover supersonic nozzle flow for the cold-gas thruster and the inlet distributor of the core-flooding apparatus.' },
   { tag: 'DRAWINGS', title: 'Technical drawings', items: [{ n: 'AutoCAD', l: 'Working knowledge' }],
     use: '2D engineering drawings, equipment layouts, dimensioning, and drawing preparation to support fabrication and design communication.' },
   { tag: 'CALC', title: 'Engineering calculations', items: [{ n: 'Microsoft Excel', l: 'Working knowledge' }],
